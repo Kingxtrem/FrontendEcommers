@@ -6,9 +6,9 @@ import Products from './components/Products';
 const App = () => {
   return (
     <BrowserRouter>
-      <div className='sticky top-0'>
+      
         <Navbar />
-      </div>
+    
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/Products' element={<Products />} />

@@ -1,39 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import Api from '../axios/Api'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
-  const [data, setData] = useState([])
-  const GetAllProducts = async () => {
-    const res = await Api.get("/products")
-    setData(res.data)
+  const navigate = useNavigate()
+  const productPage = () => {
+    navigate('/Products')
   }
-  useEffect(() => {
-    GetAllProducts()
-  }, [])
-  console.log(data)
+
   return (
     <div className='bg-slate-700 text-white min-h-screen'>
-      <div className='container mx-auto px-4 py-8'>
+      <div className='container mx-auto px-4 py-4'>
         <h1 className='text-3xl sm:text-4xl md:text-6xl font-bold mb-4'>Welcome to TechCart Store</h1>
-        <p className='text-base sm:text-lg md:text-xl mb-8'>Find the best Tech products here.</p>
-      </div>
-      <div className='container mx-auto px-4 py-8 text-2xl text-white flex flex-wrap m-5'>
-        {data.map((item) => {
-          return (
-            <div key={item._id} className='container p-3 border-2 border-blue-500 rounded-2xl m-5 box-content bg-white md:flex gap-5'>
-              <div className='md:w-50 w-auto my-auto mx-auto'>
-                <img src={item.images.imgUrl} alt="image" className='rounded w-auto h-auto max-h-50 object-cover mx-auto my-auto' />
-              </div>
-              <div className='text-black text-xs mx-auto container p-5'>
-                <p className='m-2 break-words'><span className='font-bold'>Product Name:</span> {item.name}</p>
-                <p className='m-2 break-words'><span className='font-bold'>Product Description:</span> {item.description}</p>
-                <div className='flex justify-center items-center'>
-                  <button className='m-5 border-2 rounded-xl text-2xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 transition duration-300'>View Details</button>
-                </div>
-              </div>
-            </div>
-          )
-        })}
+        <p className='text-base sm:text-lg md:text-xl mb-4'>Find the best Tech products here.</p>
+        <div className='flex justify-center items-center'>
+          <button className='m-5 rounded-xl text-2xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300' onClick={productPage}>Get Started</button>
+        </div>
       </div>
     </div>
   )

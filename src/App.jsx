@@ -1,17 +1,21 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Products from './components/Products';
 const App = () => {
   return (
-    <div className='w-full mx-auto'>
-      <header className='sticky top-0'>
-        <Navbar />
-      </header>
-      <main className=''>
-        <Home/>
-      </main>
-    </div>
+    <BrowserRouter>
+    <div className='sticky top-0'>
+      <Navbar />
+      </div>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/Products' element={<Products />} />
+
+
+      </Routes>
+    </BrowserRouter >
   )
 }
 

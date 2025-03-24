@@ -25,7 +25,7 @@ const Home = () => {
                 <img src={item.images.imgUrl} alt="image" className='rounded w-auto h-auto max-h-50 object-cover mx-auto my-auto' />
               </div>
               <div className='text-black text-xs mx-auto container p-5 break-words'>
-                <p className='m-5'><span className='font-bold'>Product Name:</span> {item.name}</p>
+                <p className='m-5 break-all'><span className='font-bold'>Product Name:</span> {item.name}</p>
                 <p className='m-5'><span className='font-bold'>Product Description:</span> {item.description}</p>
                 <div className='flex justify-center items-center'>
                   <button className='m-5 border-2 rounded-xl text-2xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 transition duration-300'>View Details</button>

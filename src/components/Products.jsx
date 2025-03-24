@@ -13,15 +13,15 @@ const Products = () => {
     }, [])
     console.log(data)
     return (
-        <div className='bg-slate-700 text-white min-h-screen w-full mx-auto p-1 text-2xl flex flex-wrap' >
+        <div className='bg-slate-700 text-white min-h-screen w-full mx-auto text-2xl flex flex-wrap pb-50 p-10 md:p-0' >
             {
                 data.map((item) => {
                     return (
-                        <div key={item._id} className='w-100 h-80 p-3 border-2 border-gray-500 rounded-2xl m-3 box-border bg-white md:flex gap-2 mx-auto shadow-xl shadow-gray-500'>
+                        <div key={item._id} className='w-100 min-h-80 p-3 border-2 border-gray-500 rounded-2xl m-5 box-border bg-white md:flex gap-2 mx-auto shadow-lg shadow-gray-200'>
                             <div className='md:w-50 w- my-auto mx-auto'>
                                 <img src={item.images.imgUrl} alt="image" className='rounded w-auto h-auto max-h-50 object-cover mx-auto my-auto' />
                             </div>
-                            <div className='text-black text-xs mx-auto container p-2 flex flex-col justify-between'>
+                            <div className='text-black text-xs mx-auto container p-2 flex flex-col flex-wrap box-border justify-between'>
                                 <div>
                                     <div className='m-2'><span className='font-bold'>Product Name:</span> {item.name}</div>
                                     <div className='font-bold flex items-center m-2'>Price:<FaIndianRupeeSign /> {item.price}</div>

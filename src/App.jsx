@@ -1,22 +1,24 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Products from './components/Products';
+import Products from './components/Products'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 const App = () => {
   return (
     <BrowserRouter>
-      
+      <div className='sticky top-0 z-50'>
         <Navbar />
-    
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/Products' element={<Products />} />
-        <Route path='*' element={<Home/>} />
-
-
-      </Routes>
-    </BrowserRouter >
+      </div>
+      <div className='flex-grow'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/products' element={<Products />} />
+          <Route path='*' element={<Home />} />
+        </Routes>
+      </div>
+     
+    </BrowserRouter>
   )
 }
 

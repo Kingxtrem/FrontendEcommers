@@ -25,7 +25,7 @@ const Navbar = () => {
       </div> */}
       <div className='w-full md:w-auto'>
         <ul className='flex flex-col md:flex-row list-none md:gap-7 items-center'>
-          <Link to={"/products"}> <li className='flex items-center cursor-pointer'><LuBoxes className='mr-1' />Products</li></Link>
+          <Link to={"/Products"}> <li className='flex items-center cursor-pointer'><LuBoxes className='mr-1' />Products</li></Link>
           <li className='flex items-center cursor-pointer'><TbBrandSafari className='mr-1' />Brands</li>
           <li className='flex items-center cursor-pointer'><TbCategoryPlus className='mr-1' />Categories</li>
           <li className='flex items-center cursor-pointer'><SiGnuprivacyguard className='mr-1' />Login</li>

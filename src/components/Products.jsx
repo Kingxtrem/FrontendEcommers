@@ -13,11 +13,11 @@ const Products = () => {
     }, [])
     console.log(data)
     return (
-        <div className='bg-slate-700 text-white min-h-screen w-full mx-auto px-4 py-4 text-2xl flex flex-wrap' >
+        <div className='bg-slate-700 text-white min-h-screen w-full mx-auto p-1 text-2xl flex flex-wrap' >
             {
                 data.map((item) => {
                     return (
-                        <div key={item._id} className='w-100 p-3 border-2 border-blue-500 rounded-2xl m-2 box-border bg-white md:flex gap-2 mx-auto'>
+                        <div key={item._id} className='w-100 h-80 p-3 border-2 border-gray-500 rounded-2xl m-3 box-border bg-white md:flex gap-2 mx-auto shadow-xl shadow-gray-500'>
                             <div className='md:w-50 w- my-auto mx-auto'>
                                 <img src={item.images.imgUrl} alt="image" className='rounded w-auto h-auto max-h-50 object-cover mx-auto my-auto' />
                             </div>
@@ -25,7 +25,7 @@ const Products = () => {
                                 <p className='m-2 break-words'><span className='font-bold'>Product Name:</span> {item.name}</p>
                                 {/* <p className='m-2 break-words'><span className='font-bold'>Product Description:</span> {item.description}</p> */}
                                 <p className='m-2 break-words'><div className='font-bold flex items-center'>Price:<FaIndianRupeeSign /> {item.price}</div></p>
-                                <div className='flex justify-center items-center'>
+                                <div className='flex justify-center items-center '>
                                     <button className='m-5 border-2 rounded-xl text-2xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300'>View Details</button>
                                 </div>
                             </div>

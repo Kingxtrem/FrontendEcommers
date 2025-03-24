@@ -21,11 +21,12 @@ const Products = () => {
                             <div className='md:w-50 w- my-auto mx-auto'>
                                 <img src={item.images.imgUrl} alt="image" className='rounded w-auto h-auto max-h-50 object-cover mx-auto my-auto' />
                             </div>
-                            <div className='text-black text-xs mx-auto container p-2'>
-                                <p className='m-2 break-words'><span className='font-bold'>Product Name:</span> {item.name}</p>
-                                {/* <p className='m-2 break-words'><span className='font-bold'>Product Description:</span> {item.description}</p> */}
-                                <p className='m-2 break-words'><div className='font-bold flex items-center'>Price:<FaIndianRupeeSign /> {item.price}</div></p>
-                                <div className='flex justify-center items-center '>
+                            <div className='text-black text-xs mx-auto container p-2 flex flex-col justify-between'>
+                                <div>
+                                    <div className='m-2'><span className='font-bold'>Product Name:</span> {item.name}</div>
+                                    <div className='font-bold flex items-center m-2'>Price:<FaIndianRupeeSign /> {item.price}</div>
+                                </div>
+                                <div className='flex justify-center items-end'>
                                     <button className='m-5 border-2 rounded-xl text-2xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300'>View Details</button>
                                 </div>
                             </div>

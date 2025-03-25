@@ -7,17 +7,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 const App = () => {
   return (
     <BrowserRouter>
-      <div className='sticky top-0 z-50'>
+      <div className='sticky top-0'>
         <Navbar />
       </div>
-      <div className='flex-grow'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/products' element={<Products />} />
-          <Route path='*' element={<Home />} />
+          <Route path='*' element={<div className='container flex justify-center items-center mx-auto my-auto'><h1>404:Not Found</h1></div>} />
         </Routes>
-      </div>
-     
     </BrowserRouter>
   )
 }

@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className='flex flex-col md:flex-row bg-slate-950 p-2 items-center text-white font-bold w-full justify-between md:gap-25'>
       <Link to={'/'}>
         <div className='flex justify-center items-center'>
-          <img className='w-10 border-0 rounded-full mr-1 cursor-pointer' src={TechCart} alt="TechCart Logo" onClick={() => { }} />
+          <img className='w-10 border-0 rounded-full mr-1 cursor-pointer' src={TechCart} alt="TechCart Logo" />
           <p className='flex items-center cursor-pointer'>Home</p>
         </div>
       </Link>
@@ -25,7 +25,7 @@ const Navbar = () => {
       </div> */}
       <div className='w-full md:w-auto'>
         <ul className='flex flex-col md:flex-row list-none md:gap-7 items-center'>
-          <Link to={"/Products"}> <li className='flex items-center cursor-pointer'><LuBoxes className='mr-1' />Products</li></Link>
+          <Link to={"/products"}><li className='flex items-center cursor-pointer'><LuBoxes className='mr-1' />Products</li></Link>
           <li className='flex items-center cursor-pointer'><TbBrandSafari className='mr-1' />Brands</li>
           <li className='flex items-center cursor-pointer'><TbCategoryPlus className='mr-1' />Categories</li>
           <li className='flex items-center cursor-pointer'><SiGnuprivacyguard className='mr-1' />Login</li>

@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 const App = () => {
   return (
     <BrowserRouter>
-      <div className='sticky top-0'>
+      <div className='md:sticky md:top-0 md:z-50'>
         <Navbar />
       </div>
         <Routes>

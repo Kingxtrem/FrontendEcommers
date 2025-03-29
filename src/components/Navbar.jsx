@@ -35,12 +35,12 @@ const Navbar = () => {
           </div>
           <div className={`${menuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row items-end md:items-center justify-evenly md:gap-7 md:mt-0 absolute top-15 right-0 rounded-lg md:static bg-slate-950 p-2 md:p-0 h-auto w-fit md:w-auto md:h-fit opacity-80 md:opacity-100 `}>
             <NavLink to={"/products"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
-              <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5'>
+              <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5 w-35 md:justify-center justify-start'>
                 <LuBoxes className='mr-1' />Products
               </li>
             </NavLink>
-            <li className='flex items-center cursor-pointer relative' onClick={toggleDropdown}>
-              <button className="text-center inline-flex items-center cursor-pointer  hover:bg-blue-800 rounded-lg px-5 py-2.5">
+            <li className='flex items-center cursor-pointer relative w-35 justify-center' onClick={toggleDropdown}>
+              <button className="text-center inline-flex items-center cursor-pointer  hover:bg-blue-800 rounded-lg px-5 py-2.5 w-35 md:justify-center justify-start">
                 <TbBrandSafari className='mr-1' />
                 Brands
               </button>
@@ -76,13 +76,13 @@ const Navbar = () => {
                 </ul>
               </div>
             </li>
-            <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5'>
+            <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5 w-35 md:justify-center justify-start'>
               <TbCategoryPlus className='mr-1' />Categories
             </li>
-            <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5'>
+            <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5 w-35 md:justify-center justify-start'>
               <SiGnuprivacyguard className='mr-1' />Login
             </li>
-            <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5'>
+            <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5 w-35 md:justify-center justify-start'>
               <IoCartOutline className='mr-1' />Cart
             </li>
           </div>

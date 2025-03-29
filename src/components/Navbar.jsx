@@ -39,39 +39,39 @@ const Navbar = () => {
                 <LuBoxes className='mr-1' />Products
               </li>
             </NavLink>
-            <li className='flex items-center cursor-pointer relative w-35 justify-center' onClick={toggleDropdown}>
+            <li className='flex items-center cursor-pointer relative' onClick={toggleDropdown}>
               <button className="text-center inline-flex items-center cursor-pointer  hover:bg-blue-800 rounded-lg px-5 py-2.5 w-35 md:justify-center justify-start">
                 <TbBrandSafari className='mr-1' />
                 Brands
               </button>
-              <div className={`z-10 ${dropdownOpen ? 'block' : 'hidden'} bg-blue-800 text-white rounded-lg shadow-sm w-auto absolute top-full opacity-85`}>
+              <div className={`z-10 ${dropdownOpen ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-35`}>
                 <ul className=" text-sm">
                   <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-black">Apple</a>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Apple</a>
                   </li>
                   <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-black">HP</a>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">HP</a>
                   </li>
                   <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-black">Infinix</a>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Infinix</a>
                   </li>
                   <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-black">MOTOROLA</a>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">MOTOROLA</a>
                   </li>
                   <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-black">OnePlus</a>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">OnePlus</a>
                   </li>
                   <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-black">POCO</a>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">POCO</a>
                   </li>
                   <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-black">Realme</a>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Realme</a>
                   </li>
                   <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-black">REDMI</a>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">REDMI</a>
                   </li>
                   <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-black">SAMSUNG</a>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">SAMSUNG</a>
                   </li>
                 </ul>
               </div>

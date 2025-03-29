@@ -9,7 +9,7 @@ import ProductPage from './components/ProductPage'
 const App = () => {
   return (
     <BrowserRouter>
-      <div className='md:sticky md:top-0'>
+      <div className='sticky top-0'>
         <Navbar />
       </div>
         <Routes>

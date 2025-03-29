@@ -20,7 +20,7 @@ const Products = () => {
     }, [])
     console.log(data)
     return (
-        <div className='bg-slate-700 text-white min-h-screen w-full mx-auto flex flex-wrap pb-50 p-10 md:p-0' >
+        <div className='bg-slate-700 text-white min-h-screen w-full mx-auto flex flex-wrap pb-50 p-10 md:p-0 ' >
             <div className={loading ? 'w-full flex justify-center items-center' : "hidden"}>
                 <div className='w-fit flex justify-center rounded-xl p-5 bg-blue-700 text-yellow-400 text-2xl font-extrabold text-nowrap'>
                     <AiOutlineLoading className='animate-spin mr-5' />Loading Please Wait
@@ -28,7 +28,6 @@ const Products = () => {
             </div>
             {
                 data.map((item) => {
-                    const ID = item.id
                     return (
                         <div key={item._id} className='w-100 min-h-60 p-3 border-2 border-gray-500 rounded-2xl m-5 box-border bg-white md:flex gap-2 mx-auto shadow-lg shadow-gray-200'>
                             <div className='md:w-50 w-auto my-auto mx-auto'>
@@ -47,9 +46,9 @@ const Products = () => {
                                     <div className='m-2'><span className='font-bold'>Reviews:</span> {item.numOfReviews}</div>
                                 </div>
                                 <Link to={`/products/${item._id}`}>
-                                <div className='flex justify-center items-end'>
-                                    <button className='m-5 border-2 rounded-xl text-xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300'>View Details</button>
-                                </div>
+                                    <div className='flex justify-center items-end'>
+                                        <button className='m-5 border-2 rounded-xl text-xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300'>View Details</button>
+                                    </div>
                                 </Link>
 
                             </div>

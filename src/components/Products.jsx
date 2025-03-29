@@ -3,6 +3,7 @@ import Api from '../axios/Api'
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { CiStar } from "react-icons/ci";
 import { AiOutlineLoading } from "react-icons/ai";
+import { Link } from 'react-router-dom';
 
 const Products = () => {
     const [data, setData] = useState([])
@@ -33,8 +34,8 @@ const Products = () => {
                             <div className='md:w-50 w-auto my-auto mx-auto'>
                                 <img src={item.images.imgUrl} alt="image" className='w-auto max-h-60 object-cover mx-auto my-auto' />
                             </div>
-                            <div className='text-black text-xs mx-auto container p-2 flex flex-col flex-wrap box-border justify-between'>
-                                <div className='w-60 h-30'>
+                            <div className='text-black text-xs mx-auto container md:p-2 flex flex-col flex-wrap box-border justify-between'>
+                                <div className='w-50 h-30'>
                                     <div className='m-2 truncate'><span className='font-bold'>Product Name:</span> {item.name}</div>
                                     <div className='m-2 truncate'><span className='font-bold'>Product Description:</span> {item.description}</div>
                                     <div className='flex items-center m-2'><span className='font-bold'>Price:</span><FaIndianRupeeSign /> {item.price}</div>
@@ -45,9 +46,11 @@ const Products = () => {
                                     </div>
                                     <div className='m-2'><span className='font-bold'>Reviews:</span> {item.numOfReviews}</div>
                                 </div>
+                                <Link to={`/products/${item._id}`}>
                                 <div className='flex justify-center items-end'>
                                     <button className='m-5 border-2 rounded-xl text-xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300'>View Details</button>
                                 </div>
+                                </Link>
 
                             </div>
                         </div>

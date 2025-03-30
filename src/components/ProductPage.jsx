@@ -24,8 +24,6 @@ const ProductPage = () => {
     console.log(product)
   }, [id])
 
-  console.log(product)
-
   return (
 
     <div className='bg-slate-700 text-white min-h-screen w-full mx-auto p-5 ' >
@@ -37,24 +35,35 @@ const ProductPage = () => {
       </div>
 
       <div className='container w-full min-h-screen p-5 border-2 border-gray-500 rounded-2xl bg-white  mx-auto shadow-lg shadow-gray-200'>
+
         <div className='w-auto my-auto mx-auto p-5'>
           <img src={product.images?.imgUrl} alt={product.name} className='w-auto h-auto object-cover mx-auto my-auto' />
         </div>
-        <div className='text-black text-xs md:text-3xl mx-auto container p-5 flex flex-col flex-wrap box-border justify-center items-center'>
+
+        <div className='text-black text-xs md:text-xl mx-auto container p-5 flex flex-col flex-wrap box-border justify-center items-center'>
+
           <div className='w-auto h-auto'>
-            <div className='m-2'><span className='font-bold'>Product Name:</span> {product.name}</div>
-            <div className='m-2 '><span className='font-bold'>Product Description:</span> {product.description}</div>
-            <div className='flex items-center m-2'><span className='font-bold'>Price:</span><FaIndianRupeeSign /> {product.price}</div>
-            <div className='font-bold flex items-center m-2'>Rating:
+
+            <div className=' p-2 flex items-center justify-center font-bold'> {product.name}</div>
+
+            <div className='m-2 '><span className='text-blue-700 font-bold'>Product Description:</span> {product.description}</div>
+
+            <div className='flex items-center m-2'><span className='font-bold text-blue-700'>Price:</span><FaIndianRupeeSign /> {product.price}</div>
+
+            <div className='font-bold flex items-center m-2 text-blue-700'>Rating:
               {Array.from({ length: 5 }, (_, index) => (
                 <CiStar key={index} className={index < product.rating ? 'text-yellow-500' : 'text-black'} />
               ))}
             </div>
-            <div className='m-2'><span className='font-bold'>Reviews:</span> {product.numOfReviews}</div>
+
+            <div className='m-2'><span className='font-bold text-blue-700'>Reviews:</span> {product.numOfReviews}</div>
+
           </div>
+
         </div>
+
       </div>
-     
+
     </div >
   )
 }

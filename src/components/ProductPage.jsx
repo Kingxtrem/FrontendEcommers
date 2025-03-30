@@ -36,15 +36,16 @@ const ProductPage = () => {
 
       <div className='container w-full min-h-screen p-5 border-2 border-gray-500 rounded-2xl bg-white  mx-auto shadow-lg shadow-gray-200'>
 
-        <div className='w-auto my-auto mx-auto p-5'>
+        <div className='w-auto my-auto mx-auto p-5 border-2 border-gray-950 rounded-xl'>
           <img src={product.images?.imgUrl} alt={product.name} className='w-auto h-auto object-cover mx-auto my-auto' />
+          <div className=' p-2 flex items-center justify-center font-bold text-blue-700 break-all'> {product.name}</div>
         </div>
 
         <div className='text-black text-xs md:text-xl mx-auto container p-5 flex flex-col flex-wrap box-border justify-center items-center'>
 
           <div className='w-auto h-auto'>
 
-            <div className=' p-2 flex items-center justify-center font-bold'> {product.name}</div>
+            <div className='m-2 '><span className='text-blue-700 font-bold'>Product Name:</span> {product.name}</div>
 
             <div className='m-2 '><span className='text-blue-700 font-bold'>Product Description:</span> {product.description}</div>
 
@@ -65,6 +66,7 @@ const ProductPage = () => {
       </div>
 
     </div >
+    
   )
 }
 

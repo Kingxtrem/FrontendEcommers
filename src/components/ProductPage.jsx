@@ -21,7 +21,6 @@ const ProductPage = () => {
 
   useEffect(() => {
     GetProductDetails()
-    console.log(product)
   }, [id])
 
   return (
@@ -34,11 +33,14 @@ const ProductPage = () => {
         </div>
       </div>
 
-      <div className='container w-full min-h-screen p-5 border-2 border-gray-500 rounded-2xl bg-white  mx-auto shadow-lg shadow-gray-200'>
+      <div className='container w-full  min-h-screen p-3 border-2 border-gray-500 rounded-2xl bg-white mx-auto shadow-lg shadow-gray-200 flex flex-col md:flex-row'>
 
-        <div className='w-auto my-auto mx-auto p-5 border-2 border-gray-950 rounded-xl'>
+        <div className='w-auto md:w-2xl my-auto mx-auto p-5'>
+
           <img src={product.images?.imgUrl} alt={product.name} className='w-auto h-auto object-cover mx-auto my-auto' />
           <div className=' p-2 flex items-center justify-center font-bold text-blue-700 break-all'> {product.name}</div>
+
+        
         </div>
 
         <div className='text-black text-xs md:text-xl mx-auto container p-5 flex flex-col flex-wrap box-border justify-center items-center'>
@@ -66,7 +68,7 @@ const ProductPage = () => {
       </div>
 
     </div >
-    
+
   )
 }
 

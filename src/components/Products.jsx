@@ -20,7 +20,6 @@ const Products = () => {
 
     useEffect(() => {
         GetAllProducts()
-        console.log(data)
     }, [])
 
     return (

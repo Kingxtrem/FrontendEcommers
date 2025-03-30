@@ -7,15 +7,21 @@ import { IoCartOutline } from "react-icons/io5";
 import { LuBoxes } from "react-icons/lu";
 import { NavLink } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FaL, FaS } from 'react-icons/fa6';
 
 const Navbar = () => {
 
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [dropdownOpen1, setDropdownOpen1] = useState(false)
+  const [dropdownOpen2, setDropdownOpen2] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const toggleDropdown = (e) => {
-    e.stopPropagation() 
-    setDropdownOpen(!dropdownOpen)
+  const toggleDropdown1 = (e) => {
+    e.stopPropagation()
+    setDropdownOpen1(!dropdownOpen1)
+  }
+  const toggleDropdown2 = (e) => {
+    e.stopPropagation()
+    setDropdownOpen2(!dropdownOpen2)
   }
 
   const toggleMenu = () => {
@@ -24,7 +30,7 @@ const Navbar = () => {
 
   return (
 
-    <div className='bg-slate-950 p-2 text-white font-bold w-full' onClick={() => { setDropdownOpen(false) }}>
+    <div className='bg-slate-950 p-2 text-white font-bold w-full' onClick={() => { setDropdownOpen1(false); setDropdownOpen2(false)}}>
 
       <div className='flex justify-between items-start md:items-center'>
 
@@ -51,14 +57,11 @@ const Navbar = () => {
               </li>
             </NavLink>
 
-            <li className='flex items-center cursor-pointer relative' onClick={(e) => toggleDropdown(e)}>
+            <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-30 md:justify-center justify-start' onClick={(e) => toggleDropdown1(e)}>
 
-              <button className="text-center inline-flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-30 md:justify-center justify-start">
-                <TbBrandSafari className='mr-1' />
-                Brands
-              </button>
+              <TbBrandSafari className='mr-1' /> Brands
 
-              <div className={`z-10 ${dropdownOpen ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-30`}>
+              <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-30`}>
                 <ul className="text-sm">
                   <li>
                     <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Apple</a>
@@ -92,8 +95,24 @@ const Navbar = () => {
 
             </li>
 
-            <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-30 md:justify-center justify-start'>
+            <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-30 md:justify-center justify-start' onClick={(e) => toggleDropdown2(e)}>
+
               <TbCategoryPlus className='mr-1' />Categories
+
+              <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-30`}>
+                <ul className="text-sm">
+                  <li>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Mobiles</a>
+                  </li>
+                  <li>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Monitors</a>
+                  </li>
+                  <li>
+                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Laptops</a>
+                  </li>
+                </ul>
+              </div>
+
             </li>
 
             <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-30 md:justify-center justify-start'>

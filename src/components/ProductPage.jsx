@@ -33,23 +33,29 @@ const ProductPage = () => {
         </div>
       </div>
 
-      <div className='container w-full  min-h-screen p-3 border-2 border-gray-500 rounded-2xl bg-white mx-auto shadow-lg shadow-gray-200 flex flex-col md:flex-row'>
+      <div className='container w-full  p-3 border-2 border-gray-500 rounded-2xl bg-white mx-auto shadow-lg shadow-gray-200 flex flex-col md:flex-row'>
 
         <div className='w-auto md:w-2xl my-auto mx-auto p-5'>
 
           <img src={product.images?.imgUrl} alt={product.name} className='w-auto h-auto object-cover mx-auto my-auto' />
-          <div className=' p-2 flex items-center justify-center font-bold text-blue-700 break-all'> {product.name}</div>
 
-        
+          <div className='flex justify-between items-center w-auto gap-3 text-nowrap mt-2 pt-3'>
+
+            <div> <button className='border-0 rounded-2xl p-3 bg-blue-700 text-white text-l md:text-xl'>Add to Cart</button></div>
+            <div> <button className='border-0 rounded-2xl p-3 bg-blue-700 text-white text-l md:text-xl'>Buy Now</button></div>
+
+          </div>
+
         </div>
 
-        <div className='text-black text-xs md:text-xl mx-auto container p-5 flex flex-col flex-wrap box-border justify-center items-center'>
+        <div className='text-black text-xs md:text-l mx-auto container p-5 flex flex-col flex-wrap box-border justify-items-start items-start'>
 
           <div className='w-auto h-auto'>
 
-            <div className='m-2 '><span className='text-blue-700 font-bold'>Product Name:</span> {product.name}</div>
+            <div className=' p-2 font-bold text-blue-700 break-all'> {product.name}</div>
+            {/* <div className='m-2 '><span className='text-blue-700 font-bold'>Product Name:</span> {product.name}</div> */}
 
-            <div className='m-2 '><span className='text-blue-700 font-bold'>Product Description:</span> {product.description}</div>
+            <div className='m-2 '><span className='text-blue-700 font-bold'>Product Description: <br /></span> {product.description}</div>
 
             <div className='flex items-center m-2'><span className='font-bold text-blue-700'>Price:</span><FaIndianRupeeSign /> {product.price}</div>
 
@@ -60,6 +66,8 @@ const ProductPage = () => {
             </div>
 
             <div className='m-2'><span className='font-bold text-blue-700'>Reviews:</span> {product.numOfReviews}</div>
+
+            <div className='m-2'><span className='font-bold text-blue-700'>In Stocks:</span> {product.stock}</div>
 
           </div>
 

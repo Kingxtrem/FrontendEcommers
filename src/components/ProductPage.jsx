@@ -4,7 +4,8 @@ import Api from '../axios/Api'
 import { AiOutlineLoading } from "react-icons/ai";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { CiStar } from "react-icons/ci";
-
+import { FaCartPlus } from "react-icons/fa6";
+import { IoIosFlash } from "react-icons/io";
 
 const ProductPage = () => {
 
@@ -41,8 +42,8 @@ const ProductPage = () => {
 
           <div className='flex justify-between items-center w-auto gap-3 text-nowrap mt-2 pt-3'>
 
-            <div> <button className='border-0 rounded-2xl p-3 bg-blue-700 text-white text-l md:text-xl'>Add to Cart</button></div>
-            <div> <button className='border-0 rounded-2xl p-3 bg-blue-700 text-white text-l md:text-xl'>Buy Now</button></div>
+            <div> <button className='border-0 rounded-2xl p-3 bg-blue-700 text-white text-xs md:text-xl flex justify-center items-center'>Add to Cart<FaCartPlus /></button></div>
+            <div> <button className='border-0 rounded-2xl p-3 bg-blue-700 text-white text-xs md:text-xl flex justify-center items-center'>Buy Now<IoIosFlash /></button></div>
 
           </div>
 

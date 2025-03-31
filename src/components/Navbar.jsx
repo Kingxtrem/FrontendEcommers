@@ -7,12 +7,12 @@ import { IoCartOutline } from "react-icons/io5";
 import { LuBoxes } from "react-icons/lu";
 import { NavLink } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
-import { FaL, FaS } from 'react-icons/fa6';
-
-const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2}) => {
 
 
-  const [menuOpen, setMenuOpen] = useState(false)
+const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2,menuOpen,setMenuOpen }) => {
+
+
+
 
   const toggleDropdown1 = (e) => {
     e.stopPropagation()
@@ -25,7 +25,8 @@ const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2})
     setDropdownOpen1(false)
   }
 
-  const toggleMenu = () => {
+  const toggleMenu = (e) => {
+    e.stopPropagation()
     setMenuOpen(!menuOpen)
   }
 
@@ -46,7 +47,7 @@ const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2})
 
         <div className='flex flex-col md:flex-row justify-center items-center'>
 
-          <div className='md:hidden cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5 text-3xl' onClick={toggleMenu}>
+          <div className='md:hidden cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5 text-3xl' onClick={(e)=>{toggleMenu(e)}}>
             <GiHamburgerMenu />
           </div>
 

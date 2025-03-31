@@ -10,13 +10,17 @@ import Footer from './components/Footer'
 const App = () => {
   const [dropdownOpen1, setDropdownOpen1] = useState(false)
   const [dropdownOpen2, setDropdownOpen2] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   return (
     <BrowserRouter>
-    <div onClick={()=>{setDropdownOpen1(false);setDropdownOpen2(false)}}>
+    <div onClick={()=>{setDropdownOpen1(false);setDropdownOpen2(false);setMenuOpen(false)}}>
       <Header dropdownOpen1={dropdownOpen1}
         dropdownOpen2={dropdownOpen2}
         setDropdownOpen1={setDropdownOpen1}
-        setDropdownOpen2={setDropdownOpen2} />
+        setDropdownOpen2={setDropdownOpen2} 
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+        />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Products />} />

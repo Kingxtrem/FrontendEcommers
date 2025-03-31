@@ -36,7 +36,7 @@ const Products = () => {
                 data.map((item) => {
 
                     return (
-
+                        
                         <div key={item._id} className='w-100  min-h-60 p-3 border-2 border-gray-500 rounded-2xl m-5 box-border bg-white md:flex gap-2 mx-auto shadow-lg shadow-gray-200'>
 
                             <div className='md:w-50 w-auto my-auto mx-auto '>

@@ -9,19 +9,20 @@ import { NavLink } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaL, FaS } from 'react-icons/fa6';
 
-const Navbar = () => {
+const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2}) => {
 
-  const [dropdownOpen1, setDropdownOpen1] = useState(false)
-  const [dropdownOpen2, setDropdownOpen2] = useState(false)
+
   const [menuOpen, setMenuOpen] = useState(false)
 
   const toggleDropdown1 = (e) => {
     e.stopPropagation()
     setDropdownOpen1(!dropdownOpen1)
+    setDropdownOpen2(false)
   }
   const toggleDropdown2 = (e) => {
     e.stopPropagation()
     setDropdownOpen2(!dropdownOpen2)
+    setDropdownOpen1(false)
   }
 
   const toggleMenu = () => {

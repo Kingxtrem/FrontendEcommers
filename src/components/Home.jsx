@@ -86,7 +86,7 @@ const Home = () => {
           }
         </div>
         <div className='flex justify-center items-center'>
-          <button className='animate-bounce m-5 rounded-xl text-2xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300 text-nowrap' onClick={productPage}>Click for more product</button>
+          <button className='animate-bounce m-5 rounded-xl text-2xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300 text-nowrap' onClick={productPage}>Click for more products</button>
         </div>
       </div>
 

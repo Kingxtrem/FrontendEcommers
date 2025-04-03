@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ProductPage from './components/ProductPage'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Login from './components/Login'
+import Register from './components/Register'
 
 
 const App = () => {
@@ -25,6 +27,8 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Products />} />
         <Route path='/products/:id' element={<ProductPage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
         <Route path='*' element={<div className='container flex justify-center items-center mx-auto my-auto'><h1>404:Not Found</h1></div>} />
       </Routes>
       <Footer />

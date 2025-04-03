@@ -7,9 +7,12 @@ import { IoCartOutline } from "react-icons/io5";
 import { LuBoxes } from "react-icons/lu";
 import { NavLink } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IoIosArrowDropdown } from "react-icons/io";
+import { IoIosArrowDropup } from "react-icons/io";
 
 
-const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2,menuOpen,setMenuOpen }) => {
+
+const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpen2, menuOpen, setMenuOpen }) => {
 
 
 
@@ -32,7 +35,7 @@ const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2,m
 
   return (
 
-    <div className='bg-slate-950 p-2 text-white font-bold w-full' onClick={() => { setDropdownOpen1(false); setDropdownOpen2(false)}}>
+    <div className='bg-slate-950 p-2 text-white font-bold w-full' onClick={() => { setDropdownOpen1(false); setDropdownOpen2(false) }}>
 
       <div className='flex justify-between items-start md:items-center'>
 
@@ -47,7 +50,7 @@ const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2,m
 
         <div className='flex flex-col md:flex-row justify-center items-center'>
 
-          <div className='md:hidden cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5 text-3xl' onClick={(e)=>{toggleMenu(e)}}>
+          <div className='md:hidden cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5 text-3xl' onClick={(e) => { toggleMenu(e) }}>
             <GiHamburgerMenu />
           </div>
 
@@ -61,7 +64,7 @@ const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2,m
 
             <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-30 md:justify-center justify-start' onClick={(e) => toggleDropdown1(e)}>
 
-              <TbBrandSafari className='mr-1' /> Brands
+              <TbBrandSafari className='mr-1' /> Brands {dropdownOpen1 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
               <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-30`}>
                 <ul className="text-sm">
@@ -99,7 +102,7 @@ const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2,m
 
             <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-30 md:justify-center justify-start' onClick={(e) => toggleDropdown2(e)}>
 
-              <TbCategoryPlus className='mr-1' />Categories
+              <TbCategoryPlus className='mr-1' />Categories {dropdownOpen2 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
               <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-30`}>
                 <ul className="text-sm">
@@ -117,10 +120,12 @@ const Navbar = ({dropdownOpen1,setDropdownOpen1,dropdownOpen2,setDropdownOpen2,m
 
             </li>
 
-            <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-30 md:justify-center justify-start'>
-              <SiGnuprivacyguard className='mr-1' />Login
-            </li>
-
+            <NavLink to={"/login"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+              <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-30 md:justify-center justify-start'>
+                <SiGnuprivacyguard className='mr-1' />Login
+              </li>
+            </NavLink>
+            
             <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-30 md:justify-center justify-start'>
               <IoCartOutline className='mr-1' />Cart
             </li>

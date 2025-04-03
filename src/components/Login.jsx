@@ -23,8 +23,8 @@ const Login = () => {
                 <div className='text-3xl text-green-700 font-bold underline'>Login Here</div>
                 <form action="" onSubmit={onsubmitHandler}>
                     <div className='container p-3 flex flex-col items-center gap-4'>
-                        <label htmlFor="email" className="w-80">Email: <input type="email" placeholder='Enter your email here' className='w-80 border-2 rounded-lg p-2' name='email' value={Data.email} onChange={onchangeHandler} autoComplete="current-email" /></label>
-                        <label htmlFor="password" className="w-80">Password: <input type="password" placeholder='Enter your password here' className='w-80 border-2 rounded-lg p-2' name='password' value={Data.password} onChange={onchangeHandler} autoComplete="current-password" /></label>
+                        <label htmlFor="email" className="w-70">Email: <input type="email" placeholder='Enter your email here' className='w-70 border-2 rounded-lg p-2' name='email' value={Data.email} onChange={onchangeHandler} autoComplete="current-email" /></label>
+                        <label htmlFor="password" className="w-70">Password: <input type="password" placeholder='Enter your password here' className='w-70 border-2 rounded-lg p-2' name='password' value={Data.password} onChange={onchangeHandler} autoComplete="current-password" /></label>
                         <input type="submit" className='border-2 bg-blue-700 rounded-3xl hover:bg-blue-900 active:bg-red-800 text-2xl w-fit box-border text-white border-black px-5 py-2.5 cursor-pointer' value="Login" />
                     </div>
                 </form>

@@ -54,83 +54,84 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
             <GiHamburgerMenu />
           </div>
 
+            <ul>
           <div className={`${menuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row items-start md:items-center justify-between md:justify-end md:mt-0 absolute top-15 right-0 rounded-lg md:static md:top-0 md:right-0 bg-slate-950 p-5 md:p-0 h-auto w-fit md:w-auto md:h-fit opacity-80 md:opacity-100 gap-1`}>
 
-            <NavLink to={"/products"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
-              <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
-                <LuBoxes className='mr-1' />Products
+              <NavLink to={"/products"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+                <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
+                  <LuBoxes className='mr-1' />Products
+                </li>
+              </NavLink>
+
+              <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start' onClick={(e) => toggleDropdown1(e)}>
+
+                <TbBrandSafari className='mr-1' /> Brands {dropdownOpen1 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
+
+                <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-40 md:w-30`}>
+                  <ul className="text-sm">
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Apple</a>
+                    </li>
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">HP</a>
+                    </li>
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Infinix</a>
+                    </li>
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">MOTOROLA</a>
+                    </li>
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">OnePlus</a>
+                    </li>
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">POCO</a>
+                    </li>
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Realme</a>
+                    </li>
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">REDMI</a>
+                    </li>
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">SAMSUNG</a>
+                    </li>
+                  </ul>
+                </div>
+
               </li>
-            </NavLink>
 
-            <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start' onClick={(e) => toggleDropdown1(e)}>
+              <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:justify-center justify-start' onClick={(e) => toggleDropdown2(e)}>
 
-              <TbBrandSafari className='mr-1' /> Brands {dropdownOpen1 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
+                <TbCategoryPlus className='mr-1' />Categories {dropdownOpen2 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
-              <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-40 md:w-30`}>
-                <ul className="text-sm">
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Apple</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">HP</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Infinix</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">MOTOROLA</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">OnePlus</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">POCO</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Realme</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">REDMI</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">SAMSUNG</a>
-                  </li>
-                </ul>
-              </div>
+                <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-40 md:w-30`}>
+                  <ul className="text-sm">
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Mobiles</a>
+                    </li>
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Monitors</a>
+                    </li>
+                    <li>
+                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Laptops</a>
+                    </li>
+                  </ul>
+                </div>
 
-            </li>
-
-            <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:justify-center justify-start' onClick={(e) => toggleDropdown2(e)}>
-
-              <TbCategoryPlus className='mr-1' />Categories {dropdownOpen2 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
-
-              <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-40 md:w-30`}>
-                <ul className="text-sm">
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Mobiles</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Monitors</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Laptops</a>
-                  </li>
-                </ul>
-              </div>
-
-            </li>
-
-            <NavLink to={"/login"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
-              <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
-                <SiGnuprivacyguard className='mr-1' />Login
               </li>
-            </NavLink>
-            
-            <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
-              <IoCartOutline className='mr-1' />Cart
-            </li>
 
+              <NavLink to={"/login"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+                <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
+                  <SiGnuprivacyguard className='mr-1' />Login
+                </li>
+              </NavLink>
+
+              <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
+                <IoCartOutline className='mr-1' />Cart
+              </li>
           </div>
+            </ul>
 
         </div>
 

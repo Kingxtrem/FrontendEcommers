@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-
+import { Link } from 'react-router-dom'
 const Register = () => {
     const [Data, setData] = useState({
         userName: "",
@@ -30,6 +30,10 @@ const Register = () => {
                         <input type="submit" className='border-2 bg-blue-700 rounded-3xl hover:bg-blue-900 active:bg-red-800 text-2xl w-fit box-border text-white border-black px-5 py-2.5 cursor-pointer' value="Register" />
                     </div>
                 </form>
+                <div>
+                    Already Registered
+                    <Link to={"/login"} className='text-blue-700 ml-1'>Login Now </Link>
+                </div>
             </div>
         </div>
     )

@@ -1,19 +1,31 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 const Register = () => {
     const [Data, setData] = useState({
-        userName: "",
+        username: "",
         email: "",
         password: ""
     })
     const onchangeHandler = (e) => {
         setData({ ...Data, [e.target.name]: e.target.value })
     }
-    const onsubmitHandler = (e) => {
+    const onsubmitHandler = async (e) => {
         e.preventDefault()
         console.log(Data)
+    //     try{
+    //     const res = await fetch("http://localhost:5000/user/register", {
+    //         method: "POST", headers: {
+    //             "content-type": "application/json"
+    //         }
+    //         , body: JSON.stringify(Data)
+    //     })
+    //     console.log(res)
+    // }
+    // catch(err){
+    //     console.log(err)
+    // }
         setData({
-            userName: "",
+            username: "",
             email: "",
             password: ""
         })
@@ -24,7 +36,7 @@ const Register = () => {
                 <div className='text-3xl text-green-700 font-bold underline'>Register Here</div>
                 <form action="" onSubmit={onsubmitHandler}>
                     <div className='container p-3 flex flex-col items-center gap-4'>
-                        <label htmlFor="userName" className="w-70">User Name: <input type="text" placeholder='Enter your user name here' className='w-70 border-2 rounded-lg p-2' name='userName' value={Data.userName} onChange={onchangeHandler} autoComplete='current-userName' /></label>
+                        <label htmlFor="username" className="w-70">User Name: <input type="text" placeholder='Enter your user name here' className='w-70 border-2 rounded-lg p-2' name='username' value={Data.username} onChange={onchangeHandler} autoComplete='current-username' /></label>
                         <label htmlFor="email" className="w-70">Email: <input type="email" placeholder='Enter your email here' className='w-70 border-2 rounded-lg p-2' name='email' value={Data.email} onChange={onchangeHandler} autoComplete="current-email" /></label>
                         <label htmlFor="password" className="w-70">Password: <input type="password" placeholder='Enter your password here' className='w-70 border-2 rounded-lg p-2' name='password' value={Data.password} onChange={onchangeHandler} autoComplete="current-password" /></label>
                         <input type="submit" className='border-2 bg-blue-700 rounded-3xl hover:bg-blue-900 active:bg-red-800 text-2xl w-fit box-border text-white border-black px-5 py-2.5 cursor-pointer' value="Register" />

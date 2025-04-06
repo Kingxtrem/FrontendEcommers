@@ -9,9 +9,22 @@ const Login = () => {
     const onchangeHandler = (e) => {
         setData({ ...Data, [e.target.name]: e.target.value })
     }
-    const onsubmitHandler = (e) => {
+    const onsubmitHandler = async (e) => {
         e.preventDefault()
         console.log(Data)
+        // try {
+        //     const res = await fetch("http://localhost:5000/user/login", {
+        //         method: "POST", headers: {
+        //             "content-type": "application/json"
+        //         }
+        //         , body: JSON.stringify(Data)
+        //     })
+        //     console.log(res)
+        // }
+        // catch (err) {
+        //     console.log(err)
+        // }
+
         setData({
             email: "",
             password: ""

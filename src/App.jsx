@@ -7,6 +7,8 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Login from './components/Login'
 import Register from './components/Register'
+import Brands from './components/Brands'
+import Categories from './components/Categories'
 
 
 const App = () => {
@@ -29,6 +31,8 @@ const App = () => {
         <Route path='/products/:id' element={<ProductPage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/brands/:brand' element={<Brands />} />
+        <Route path='/categories/:category' element={<Categories />} />
         <Route path='*' element={<div className='container flex justify-center items-center mx-auto my-auto'><h1>404:Not Found</h1></div>} />
       </Routes>
       <Footer />

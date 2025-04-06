@@ -5,7 +5,7 @@ import { TbCategoryPlus } from "react-icons/tb";
 import { SiGnuprivacyguard } from "react-icons/si";
 import { IoCartOutline } from "react-icons/io5";
 import { LuBoxes } from "react-icons/lu";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { IoIosArrowDropup } from "react-icons/io";
@@ -13,9 +13,6 @@ import { IoIosArrowDropup } from "react-icons/io";
 
 
 const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpen2, menuOpen, setMenuOpen }) => {
-
-
-
 
   const toggleDropdown1 = (e) => {
     e.stopPropagation()
@@ -54,8 +51,8 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
             <GiHamburgerMenu />
           </div>
 
-            <ul>
-          <div className={`${menuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row items-start md:items-center justify-between md:justify-end md:mt-0 absolute top-15 right-0 rounded-lg md:static md:top-0 md:right-0 bg-slate-950 p-5 md:p-0 h-auto w-fit md:w-auto md:h-fit opacity-80 md:opacity-100 gap-1`}>
+          <ul>
+            <div className={`${menuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row items-start md:items-center justify-between md:justify-end md:mt-0 absolute top-15 right-0 rounded-lg md:static md:top-0 md:right-0 bg-slate-950 p-5 md:p-0 h-auto w-fit md:w-auto md:h-fit opacity-80 md:opacity-100 gap-1`}>
 
               <NavLink to={"/products"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
                 <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
@@ -69,33 +66,15 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
                 <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-40 md:w-30`}>
                   <ul className="text-sm">
-                    <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Apple</a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">HP</a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Infinix</a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">MOTOROLA</a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">OnePlus</a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">POCO</a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Realme</a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">REDMI</a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">SAMSUNG</a>
-                    </li>
+                    <li><Link to={"/brands/Apple"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Apple</Link></li>
+                    <li><Link to={"/brands/HP"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">HP</Link></li>
+                    <li><Link to={"/brands/Infinix"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Infinix</Link></li>
+                    <li><Link to={"/brands/MOTOROLA"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">MOTOROLA</Link></li>
+                    <li><Link to={"/brands/OnePlus"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">OnePlus</Link></li>
+                    <li><Link to={"/brands/POCO"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">POCO</Link></li>
+                    <li><Link to={"/brands/Realme"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Realme</Link></li>
+                    <li><Link to={"/brands/REDMI"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">REDMI</Link></li>
+                    <li><Link to={"/brands/SAMSUNG"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">SAMSUNG</Link></li>
                   </ul>
                 </div>
 
@@ -108,13 +87,13 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
                 <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-40 md:w-30`}>
                   <ul className="text-sm">
                     <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Mobiles</a>
+                      <Link to="/categories/Mobiles" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Mobiles</Link>
                     </li>
                     <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Monitors</a>
+                      <Link to="/categories/Monitors" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Monitors</Link>
                     </li>
                     <li>
-                      <a href="#" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Laptops</a>
+                      <Link to="/categories/Laptops" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Laptops</Link>
                     </li>
                   </ul>
                 </div>
@@ -130,8 +109,8 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
               <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
                 <IoCartOutline className='mr-1' />Cart
               </li>
-          </div>
-            </ul>
+            </div>
+          </ul>
 
         </div>
 

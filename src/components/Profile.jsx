@@ -17,7 +17,7 @@ const Profile = () => {
         Navigate("/login");
         return;
       }
-      const response = await axios.get("http://localhost:5000/user/profile", {
+      const response = await axios.get("https://backend-63h6.onrender.com/user/profile", {
         headers: {
           'Authorization': token,
         },

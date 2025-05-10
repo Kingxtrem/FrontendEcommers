@@ -41,7 +41,7 @@ const Register = () => {
         formData.append('profilePic', profilePic);
 
         try {
-            const res = await axios.post('http://localhost:5000/user/register', formData);
+            const res = await axios.post('https://backend-63h6.onrender.com/user/register', formData);
             console.log(res);
             alert('Registration successful!');
             setData({ username: '', email: '', password: '' });

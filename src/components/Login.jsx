@@ -31,7 +31,7 @@ const Login = () => {
         e.preventDefault();
         console.log(Data);
         try {
-            let res = await axios.post('http://localhost:5000/user/login', Data);
+            let res = await axios.post('https://backend-63h6.onrender.com/user/login', Data);
             localStorage.setItem('token', res.data.token);
             alert('Login successful!');
             navigate('/profile');

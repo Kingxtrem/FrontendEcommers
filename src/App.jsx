@@ -9,6 +9,9 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Brands from './components/Brands'
 import Categories from './components/Categories'
+import Profile from './components/Profile'
+import NotFound from './components/NotFound'
+import Cart from './components/Cart'
 
 
 const App = () => {
@@ -29,11 +32,13 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Products />} />
         <Route path='/products/:id' element={<ProductPage />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
         <Route path='/brands/:brand' element={<Brands />} />
         <Route path='/categories/:category' element={<Categories />} />
-        <Route path='*' element={<div className='container flex justify-center items-center mx-auto my-auto'><h1>404:Not Found</h1></div>} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='*' element={<NotFound/>} />
       </Routes>
       <Footer />
       </div>

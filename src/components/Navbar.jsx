@@ -9,6 +9,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { IoIosArrowDropup } from "react-icons/io";
+import { CgProfile  } from "react-icons/cg";
 
 
 
@@ -100,15 +101,24 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
               </li>
 
-              <NavLink to={"/login"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+              {/* <NavLink to={"/login"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
                 <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
                   <SiGnuprivacyguard className='mr-1' />Login
                 </li>
+              </NavLink> */}
+
+              <NavLink to={"/profile"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+                <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
+                  <CgProfile  className='mr-1' />Profile
+                </li>
+              </NavLink>
+              <NavLink to={"/cart"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+                <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
+                  <IoCartOutline  className='mr-1' />Cart
+                </li>
               </NavLink>
 
-              <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
-                <IoCartOutline className='mr-1' />Cart
-              </li>
+             
             </div>
           </ul>
 

@@ -16,7 +16,7 @@ const Footer = () => {
                 <a href="https://www.linkedin.com/in/kingshuk-tantubay/" target="_blank" rel="noopener noreferrer" className=' text-blue-500 hover:text-blue-700 flex justify-center items-center'><FaLinkedin/>LinkedIn</a>
                 <a href="https://www.github.com/Kingxtrem" target="_blank" rel="noopener noreferrer" className=' text-blue-500 hover:text-blue-700 flex justify-center items-center'><FaGithub/>GitHub</a>
             </div>
-
+            <div className='w-full text-center'>© {new Date().getFullYear()} TechCart. All rights reserved.</div>
         </div>
     )
 }

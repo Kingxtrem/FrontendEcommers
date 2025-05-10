@@ -25,11 +25,15 @@ const Categories = () => {
 
   return (
     <div className='bg-slate-700 text-white min-h-screen w-full mx-auto flex flex-wrap pb-50 p-10 md:p-0'>
-      <div className={loading ? 'w-full flex justify-center items-center' : "hidden"}>
-        <div className='w-fit flex justify-center rounded-xl p-5 bg-blue-700 text-yellow-400 text-2xl font-extrabold text-nowrap'>
-          <AiOutlineLoading className='animate-spin mr-5' />Loading Please Wait
+        {loading ? (
+        <div className="flex justify-center items-center mx-auto">
+          <div className="flex items-center rounded-xl p-5 bg-blue-700 text-yellow-400 text-2xl font-extrabold">
+            <AiOutlineLoading className="animate-spin mr-5" />
+            Loading, Please Wait...
+          </div>
         </div>
-      </div>
+      ) : (
+        <>
       {
         filteredData.map((item) => (
           <div key={item._id} className='w-100 md:max-h-80 min-h-80 p-3 border-2 border-gray-500 rounded-2xl m-5 box-border bg-white md:flex gap-2 mx-auto shadow-lg shadow-gray-200'>
@@ -57,6 +61,7 @@ const Categories = () => {
           </div>
         ))
       }
+      </>)}
     </div>
   );
 };

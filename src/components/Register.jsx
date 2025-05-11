@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const Navigate = useNavigate();
     const [Data, setData] = useState({
         username: '',
         email: '',
@@ -10,6 +11,7 @@ const Register = () => {
     });
     const [profilePic, setProfilePic] = useState(null);
     const [errors, setErrors] = useState({});
+    const [disable, setDisable] = useState(false);
 
     const onchangeHandler = (e) => {
         setData({ ...Data, [e.target.name]: e.target.value });
@@ -24,6 +26,7 @@ const Register = () => {
         if (!Data.username) newErrors.username = 'Username is required.';
         if (!Data.email) newErrors.email = 'Email is required.';
         if (!Data.password) newErrors.password = 'Password is required.';
+        if (Data.password.length < 8) newErrors.password = 'Password is minimum 8 characters.';
         if (!profilePic) newErrors.profilePic = 'Profile picture is required.';
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -31,9 +34,7 @@ const Register = () => {
 
     const onsubmitHandler = async (e) => {
         e.preventDefault();
-
         if (!validateForm()) return;
-
         const formData = new FormData();
         formData.append('name', Data.username);
         formData.append('email', Data.email);
@@ -41,20 +42,25 @@ const Register = () => {
         formData.append('profilePic', profilePic);
 
         try {
+            setDisable(true);
             const res = await axios.post('https://backend-63h6.onrender.com/user/register', formData);
             console.log(res);
             alert('Registration successful!');
             setData({ username: '', email: '', password: '' });
             setProfilePic(null);
             setErrors({});
+            setDisable(false);
+            Navigate('/login');
         } catch (error) {
             console.error('Registration failed:', error);
-            alert('Registration failed. Please try again.');
+            const errorMessage = error.response?.data?.message
+            alert(errorMessage);
+            setDisable(false);
         }
     };
 
     return (
-       <div className='bg-slate-700 min-h-screen flex items-center justify-center'>
+        <div className='bg-slate-700 min-h-screen flex items-center justify-center'>
             <div className="sm:w-full w-80  max-w-md bg-white shadow-lg shadow-gray-200 rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-center text-green-600 mb-6">Register Here</h2>
                 <form onSubmit={onsubmitHandler}>
@@ -121,7 +127,8 @@ const Register = () => {
                         </div>
                         <button
                             type="submit"
-                            className="w-full bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition duration-200"
+                            disabled={disable}
+                            className={disable ? "w-full bg-black text-white rounded-lg py-2 hover:bg-black transition duration-200" : "w-full bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition duration-200"}
                         >
                             Register
                         </button>

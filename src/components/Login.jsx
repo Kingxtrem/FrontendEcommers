@@ -10,6 +10,8 @@ const Login = () => {
         password: '',
     });
 
+    const [disable,setDisable]=useState(false)
+
     const isLogin = () => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -31,13 +33,17 @@ const Login = () => {
         e.preventDefault();
         console.log(Data);
         try {
+            setDisable(true)
             let res = await axios.post('https://backend-63h6.onrender.com/user/login', Data);
             localStorage.setItem('token', res.data.token);
             alert('Login successful!');
             navigate('/profile');
+            setDisable(false)
         } catch (error) {
             console.error('Login failed:', error);
-            alert('Invalid credentials. Please try again.');
+            const errorMessage = error.response?.data?.message 
+            alert(errorMessage);
+            setDisable(false)
         }
 
         setData({
@@ -84,7 +90,8 @@ const Login = () => {
                         </div>
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 text-white rounded-lg py-2 hover:bg-blue-700 transition duration-200"
+                            disabled={disable}
+                            className={disable?"w-full bg-black text-white rounded-lg py-2 hover:bg-black transition duration-200":"w-full bg-blue-600 text-white rounded-lg py-2 hover:bg-blue-700 transition duration-200"}
                         >
                             Login
                         </button>

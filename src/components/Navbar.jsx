@@ -16,11 +16,13 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
     e.stopPropagation()
     setDropdownOpen1(!dropdownOpen1)
     setDropdownOpen2(false)
+    setMenuOpen(!menuOpen)
   }
   const toggleDropdown2 = (e) => {
     e.stopPropagation()
     setDropdownOpen2(!dropdownOpen2)
     setDropdownOpen1(false)
+    setMenuOpen(!menuOpen)
   }
 
   const toggleMenu = (e) => {

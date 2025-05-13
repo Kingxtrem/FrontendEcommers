@@ -69,7 +69,7 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
                     <li><Link to={"/brands/HP"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>HP</Link></li>
                     <li><Link to={"/brands/Infinix"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>Infinix</Link></li>
                     <li><Link to={"/brands/MOTOROLA"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>MOTOROLA</Link></li>
-                    <li><Link to={"/brands/OnePlus"} className="block px-5 py-2.5 hover:bg-black hover:text-white onClick={()=>{setMenuOpen(!menuOpen)}}">OnePlus</Link></li>
+                    <li><Link to={"/brands/OnePlus"} className="block px-5 py-2.5 hover:bg-black hover:text-white "onClick={()=>{setMenuOpen(!menuOpen)}}>OnePlus</Link></li>
                     <li><Link to={"/brands/POCO"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>POCO</Link></li>
                     <li><Link to={"/brands/Realme"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>Realme</Link></li>
                     <li><Link to={"/brands/REDMI"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>REDMI</Link></li>

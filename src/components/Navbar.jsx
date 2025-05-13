@@ -16,13 +16,11 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
     e.stopPropagation()
     setDropdownOpen1(!dropdownOpen1)
     setDropdownOpen2(false)
-    setMenuOpen(!menuOpen)
   }
   const toggleDropdown2 = (e) => {
     e.stopPropagation()
     setDropdownOpen2(!dropdownOpen2)
     setDropdownOpen1(false)
-    setMenuOpen(!menuOpen)
   }
 
   const toggleMenu = (e) => {
@@ -67,19 +65,19 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
                 <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-200 rounded-lg absolute top-full w-30 `}>
                   <ul className="text-sm">
-                    <li><Link to={"/brands/Apple"} className="block px-5 py-2.5 hover:bg-black hover:text-white">Apple</Link></li>
-                    <li><Link to={"/brands/HP"} className="block px-5 py-2.5 hover:bg-black hover:text-white">HP</Link></li>
-                    <li><Link to={"/brands/Infinix"} className="block px-5 py-2.5 hover:bg-black hover:text-white">Infinix</Link></li>
-                    <li><Link to={"/brands/MOTOROLA"} className="block px-5 py-2.5 hover:bg-black hover:text-white">MOTOROLA</Link></li>
-                    <li><Link to={"/brands/OnePlus"} className="block px-5 py-2.5 hover:bg-black hover:text-white">OnePlus</Link></li>
-                    <li><Link to={"/brands/POCO"} className="block px-5 py-2.5 hover:bg-black hover:text-white">POCO</Link></li>
-                    <li><Link to={"/brands/Realme"} className="block px-5 py-2.5 hover:bg-black hover:text-white">Realme</Link></li>
-                    <li><Link to={"/brands/REDMI"} className="block px-5 py-2.5 hover:bg-black hover:text-white">REDMI</Link></li>
-                    <li><Link to={"/brands/SAMSUNG"} className="block px-5 py-2.5 hover:bg-black hover:text-white">SAMSUNG</Link></li>
+                    <li><Link to={"/brands/Apple"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>Apple</Link></li>
+                    <li><Link to={"/brands/HP"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>HP</Link></li>
+                    <li><Link to={"/brands/Infinix"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>Infinix</Link></li>
+                    <li><Link to={"/brands/MOTOROLA"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>MOTOROLA</Link></li>
+                    <li><Link to={"/brands/OnePlus"} className="block px-5 py-2.5 hover:bg-black hover:text-white onClick={()=>{setMenuOpen(!menuOpen)}}">OnePlus</Link></li>
+                    <li><Link to={"/brands/POCO"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>POCO</Link></li>
+                    <li><Link to={"/brands/Realme"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>Realme</Link></li>
+                    <li><Link to={"/brands/REDMI"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>REDMI</Link></li>
+                    <li><Link to={"/brands/SAMSUNG"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(!menuOpen)}}>SAMSUNG</Link></li>
                   </ul>
                 </div>
 
-              </li>
+              </li> onclick={()=>{setMenuOpen(!menuOpen)}}
 
               <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start' onClick={(e) => toggleDropdown2(e)}>
 
@@ -88,13 +86,13 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
                 <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-200  rounded-lg absolute top-full w-30`}>
                   <ul className="text-sm">
                     <li>
-                      <Link to="/categories/Mobiles" className="block px-5 py-2.5 hover:bg-black hover:text-white">Mobiles</Link>
+                      <Link to="/categories/Mobiles" className="block px-5 py-2.5 hover:bg-black hover:text-white" onclick={()=>{setMenuOpen(!menuOpen)}}>Mobiles</Link>
                     </li>
                     <li>
-                      <Link to="/categories/Monitors" className="block px-5 py-2.5 hover:bg-black hover:text-white">Monitors</Link>
+                      <Link to="/categories/Monitors" className="block px-5 py-2.5 hover:bg-black hover:text-white" onclick={()=>{setMenuOpen(!menuOpen)}}>Monitors</Link>
                     </li>
                     <li>
-                      <Link to="/categories/Laptops" className="block px-5 py-2.5 hover:bg-black hover:text-white">Laptops</Link>
+                      <Link to="/categories/Laptops" className="block px-5 py-2.5 hover:bg-black hover:text-white" onclick={()=>{setMenuOpen(!menuOpen)}}>Laptops</Link>
                     </li>
                   </ul>
                 </div>

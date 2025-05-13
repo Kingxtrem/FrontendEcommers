@@ -86,13 +86,13 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
                 <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-200  rounded-lg absolute top-full w-30`}>
                   <ul className="text-sm">
                     <li>
-                      <Link to={"/categories/Mobiles"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onclick={()=>{setMenuOpen(false)}}>Mobiles</Link>
+                      <Link to={"/categories/Mobiles"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(false)}}>Mobiles</Link>
                     </li>
                     <li>
-                      <Link to={"/categories/Monitors"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onclick={()=>{setMenuOpen(false)}}>Monitors</Link>
+                      <Link to={"/categories/Monitors"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(false)}}>Monitors</Link>
                     </li>
                     <li>
-                      <Link to={"/categories/Laptops"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onclick={()=>{setMenuOpen(false)}}>Laptops</Link>
+                      <Link to={"/categories/Laptops"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={()=>{setMenuOpen(false)}}>Laptops</Link>
                     </li>
                   </ul>
                 </div>

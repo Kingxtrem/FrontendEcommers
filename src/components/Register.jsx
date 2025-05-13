@@ -128,7 +128,7 @@ const Register = () => {
                         <button
                             type="submit"
                             disabled={disable}
-                            className={disable ? "w-full bg-black text-white rounded-lg py-2 hover:bg-black transition duration-200" : "w-full bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition duration-200"}
+                            className={disable ? "w-full bg-black text-white rounded-lg py-2 hover:bg-black transition duration-200" : "w-full bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition duration-200 cursor-pointer"}
                         >
                             Register
                         </button>

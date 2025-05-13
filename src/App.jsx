@@ -18,6 +18,7 @@ const App = () => {
   const [dropdownOpen1, setDropdownOpen1] = useState(false)
   const [dropdownOpen2, setDropdownOpen2] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+   const [cartvalue, setCartvalue] = useState(0)
   return (
     <BrowserRouter>
     <div onClick={()=>{setDropdownOpen1(false);setDropdownOpen2(false);setMenuOpen(false)}}>
@@ -27,17 +28,18 @@ const App = () => {
         setDropdownOpen2={setDropdownOpen2} 
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
+        cartvalue={cartvalue}
         />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Products />} />
-        <Route path='/products/:id' element={<ProductPage />} />
+        <Route path='/products/:id' element={<ProductPage setCartvalue={setCartvalue} />} />
         <Route path='/brands/:brand' element={<Brands />} />
         <Route path='/categories/:category' element={<Categories />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/cart' element={<Cart />} />
+        <Route path='/cart' element={<Cart cartvalue={cartvalue} />} />
         <Route path='*' element={<NotFound/>} />
       </Routes>
       <Footer />

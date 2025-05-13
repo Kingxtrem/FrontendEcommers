@@ -7,7 +7,7 @@ import { CiStar } from "react-icons/ci";
 import { FaCartPlus } from "react-icons/fa6";
 import { IoIosFlash } from "react-icons/io";
 
-const ProductPage = () => {
+const ProductPage = ({setCartvalue}) => {
   const Navigate = useNavigate()
   const { id } = useParams()
   const [product, setProduct] = useState({})
@@ -35,7 +35,9 @@ const ProductPage = () => {
     const cartItem = {
       productId: id,
       quantity: 1
+      
     }
+    setCartvalue((prev) => prev + 1)
     Navigate("/cart")
 
   }

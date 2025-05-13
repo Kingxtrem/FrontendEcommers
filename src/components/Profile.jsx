@@ -70,7 +70,7 @@ const Profile = () => {
             </div>
             <button
               onClick={handelLogout}
-              className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-300"
+              className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-300 cursor-pointer"
             >
               Log Out
             </button>

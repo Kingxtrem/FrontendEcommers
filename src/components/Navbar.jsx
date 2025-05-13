@@ -63,17 +63,17 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
                 <TbBrandSafari className='mr-1' /> Brands {dropdownOpen1 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
-                <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-400 rounded-lg absolute top-full w-40 md:w-30 `}>
+                <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-200 rounded-lg absolute top-full w-30 `}>
                   <ul className="text-sm">
-                    <li><Link to={"/brands/Apple"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Apple</Link></li>
-                    <li><Link to={"/brands/HP"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">HP</Link></li>
-                    <li><Link to={"/brands/Infinix"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Infinix</Link></li>
-                    <li><Link to={"/brands/MOTOROLA"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">MOTOROLA</Link></li>
-                    <li><Link to={"/brands/OnePlus"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">OnePlus</Link></li>
-                    <li><Link to={"/brands/POCO"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">POCO</Link></li>
-                    <li><Link to={"/brands/Realme"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Realme</Link></li>
-                    <li><Link to={"/brands/REDMI"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">REDMI</Link></li>
-                    <li><Link to={"/brands/SAMSUNG"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">SAMSUNG</Link></li>
+                    <li><Link to={"/brands/Apple"} className="block px-5 py-2.5 hover:bg-black hover:text-white">Apple</Link></li>
+                    <li><Link to={"/brands/HP"} className="block px-5 py-2.5 hover:bg-black hover:text-white">HP</Link></li>
+                    <li><Link to={"/brands/Infinix"} className="block px-5 py-2.5 hover:bg-black hover:text-white">Infinix</Link></li>
+                    <li><Link to={"/brands/MOTOROLA"} className="block px-5 py-2.5 hover:bg-black hover:text-white">MOTOROLA</Link></li>
+                    <li><Link to={"/brands/OnePlus"} className="block px-5 py-2.5 hover:bg-black hover:text-white">OnePlus</Link></li>
+                    <li><Link to={"/brands/POCO"} className="block px-5 py-2.5 hover:bg-black hover:text-white">POCO</Link></li>
+                    <li><Link to={"/brands/Realme"} className="block px-5 py-2.5 hover:bg-black hover:text-white">Realme</Link></li>
+                    <li><Link to={"/brands/REDMI"} className="block px-5 py-2.5 hover:bg-black hover:text-white">REDMI</Link></li>
+                    <li><Link to={"/brands/SAMSUNG"} className="block px-5 py-2.5 hover:bg-black hover:text-white">SAMSUNG</Link></li>
                   </ul>
                 </div>
 
@@ -83,16 +83,16 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
                 <TbCategoryPlus className='mr-1' />Categories {dropdownOpen2 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
-                <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-400  rounded-lg absolute top-full md:w-30 w-40`}>
+                <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-200  rounded-lg absolute top-full w-30`}>
                   <ul className="text-sm">
                     <li>
-                      <Link to="/categories/Mobiles" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Mobiles</Link>
+                      <Link to="/categories/Mobiles" className="block px-5 py-2.5 hover:bg-black hover:text-white">Mobiles</Link>
                     </li>
                     <li>
-                      <Link to="/categories/Monitors" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Monitors</Link>
+                      <Link to="/categories/Monitors" className="block px-5 py-2.5 hover:bg-black hover:text-white">Monitors</Link>
                     </li>
                     <li>
-                      <Link to="/categories/Laptops" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Laptops</Link>
+                      <Link to="/categories/Laptops" className="block px-5 py-2.5 hover:bg-black hover:text-white">Laptops</Link>
                     </li>
                   </ul>
                 </div>

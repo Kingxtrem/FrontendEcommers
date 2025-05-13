@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import IsAuth from '../security/IsAuth';
 
 const Login = () => {
     const Navigate = useNavigate();
@@ -14,7 +13,8 @@ const Login = () => {
     const [disable, setDisable] = useState(false)
 
     const isLogin = () => {
-        if (IsAuth()) {
+        const token = localStorage.getItem('token');
+        if (token) {
             alert('You are already logged in');
             Navigate('/profile');
             return;

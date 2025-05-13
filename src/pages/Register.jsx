@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
@@ -60,8 +60,8 @@ const Register = () => {
     };
 
     return (
-        <div className='bg-slate-700 min-h-screen flex items-center justify-center'>
-            <div className="sm:w-full w-80  max-w-md bg-white shadow-lg shadow-gray-200 rounded-lg p-6">
+        <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+            <div className="sm:w-full w-80  max-w-md bg-white shadow-lg shadow-black rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-center text-green-600 mb-6">Register Here</h2>
                 <form onSubmit={onsubmitHandler}>
                     <div className="flex flex-col gap-4">

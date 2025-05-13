@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { AiOutlineLoading } from "react-icons/ai";
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
@@ -12,11 +12,6 @@ const Profile = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        alert("You are not logged in. Please log in first.");
-        Navigate("/login");
-        return;
-      }
       const response = await axios.get("https://backend-63h6.onrender.com/user/profile", {
         headers: {
           'Authorization': token,
@@ -40,16 +35,9 @@ const Profile = () => {
   }, []);
 
   return (
-     <div className='bg-slate-700 min-h-screen flex items-center justify-center'>
-      {loading ? (
-        <div className="flex justify-center items-center">
-          <div className="flex items-center rounded-xl p-5 bg-blue-700 text-yellow-400 text-2xl font-extrabold">
-            <AiOutlineLoading className="animate-spin mr-5" />
-            Loading, Please Wait...
-          </div>
-        </div>
-      ) : (
-        <div className="w-auto max-w-4xl bg-white shadow-lg shadow-gray-200 rounded-lg p-6 flex flex-col md:flex-row items-center">
+    <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+      {loading ? <Loader /> : (
+        <div className="w-auto max-w-4xl bg-white shadow-lg shadow-black rounded-lg p-6 flex flex-col md:flex-row items-center">
           <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-blue-500">
             <img
               src={profile.profilePic}

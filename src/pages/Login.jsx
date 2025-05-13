@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import IsAuth from '../security/IsAuth';
 
 const Login = () => {
-    const navigate = useNavigate();
+    const Navigate = useNavigate();
     const [Data, setData] = useState({
         email: '',
         password: '',
     });
 
-    const [disable,setDisable]=useState(false)
+    const [disable, setDisable] = useState(false)
 
     const isLogin = () => {
-        const token = localStorage.getItem('token');
-        if (token) {
+        if (IsAuth()) {
             alert('You are already logged in');
-            navigate('/profile');
+            Navigate('/profile');
             return;
         }
     };
@@ -41,7 +41,7 @@ const Login = () => {
             setDisable(false)
         } catch (error) {
             console.error('Login failed:', error);
-            const errorMessage = error.response?.data?.message 
+            const errorMessage = error.response?.data?.message
             alert(errorMessage);
             setDisable(false)
         }
@@ -53,8 +53,8 @@ const Login = () => {
     };
 
     return (
-        <div className='bg-slate-700 min-h-screen flex items-center justify-center'>
-            <div className="sm:w-full w-80 max-w-md bg-white shadow-lg shadow-gray-200 rounded-lg p-6">
+        <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+            <div className="sm:w-full w-80 max-w-md bg-white shadow-lg shadow-black rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">Login Here</h2>
                 <form onSubmit={onsubmitHandler}>
                     <div className="flex flex-col gap-4">
@@ -91,7 +91,7 @@ const Login = () => {
                         <button
                             type="submit"
                             disabled={disable}
-                            className={disable?"w-full bg-black text-white rounded-lg py-2 hover:bg-black transition duration-200":"w-full bg-blue-600 text-white rounded-lg py-2 hover:bg-blue-700 transition duration-200 cursor-pointer"}
+                            className={disable ? "w-full bg-black text-white rounded-lg py-2 hover:bg-black transition duration-200" : "w-full bg-blue-600 text-white rounded-lg py-2 hover:bg-blue-700 transition duration-200 cursor-pointer"}
                         >
                             Login
                         </button>

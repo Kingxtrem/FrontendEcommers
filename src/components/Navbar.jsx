@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import TechCart from "../assets/logos/TechCart.jpg"
 import { TbBrandSafari } from "react-icons/tb";
 import { TbCategoryPlus } from "react-icons/tb";
@@ -9,11 +8,9 @@ import { NavLink, Link } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { IoIosArrowDropup } from "react-icons/io";
-import { CgProfile  } from "react-icons/cg";
+import { CgProfile } from "react-icons/cg";
 
-
-
-const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpen2, menuOpen, setMenuOpen ,cartvalue }) => {
+const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpen2, menuOpen, setMenuOpen, cartvalue }) => {
 
   const toggleDropdown1 = (e) => {
     e.stopPropagation()
@@ -31,9 +28,10 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
     setMenuOpen(!menuOpen)
   }
 
+
   return (
 
-    <div className='bg-slate-950 p-2 text-white font-bold w-full' onClick={() => { setDropdownOpen1(false); setDropdownOpen2(false) }}>
+    <div className='bg-gray-200 p-1 font-bold text-sm w-full' onClick={() => { setDropdownOpen1(false); setDropdownOpen2(false) }}>
 
       <div className='flex justify-between items-start md:items-center'>
 
@@ -53,7 +51,7 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
           </div>
 
           <ul>
-            <div className={`${menuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row items-start md:items-center justify-between md:justify-end md:mt-0 absolute top-15 right-0 rounded-lg md:static md:top-0 md:right-0 bg-slate-950 p-5 md:p-0 h-auto w-fit md:w-auto md:h-fit opacity-80 md:opacity-100 gap-1`}>
+            <div className={`${menuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row items-start md:items-center justify-between md:justify-end md:mt-0 absolute top-15 right-0 rounded-lg md:static md:top-0 md:right-0 bg-gray-200 p-5 md:p-0 h-auto w-fit md:w-auto md:h-fit opacity-80 md:opacity-100 gap-1`}>
 
               <NavLink to={"/products"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
                 <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
@@ -65,7 +63,7 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
                 <TbBrandSafari className='mr-1' /> Brands {dropdownOpen1 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
-                <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-40 md:w-30`}>
+                <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-400 rounded-lg absolute top-full opacity-100 md:opacity-90 w-30`}>
                   <ul className="text-sm">
                     <li><Link to={"/brands/Apple"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Apple</Link></li>
                     <li><Link to={"/brands/HP"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">HP</Link></li>
@@ -81,11 +79,11 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
               </li>
 
-              <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:justify-center justify-start' onClick={(e) => toggleDropdown2(e)}>
+              <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start' onClick={(e) => toggleDropdown2(e)}>
 
                 <TbCategoryPlus className='mr-1' />Categories {dropdownOpen2 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
-                <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-950 text-white rounded-lg absolute top-full opacity-100 md:opacity-90 w-40 md:w-30`}>
+                <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-400  rounded-lg absolute top-full opacity-100 md:opacity-90 w-30`}>
                   <ul className="text-sm">
                     <li>
                       <Link to="/categories/Mobiles" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Mobiles</Link>
@@ -101,24 +99,24 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
               </li>
 
-              {/* <NavLink to={"/login"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+              <NavLink to={"/login"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
                 <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
                   <SiGnuprivacyguard className='mr-1' />Login
                 </li>
-              </NavLink> */}
+              </NavLink>
 
               <NavLink to={"/profile"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
                 <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
-                  <CgProfile  className='mr-1' />Profile
+                  <CgProfile className='mr-1' />Profile
                 </li>
               </NavLink>
               <NavLink to={"/cart"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
                 <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
-                  <IoCartOutline  className='mr-1' />Cart:{cartvalue}
+                  <IoCartOutline className='mr-1' />Cart:{cartvalue}
                 </li>
               </NavLink>
 
-             
+
             </div>
           </ul>
 

@@ -77,7 +77,7 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
                   </ul>
                 </div>
 
-              </li> onclick={()=>{setMenuOpen(!menuOpen)}}
+              </li>
 
               <li className='text-center relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start' onClick={(e) => toggleDropdown2(e)}>
 

@@ -31,7 +31,7 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
   return (
 
-    <div className='bg-gray-200 p-1 font-bold text-sm w-full' onClick={() => { setDropdownOpen1(false); setDropdownOpen2(false) }}>
+    <div className='bg-gray-200 p-1 font-bold text-sm w-full' onClick={() => { setDropdownOpen1(false); setDropdownOpen2(false); setMenuOpen(false) }}>
 
       <div className='flex justify-between items-start md:items-center'>
 

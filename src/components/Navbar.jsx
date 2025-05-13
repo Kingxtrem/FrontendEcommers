@@ -63,7 +63,7 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
                 <TbBrandSafari className='mr-1' /> Brands {dropdownOpen1 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
-                <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-400 rounded-lg absolute top-full opacity-100 md:opacity-90 w-30`}>
+                <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-400 rounded-lg absolute top-full w-40 md:w-30 `}>
                   <ul className="text-sm">
                     <li><Link to={"/brands/Apple"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Apple</Link></li>
                     <li><Link to={"/brands/HP"} className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">HP</Link></li>
@@ -83,7 +83,7 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
 
                 <TbCategoryPlus className='mr-1' />Categories {dropdownOpen2 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
-                <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-400  rounded-lg absolute top-full opacity-100 md:opacity-90 w-30`}>
+                <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-400  rounded-lg absolute top-full md:w-30 w-40`}>
                   <ul className="text-sm">
                     <li>
                       <Link to="/categories/Mobiles" className="block px-5 py-2.5 hover:bg-gray-100 hover:text-black">Mobiles</Link>

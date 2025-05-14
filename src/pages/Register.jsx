@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 const Register = () => {
     const Navigate = useNavigate();
@@ -44,23 +45,39 @@ const Register = () => {
         try {
             setDisable(true);
             const res = await axios.post('https://backend-63h6.onrender.com/user/register', formData);
-            console.log(res);
-            alert('Registration successful!');
+            res.data.message && toast.success(res.data.message);
+            toast.info("Redirecting to login page");
             setData({ username: '', email: '', password: '' });
             setProfilePic(null);
             setErrors({});
+            setTimeout(() => {
             setDisable(false);
             Navigate('/login');
+            }
+            , 2000);
         } catch (error) {
             console.error('Registration failed:', error);
-            const errorMessage = error.response?.data?.message
-            alert(errorMessage);
+            error.response?.data?.message && toast.error(error.response.data.message);
+            setErrors({});
             setDisable(false);
         }
     };
 
     return (
         <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+            <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
             <div className="sm:w-full w-80  max-w-md bg-white shadow-lg shadow-black rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-center text-green-600 mb-6">Register Here</h2>
                 <form onSubmit={onsubmitHandler}>

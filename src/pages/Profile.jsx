@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
@@ -18,16 +19,24 @@ const Profile = () => {
         },
       });
       setProfile(response.data.User);
+      response.data.message && toast.success(response.data.message);
     } catch (error) {
       console.error("Failed to fetch profile details:", error);
-      alert("Failed to load profile details. Please try again.");
+      error.response?.data?.message && toast.error(error.response.data.message);
+
     }
     setLoading(false);
   };
 
   const handelLogout = () => {
     localStorage.removeItem('token');
-    Navigate("/login");
+    toast.success("Logout Successfully");
+    setTimeout(() => {
+      toast.info("Redirecting to login page");
+    }, 1000);
+    setTimeout(() => {
+      Navigate("/login");
+    }, 2000);
   };
 
   useEffect(() => {
@@ -36,6 +45,19 @@ const Profile = () => {
 
   return (
     <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
       {loading ? <Loader /> : (
         <div className="w-auto max-w-4xl bg-white shadow-lg shadow-black rounded-lg p-6 flex flex-col md:flex-row items-center">
           <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-blue-500">

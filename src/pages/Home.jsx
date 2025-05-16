@@ -15,8 +15,9 @@ const Home = () => {
   const GetAllProducts = async () => {
     setLoading(true);
     try {
-      const res = await Api.get("/products");
-      setData(res.data);
+      const res = await Api.get("/product/all");
+      setData(res.data.data);
+      console.log(data)
     } catch (error) {
       console.error("Error fetching products:", error);
       alert("Failed to fetch products. Please try again later.");
@@ -41,7 +42,7 @@ const Home = () => {
           <div >
             <div className=' min-h-screen w-full mx-auto flex flex-wrap p-10 md:p-0 ' >
               {
-                data.slice(0, 4).map((item) => (
+                data.sort(() => 0.5 - Math.random()).slice(0, 4).map((item) => (
                   <Card item={item} key={item._id} />
                 ))
               }

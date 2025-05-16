@@ -11,8 +11,8 @@ const Categories = () => {
 
   const GetAllProducts = async () => {
     setLoading(true);
-    const res = await Api.get("/products");
-    setData(res.data);
+    const res = await Api.get("/product/all");
+    setData(res.data.data);
     setLoading(false);
   };
 

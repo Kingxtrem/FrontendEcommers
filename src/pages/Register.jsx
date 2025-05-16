@@ -44,7 +44,7 @@ const Register = () => {
 
         try {
             setDisable(true);
-            const res = await axios.post('https://backend-63h6.onrender.com/user/register', formData);
+            const res = await Api.post('/user/register', formData);
             res.data.message && toast.success(res.data.message);
             toast.info("Redirecting to login page");
             setData({ username: '', email: '', password: '' });

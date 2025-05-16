@@ -13,6 +13,7 @@ import Profile from './pages/Profile'
 import NotFound from './pages/NotFound'
 import Cart from './pages/Cart'
 import PrivateRouting from './security/PrivateRouting'
+import AddProduct from './pages/AddProduct'
 
 const App = () => {
   const [dropdownOpen1, setDropdownOpen1] = useState(false)
@@ -40,6 +41,7 @@ const App = () => {
           <Route path='/register' element={<Register />} />
           <Route path='/profile' element={<PrivateRouting><Profile /></PrivateRouting>} />
           <Route path='/cart' element={<PrivateRouting><Cart cartvalue={cartvalue} /></PrivateRouting>} />
+          <Route path='/addproduct' element={<PrivateRouting><AddProduct /></PrivateRouting>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

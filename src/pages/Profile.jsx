@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
+import Api from '../axios/Api';
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
@@ -13,7 +13,7 @@ const Profile = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get("https://backend-63h6.onrender.com/user/profile", {
+      const response = await Api.get("/user/profile", {
         headers: {
           'Authorization': token,
         },
@@ -38,6 +38,10 @@ const Profile = () => {
       Navigate("/login");
     }, 2000);
   };
+
+  const handleAddProduct = () => {
+    Navigate("/addproduct");
+  }
 
   useEffect(() => {
     GetProfileDetails();
@@ -83,6 +87,13 @@ const Profile = () => {
               className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-300 cursor-pointer"
             >
               Log Out
+            </button>
+            <button
+              onClick={handleAddProduct}
+
+              className={profile.isAdmin ? "mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-300 cursor-pointer": "hidden"}
+            >
+              Add new Product
             </button>
           </div>
         </div>

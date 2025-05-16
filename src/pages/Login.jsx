@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
+import Api from '../axios/Api';
 
 
 const Login = () => {
@@ -38,7 +38,7 @@ const Login = () => {
         e.preventDefault();
         try {
             setDisable(true);
-            let res = await axios.post('https://backend-63h6.onrender.com/user/login', Data);
+            let res = await Api.post('/user/login', Data);
             localStorage.setItem('token', res.data.token);
             setData({
                 email: '',

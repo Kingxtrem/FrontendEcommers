@@ -11,8 +11,8 @@ const Products = () => {
 
     const GetAllProducts = async () => {
         setLoading(true)
-        const res = await Api.get("/products")
-        setData(res.data)
+        const res = await Api.get("/product/all")
+        setData(res.data.data)
         setLoading(false)
     }
 
@@ -27,7 +27,7 @@ const Products = () => {
             {loading ? <Loader /> : (
                 <>
                     {
-                        data.map((item) => {
+                        data.sort((a, b) => a.name.localeCompare(b.name)).map((item) => {
                             return (
                                 <Card item={item} key={item._id} />
                             )

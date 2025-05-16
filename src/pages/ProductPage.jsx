@@ -16,8 +16,8 @@ const ProductPage = ({ setCartvalue }) => {
   const GetProductDetails = async () => {
     setLoading(true)
     try {
-      const response = await Api.get(`/products/${id}`);
-      setProduct(response.data.product);
+      const response = await Api.get(`/product/${id}`);    
+      setProduct(response.data.productData);
     } catch (error) {
       console.error("Failed to fetch product details:", error);
       alert("Failed to load product details. Please try again.");
@@ -25,15 +25,14 @@ const ProductPage = ({ setCartvalue }) => {
     setLoading(false)
   }
 
-  const handleAddtocart = () => {
+  const handleAddtocart = async() => {
     const cartItem = {
       productId: id,
       quantity: 1
-
     }
     setCartvalue((prev) => prev + 1)
     Navigate("/cart")
-
+    
   }
   useEffect(() => {
     GetProductDetails()
@@ -49,7 +48,7 @@ const ProductPage = ({ setCartvalue }) => {
 
           <div className='w-auto md:w-2xl my-auto mx-auto p-5'>
 
-            <img src={product.images?.imgUrl} alt={product.name} className='w-auto h-auto object-cover mx-auto my-auto' />
+            <img src={product.image} alt={product.name} className='w-auto h-auto object-cover mx-auto my-auto' />
 
             <div className='flex justify-between items-center w-auto gap-3 text-nowrap mt-2 pt-3'>
 
@@ -69,15 +68,13 @@ const ProductPage = ({ setCartvalue }) => {
 
               <div className='flex items-center m-2'><span className='font-bold text-blue-700'>Price:</span><FaIndianRupeeSign /> {product.price}</div>
 
-              <div className='font-bold flex items-center m-2 text-blue-700'>Rating:
+              <div className='font-bold flex items-center m-2 text-blue-700'>Rating: 
                 {Array.from({ length: 5 }, (_, index) => (
                   <CiStar key={index} className={index < product.rating ? 'text-yellow-500' : 'text-black'} />
                 ))}
+                <span className='text-black'>{product.rating}</span>
               </div>
-
-              <div className='m-2'><span className='font-bold text-blue-700'>Reviews:</span> {product.numOfReviews}</div>
-
-              <div className='m-2'><span className='font-bold text-blue-700'>In Stocks:</span> {product.stock}</div>
+               <div className='m-2'><span className='font-bold text-blue-700'>In Stocks:</span> {product.inStock}</div>
 
             </div>
 

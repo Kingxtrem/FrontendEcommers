@@ -100,18 +100,19 @@ const AddProduct = () => {
                 <form onSubmit={onsubmitHandler}>
                     <div className="flex flex-col gap-4">
                         <div>
-                            <label htmlFor="Product Name" className="block text-sm font-medium">
+                            <label htmlFor="name" className="block text-sm font-medium">
                                 Product Name
                             </label>
                             <input
                                 type="text"
                                 id="name"
                                 name="name"
-                                placeholder="Enter your  Product Name"
+                                placeholder="Enter your Product Name"
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                                 value={Data.name}
                                 onChange={onchangeHandler}
-                                autoComplete="current- ProductName"
+                                autoComplete="product-name"
+                                autoFocus
                             />
                             {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                         </div>
@@ -127,13 +128,13 @@ const AddProduct = () => {
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                                 value={Data.description}
                                 onChange={onchangeHandler}
-                                autoComplete="current-description"
+                                autoComplete="description"
                             />
                             {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
                         </div>
                         <div>
                             <label htmlFor="price" className="block text-sm font-medium">
-                                price
+                                Price
                             </label>
                             <input
                                 type="number"
@@ -141,6 +142,7 @@ const AddProduct = () => {
                                 name="price"
                                 placeholder="Enter your price"
                                 value={Data.price}
+                                min={0}
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                                 onChange={onchangeHandler}
                             />
@@ -148,11 +150,12 @@ const AddProduct = () => {
                         </div>
                         <div>
                             <label htmlFor="rating" className="block text-sm font-medium">
-                                rating
+                                Rating
                             </label>
                             <input
                                 type="number"
                                 max={5}
+                                min={0}
                                 id="rating"
                                 name='rating'
                                 placeholder="Enter your rating"
@@ -163,7 +166,7 @@ const AddProduct = () => {
                         </div>
                         <div>
                             <label htmlFor="category" className="block text-sm font-medium">
-                                category
+                                Category
                             </label>
                             <input
                                 type="text"
@@ -178,12 +181,13 @@ const AddProduct = () => {
                         </div>
                         <div>
                             <label htmlFor="inStock" className="block text-sm font-medium">
-                                inStock
+                                In Stock
                             </label>
                             <input
-                                type="text"
+                                type="number"
                                 id="inStock"
                                 name="inStock"
+                                min={0}
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                                 value={Data.inStock}
                                 onChange={onchangeHandler}
@@ -191,16 +195,14 @@ const AddProduct = () => {
                         </div>
                         <div>
                             <label htmlFor="image" className="block text-sm font-medium">
-                                image
+                                Image
                             </label>
                             <input
                                 type="file"
                                 id="image"
                                 name="image"
                                 accept="image/*"
-                                placeholder="Enter your image"
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                                value={Data.image}
                                 onChange={onFileChangeHandler}
                             />
                             {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
@@ -208,7 +210,7 @@ const AddProduct = () => {
                         <button
                             type="submit"
                             disabled={disable}
-                            className={disable ? "w-full bg-black text-white rounded-lg py-2" : "w-full bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition duration-200"}
+                            className={disable ? "w-full bg-black text-white rounded-lg py-2 cursor-not-allowed" : "w-full bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition duration-200 cursor-pointer"}
                         >
                             ADD PRODUCT
                         </button>

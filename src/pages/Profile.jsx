@@ -18,7 +18,7 @@ const Profile = () => {
           'Authorization': token,
         },
       });
-      setProfile(response.data.User);
+      setProfile(response.data.user);
       response.data.message && toast.success(response.data.message);
     } catch (error) {
       console.error("Failed to fetch profile details:", error);

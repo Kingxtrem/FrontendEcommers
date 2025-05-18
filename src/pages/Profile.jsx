@@ -19,6 +19,8 @@ const Profile = () => {
         },
       });
       setProfile(response.data.user);
+            localStorage.setItem('cartValue', response.data.user.cart.length);
+            window.dispatchEvent(new Event("cartChange"));
       response.data.message && toast.success(response.data.message);
     } catch (error) {
       console.error("Failed to fetch profile details:", error);
@@ -30,6 +32,9 @@ const Profile = () => {
 
   const handelLogout = () => {
     localStorage.removeItem('token');
+    window.dispatchEvent(new Event("tokenChange"));
+    localStorage.removeItem('cartValue');
+    window.dispatchEvent(new Event("cartChange"));
     toast.success("Logout Successfully");
     setTimeout(() => {
       toast.info("Redirecting to login page");
@@ -75,7 +80,7 @@ const Profile = () => {
             <div className="mb-4">
               <span className="text-blue-700 font-bold">Name:</span>
               <br />
-              {profile.username}
+              {profile.name}
             </div>
             <div className="mb-4">
               <span className="text-blue-700 font-bold">Email:</span>

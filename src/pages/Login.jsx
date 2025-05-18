@@ -16,6 +16,7 @@ const Login = () => {
 
     const isLogin = () => {
         const token = localStorage.getItem('token');
+        
         if (token) {
             toast.info("You are already logged in");
             toast.info("Redirecting to profile page");
@@ -40,6 +41,7 @@ const Login = () => {
             setDisable(true);
             let res = await Api.post('/user/login', Data);
             localStorage.setItem('token', res.data.token);
+            window.dispatchEvent(new Event("tokenChange"));
             setData({
                 email: '',
                 password: '',

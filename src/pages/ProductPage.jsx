@@ -6,13 +6,14 @@ import { CiStar } from "react-icons/ci";
 import { FaCartPlus } from "react-icons/fa6";
 import { IoIosFlash } from "react-icons/io";
 import Loader from '../components/Loader';
+import axios from 'axios';
 
-const ProductPage = ({ setCartvalue }) => {
+const ProductPage = () => {
   const Navigate = useNavigate()
   const { id } = useParams()
   const [product, setProduct] = useState({})
   const [loading, setLoading] = useState(true)
-  const [cart, setCart] = useState([])
+  const [qnt, setQnt] = useState(1)
 
   const GetProductDetails = async () => {
     setLoading(true)
@@ -32,7 +33,7 @@ const ProductPage = ({ setCartvalue }) => {
       name: product.name,
       image: product.image,
       price: product.price,
-      quantity: 1,
+      quantity:(qnt > 0) ? qnt : 1,
     }
     const token = localStorage.getItem('token')
     if (!token) {
@@ -46,9 +47,6 @@ const ProductPage = ({ setCartvalue }) => {
           'Authorization': token,
         },
       });
-      console.log(response.data);
-
-    setCartvalue((prev) => prev + 1)
     Navigate("/cart")
     
   }catch (error) {
@@ -72,6 +70,13 @@ const ProductPage = ({ setCartvalue }) => {
 
             <img src={product.image} alt={product.name} className='w-auto h-auto object-cover mx-auto my-auto' />
 
+            <div className='flex justify-between items-center w-auto gap-3 text-nowrap mt-2 pt-3'>
+
+              <div onClick={()=>setQnt(qnt-1)}> <button className='cursor-pointer border-0 rounded-2xl p-3 bg-blue-700 text-white text-xs md:text-xl flex justify-center items-center  hover:bg-blue-800 active:bg-blue-950 transition duration-300'>-</button></div>
+              {qnt>0?qnt:1}
+              <div onClick={()=>setQnt(qnt+1)}> <button className='cursor-pointer border-0 rounded-2xl p-3 bg-blue-700 text-white text-xs md:text-xl flex justify-center items-center  hover:bg-blue-800 active:bg-blue-950 transition duration-300'>+</button></div>
+
+            </div>
             <div className='flex justify-between items-center w-auto gap-3 text-nowrap mt-2 pt-3'>
 
               <div onClick={handleAddtocart}> <button className='cursor-pointer border-0 rounded-2xl p-3 bg-blue-700 text-white text-xs md:text-xl flex justify-center items-center  hover:bg-blue-800 active:bg-blue-950 transition duration-300'>Add to Cart<FaCartPlus /></button></div>

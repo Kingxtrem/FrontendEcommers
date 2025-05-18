@@ -28,7 +28,8 @@ const Cart = () => {
             setCartItems(response.data.user.cart);
             setCartvalue(response.data.user.cart.length);
             localStorage.setItem('cartValue', response.data.user.cart.length);
-            setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price, 0));
+            window.dispatchEvent(new Event("cartChange"));
+            setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
         } catch (error) {
             console.error("Failed to fetch cart items:", error);
             alert("Failed to load cart items. Please try again.");
@@ -55,6 +56,7 @@ const Cart = () => {
             setCartItems(response.data.user.cart);
             setCartvalue(response.data.user.cart.length);
             localStorage.setItem('cartValue', response.data.user.cart.length);
+            window.dispatchEvent(new Event("cartChange"));
             setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price, 0));
         } catch (error) {
             console.error("Failed to remove item from cart:", error);
@@ -80,19 +82,19 @@ const Cart = () => {
                                 <th scope="col">Item Name</th>
                                 <th scope="col">Item Price</th>
                                 <th scope="col">Quantity</th>
-                                {/* <th scope="col">Total Item Price</th> */}
+                                <th scope="col">Total Item Price</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {cartItems.map((item) =>{
                                 return (
-                                <tr key={item.product_id} className='border'>
-                                    <td className="w-16 h-16 object-cover mx-auto" ><img src={item.image} alt={item.name} /></td>
+                                <tr key={item.product_id} className='border-y-2 border-gray-300'>
+                                    <td className="w-16 h-16" ><img src={item.image} alt={item.name} /></td>
                                     <td>{item.name}</td>
-                                    <td>{item.price}</td>
+                                    <td>₹{item.price}</td>
                                     <td>{item.quantity}</td>
-                                    {/* <td>{item.price * item.quantity}</td> */}
+                                    <td>₹{item.price * item.quantity}</td>
                                     <td>
                                         <button onClick={()=>handelremovefromcart(item.product_id)} className="text-red-600 hover:underline">Remove</button>
                                     </td>
@@ -101,7 +103,7 @@ const Cart = () => {
                             })}
                         </tbody>
                     </table>
-                    <div className='flex justify-end font-bold mt-4'>Total Amount: {totalAmount}</div>
+                    <div className='flex justify-end font-bold m-6'>Total Amount:₹ {totalAmount}</div>
                     <div className='flex justify-between w-full mt-4'>
                         <button onClick={() => navigate("/products")} className='animate-bounce rounded-xl md:text-2xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300 w-fit text-nowrap'>Continue Shopping</button>
                         <button className='animate-bounce rounded-xl md:text-2xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300 w-fit text-nowrap'>Check Out</button>

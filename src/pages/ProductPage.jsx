@@ -12,6 +12,7 @@ const ProductPage = ({ setCartvalue }) => {
   const { id } = useParams()
   const [product, setProduct] = useState({})
   const [loading, setLoading] = useState(true)
+  const [cart, setCart] = useState([])
 
   const GetProductDetails = async () => {
     setLoading(true)
@@ -27,12 +28,33 @@ const ProductPage = ({ setCartvalue }) => {
 
   const handleAddtocart = async() => {
     const cartItem = {
-      productId: id,
-      quantity: 1
+      product_id: product._id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      quantity: 1,
     }
+    const token = localStorage.getItem('token')
+    if (!token) {
+      alert("Please login to add items to the cart");
+      Navigate("/login");
+      return;
+    }
+    try {
+      const response = await Api.post("/user/addtocart", {cart:cartItem}, { 
+        headers: {
+          'Authorization': token,
+        },
+      });
+      console.log(response.data);
+
     setCartvalue((prev) => prev + 1)
     Navigate("/cart")
     
+  }catch (error) {
+    console.error("Failed to add item to cart:", error);
+    alert("Failed to add item to cart. Please try again.");
+  }
   }
   useEffect(() => {
     GetProductDetails()

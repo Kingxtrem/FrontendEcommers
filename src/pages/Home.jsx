@@ -42,7 +42,7 @@ const Home = () => {
           <div >
             <div className=' min-h-screen w-full mx-auto flex flex-wrap p-10 md:p-0 ' >
               {
-                data.sort(() => 0.5 - Math.random()).slice(0, 4).map((item) => (
+                data.sort(() => 0.5 - Math.random()).slice(0, 8).map((item) => (
                   <Card item={item} key={item._id} />
                 ))
               }

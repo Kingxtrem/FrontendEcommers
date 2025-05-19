@@ -6,7 +6,7 @@ import { FaFacebook } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <div className='sticky bottom-0 bg-gray-200 font-bold w-auto flex-col justify-items-centercenter items-center text-[20px] sm:text-l'>
+        <div className='sticky bottom-0 bg-gray-200 font-bold w-auto flex-col justify-items-centercenter items-center text-[15px] sm:text-2xl'>
             <div className='w-full text-center'> Follow me on:</div>
             <div className='mx-auto text-center w-auto gap-1 flex justify-evenly items-center'>
                 <a href="https://www.facebook.com/Kingxtrem2408" target="_blank" rel="noopener noreferrer" className=' text-blue-500 hover:text-blue-700 flex justify-center items-center'><FaFacebook />Facebook</a>

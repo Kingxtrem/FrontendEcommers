@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Api from '../axios/Api';
 import Loader from '../components/Loader';
+import Swal from 'sweetalert2';
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -64,16 +65,35 @@ const Cart = () => {
         }
         setLoading(false);
     };
-    
+    const handleDelete = (product_id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won’t be able to undo this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handelremovefromcart(product_id);
+                Swal.fire('Deleted!', 'Your item has been deleted.', 'success');
+            }
+        });
+    };
+
+
+
     return (
         <div className='bg-gray-100 min-h-screen w-full mx-auto p-5'>
-            {cartvalue < 1 ? loading?<Loader/>:(
+            {cartvalue < 1 ? loading ? <Loader /> : (
                 <div className='container w-full p-3 rounded-2xl bg-white mx-auto shadow-lg shadow-black flex flex-col'>
                     <MdOutlineRemoveShoppingCart className='text-9xl text-red-500 mx-auto' />
                     <p className='text-3xl text-red-500 mx-auto'>No Items found. The Cart is Empty.... </p>
                     <button onClick={() => navigate("/products")} className='cursor-pointer border-0 rounded-2xl p-3 bg-blue-700 text-white text-xl flex justify-center items-center mx-auto m-5 hover:bg-blue-800 active:bg-blue-950 transition duration-300'>Start Shopping</button>
                 </div>
-            ) : loading?<Loader/>:(
+            ) : loading ? <Loader /> : (
                 <div className='container w-full p-3 rounded-2xl bg-white mx-auto shadow-lg shadow-black flex flex-col overflow-x-auto'>
                     <table className='text-center w-full'>
                         <thead>
@@ -87,18 +107,18 @@ const Cart = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {cartItems.map((item) =>{
+                            {cartItems.map((item) => {
                                 return (
-                                <tr key={item.product_id} className='border-y-2 border-gray-300'>
-                                    <td className="w-16 h-16" ><img src={item.image} alt={item.name} /></td>
-                                    <td>{item.name}</td>
-                                    <td>₹{item.price}</td>
-                                    <td>{item.quantity}</td>
-                                    <td>₹{item.price * item.quantity}</td>
-                                    <td>
-                                        <button onClick={()=>handelremovefromcart(item.product_id)} className="text-red-600 hover:underline">Remove</button>
-                                    </td>
-                                </tr>
+                                    <tr key={item.product_id} className='border-y-2 border-gray-300'>
+                                        <td className="w-16 h-16" ><img src={item.image} alt={item.name} /></td>
+                                        <td>{item.name}</td>
+                                        <td>₹{item.price}</td>
+                                        <td>{item.quantity}</td>
+                                        <td>₹{item.price * item.quantity}</td>
+                                        <td>
+                                            <button onClick={() => handleDelete(item.product_id)} className="text-red-600 hover:underline">Remove</button>
+                                        </td>
+                                    </tr>
                                 )
                             })}
                         </tbody>

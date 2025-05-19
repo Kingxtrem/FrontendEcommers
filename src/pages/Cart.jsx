@@ -1,10 +1,13 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Api from '../axios/Api';
 import Loader from '../components/Loader';
 import Swal from 'sweetalert2';
+import { MdDeleteForever } from "react-icons/md";
+import { CiCirclePlus } from "react-icons/ci";
+import { CiCircleMinus } from "react-icons/ci";
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -58,13 +61,65 @@ const Cart = () => {
             setCartvalue(response.data.user.cart.length);
             localStorage.setItem('cartValue', response.data.user.cart.length);
             window.dispatchEvent(new Event("cartChange"));
-            setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price, 0));
+            setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
         } catch (error) {
             console.error("Failed to remove item from cart:", error);
             alert("Failed to remove item from cart. Please try again.");
         }
         setLoading(false);
     };
+    const handleDecrease = async (product_id) => {
+        setLoading(true);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert("Please login to remove items from the cart");
+            navigate("/login");
+            return;
+        }
+        try {
+            const response = await Api.post("/user/removeonequantity", { product_id }, {
+                headers: {
+                    'Authorization': token,
+                },
+            });
+            setCartItems(response.data.user.cart);
+            setCartvalue(response.data.user.cart.length);
+            localStorage.setItem('cartValue', response.data.user.cart.length);
+            window.dispatchEvent(new Event("cartChange"));
+            setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
+        } catch (error) {
+            console.error("Failed to remove item from cart:", error);
+            alert("Failed to remove item from cart. Please try again.");
+        }
+        setLoading(false);
+    };
+    const handleIncrease = async (product_id) => {
+        setLoading(true);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert("Please login to remove items from the cart");
+            navigate("/login");
+            return;
+        }
+        try {
+            const response = await Api.post("/user/addonequantity", { product_id }, {
+                headers: {
+                    'Authorization': token,
+                },
+            });
+            setCartItems(response.data.user.cart);
+            setCartvalue(response.data.user.cart.length);
+            localStorage.setItem('cartValue', response.data.user.cart.length);
+            setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
+            window.dispatchEvent(new Event("cartChange"));
+        } catch (error) {
+            console.error("Failed to remove item from cart:", error);
+            alert("Failed to remove item from cart. Please try again.");
+        }
+        setLoading(false);
+    };
+
+
     const handleDelete = (product_id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -82,6 +137,7 @@ const Cart = () => {
             }
         });
     };
+
 
 
 
@@ -110,13 +166,14 @@ const Cart = () => {
                             {cartItems.map((item) => {
                                 return (
                                     <tr key={item.product_id} className='border-y-2 border-gray-300'>
-                                        <td className="w-16 h-16" ><img src={item.image} alt={item.name} /></td>
+                                        <td className="w-16 h-16" ><Link to={`/products/${item.product_id}`}><img className='hover:scale-95' src={item.image} alt={item.name} /></Link></td>
                                         <td>{item.name}</td>
                                         <td>₹{item.price}</td>
-                                        <td>{item.quantity}</td>
+                                        <td><button onClick={() => handleDecrease(item.product_id)} className="text-red-600 hover:scale-125 cursor-pointer"><CiCircleMinus /></button><span className='p-1 text-xl'>{item.quantity}</span><button onClick={() => handleIncrease(item.product_id)} className="text-red-600 hover:scale-125 cursor-pointer"><CiCirclePlus /></button></td>
                                         <td>₹{item.price * item.quantity}</td>
                                         <td>
-                                            <button onClick={() => handleDelete(item.product_id)} className="text-red-600 hover:underline">Remove</button>
+                                            {/* <button onClick={() => handleDelete(item.product_id)} className="text-red-600 hover:underline font-extrabold mr-2">-</button> */}
+                                            <button onClick={() => handleDelete(item.product_id)} className="text-red-600 hover:scale-125 m-1 cursor-pointer text-4xl"><MdDeleteForever /></button>
                                         </td>
                                     </tr>
                                 )

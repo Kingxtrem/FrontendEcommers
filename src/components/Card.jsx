@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 
 const Card = ({ item }) => {
     return (
-        <div className='w-90 md:max-h-80 min-h-80 p-3 rounded-2xl m-5 box-border bg-white md:flex gap-2 mx-auto shadow-lg shadow-black'>
+        <Link
+            to={`/products/${item._id}`}
+            className='w-90 md:max-h-80 min-h-80 p-3 rounded-2xl m-5 box-border bg-white md:flex gap-2 mx-auto shadow-lg shadow-black hover:scale-95 duration-300'
+        >
             <div className='md:w-50 w-auto my-auto mx-auto '>
                 <img src={item.image} alt="image" className='w-auto max-h-60 object-cover mx-auto my-auto' />
             </div>
@@ -17,16 +20,17 @@ const Card = ({ item }) => {
                         {Array.from({ length: 5 }, (_, index) => (
                             <CiStar key={index} className={index < item.rating ? 'text-yellow-500' : 'text-black'} />
                         ))}
-                         <span className=" text-black">{item.rating}</span>
+                        <span className="text-black">{item.rating}</span>
                     </div>
                 </div>
-                <Link to={`/products/${item._id}`}>
-                    <div className='flex justify-center items-end'>
-                        <button className='m-5 border-2 rounded-xl text-xl p-2 bg-blue-700 text-white cursor-pointer hover:bg-blue-800 active:bg-blue-950 transition duration-300'>View Details</button>
+                <div className='flex justify-center items-end'>
+                    <div className='m-5 border-2 rounded-xl text-xl p-2 bg-blue-700 text-white hover:bg-blue-800 active:bg-blue-950 transition duration-300'>
+                        View Details
                     </div>
-                </Link>
+                </div>
             </div>
-        </div>
+        </Link>
+
     )
 }
 

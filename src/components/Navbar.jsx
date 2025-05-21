@@ -69,7 +69,7 @@ useEffect(() => {
 
       <div className='flex justify-between items-start md:items-center'>
 
-        <NavLink to={'/'} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800 px-5 py-2.5" : "cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5"}>
+        <NavLink to={'/'} className={({ isActive }) => isActive ? "bg-blue-800 text-white rounded-lg cursor-pointer hover:bg-blue-800 px-5 py-2.5" : "cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5"}>
 
           <div className='flex items-center'>
             <img className='w-10 border-0 rounded-full mr-1 cursor-pointer' src={TechCart} alt="TechCart Logo" />
@@ -87,7 +87,7 @@ useEffect(() => {
           <ul>
             <div className={`${menuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row items-start md:items-center justify-between md:justify-end md:mt-0 absolute top-15 right-0 rounded-lg md:static md:top-0 md:right-0 bg-gray-200 p-5 md:p-0 h-auto w-fit md:w-auto md:h-fit gap-1`}>
 
-              <NavLink to={"/products"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+              <NavLink to={"/products"} className={({ isActive }) => isActive ? "bg-blue-800 text-white rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
                 <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
                   <LuBoxes className='mr-1' />Products
                 </li>
@@ -143,16 +143,16 @@ useEffect(() => {
                 </div>
 
               </li>
-              {token ? <NavLink to={"/profile"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+              {token ? <NavLink to={"/profile"} className={({ isActive }) => isActive ? "bg-blue-800 text-white rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
                 <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
                   <CgProfile className='mr-1' />Profile
                 </li>
-              </NavLink> : <NavLink to={"/login"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+              </NavLink> : <NavLink to={"/login"} className={({ isActive }) => isActive ? "bg-blue-800 text-white rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
                 <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
                   <SiGnuprivacyguard className='mr-1' />Login
                 </li>
               </NavLink>}
-              <NavLink to={"/cart"} className={({ isActive }) => isActive ? "bg-red-500 rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
+              <NavLink to={"/cart"} className={({ isActive }) => isActive ? "bg-blue-800 text-white rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 rounded-lg"}>
                 <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
                   <IoCartOutline className='mr-1' />Cart:{cartValue ? cartValue : 0}
                 </li>

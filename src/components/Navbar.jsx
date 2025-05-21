@@ -65,7 +65,7 @@ useEffect(() => {
 
   return (
 
-    <div className='bg-gray-200 p-1 font-bold text-sm w-full z-50' onClick={handleOutsideClick}>
+    <div className='bg-gray-200 p-1 font-bold text-sm w-full z-50 sticky top-0' onClick={handleOutsideClick}>
 
       <div className='flex justify-between items-start md:items-center'>
 

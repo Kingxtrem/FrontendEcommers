@@ -2,7 +2,7 @@ import { AiOutlineLoading } from "react-icons/ai";
 
 const Loader = ({ message = "Loading, please wait..." }) => {
     return (
-        <div className="flex flex-col justify-center items-center mx-auto w-full h-screen bg-white/70 z-50">
+        <div className="flex flex-col justify-center items-center mx-auto w-full h-screen bg-white/70">
             <div className="flex items-center rounded-xl p-5 text-blue-600 text-7xl font-extrabold">
                 <AiOutlineLoading className="animate-spin" />
             </div>

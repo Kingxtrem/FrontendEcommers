@@ -97,7 +97,7 @@ useEffect(() => {
 
                 <TbBrandSafari className='mr-1' /> Brands {dropdownOpen1 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
-                <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-200 rounded-lg absolute top-full w-30 `}>
+                <div className={`z-10 ${dropdownOpen1 ? 'block' : 'hidden'} bg-gray-200 text-black rounded-lg absolute top-full w-30`}>
                   <ul className="text-sm">
                     <li><Link to={"/brands/Apple"} className="block px-5 py-2 hover:bg-black hover:text-white" onClick={() => { setMenuOpen(false) }}>Apple</Link></li>
                     <li><Link to={"/brands/HP"} className="block px-5 py-2 hover:bg-black hover:text-white" onClick={() => { setMenuOpen(false) }}>HP</Link></li>
@@ -122,7 +122,7 @@ useEffect(() => {
 
                 <TbCategoryPlus className='mr-1' />Categories {dropdownOpen2 ? <IoIosArrowDropup className='ml-1' /> : <IoIosArrowDropdown className='ml-1' />}
 
-                <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-200  rounded-lg absolute top-full w-30`}>
+                <div className={`z-10 ${dropdownOpen2 ? 'block' : 'hidden'} bg-gray-200 text-black  rounded-lg absolute top-full w-30`}>
                   <ul className="text-sm">
                     <li>
                       <Link to={"/categories/Mobiles"} className="block px-5 py-2.5 hover:bg-black hover:text-white" onClick={() => { setMenuOpen(false) }}>Mobiles</Link>

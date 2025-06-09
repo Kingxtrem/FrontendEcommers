@@ -1,5 +1,5 @@
 import { FaIndianRupeeSign } from "react-icons/fa6";
-import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const Card = ({ item }) => {
@@ -18,7 +18,7 @@ const Card = ({ item }) => {
                     <div className='flex items-center m-2'><span className='font-bold'>Price:</span><FaIndianRupeeSign /> {item.price}</div>
                     <div className='font-bold flex items-center m-2'>Rating:
                         {Array.from({ length: 5 }, (_, index) => (
-                            <CiStar key={index} className={index < item.rating ? 'text-yellow-500' : 'text-black'} />
+                            <FaStar key={index} className={index < item.rating ? 'text-yellow-400' : 'text-black'} />
                         ))}
                         <span className="text-black">{item.rating}</span>
                     </div>

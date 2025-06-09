@@ -14,6 +14,9 @@ import Cart from './pages/Cart'
 import PrivateRouting from './security/PrivateRouting'
 import AddProduct from './pages/AddProduct'
 import Navbar from './components/Navbar'
+import AdminPage from './pages/AdminPage'
+import IsAdmin from './security/AdminRouting'
+import AdminRouting from './security/AdminRouting'
 
 const App = () => {
   const [dropdownOpen1, setDropdownOpen1] = useState(false)
@@ -39,7 +42,10 @@ const App = () => {
           <Route path='/register' element={<Register />} />
           <Route path='/profile' element={<PrivateRouting><Profile /></PrivateRouting>} />
           <Route path='/cart' element={<PrivateRouting><Cart/></PrivateRouting>} />
-          <Route path='/addproduct' element={<PrivateRouting><AddProduct /></PrivateRouting>} />
+          <Route path='/admin' element={<AdminRouting><AdminPage /></AdminRouting>} />
+          <Route path='/addproduct' element={<AdminRouting><AddProduct /></AdminRouting>} />
+          <Route path='/edit/:id' element={<AdminRouting><AddProduct /></AdminRouting>} />
+          
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

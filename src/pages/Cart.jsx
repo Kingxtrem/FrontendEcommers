@@ -154,12 +154,12 @@ const Cart = () => {
                     <table className='text-center w-full'>
                         <thead>
                             <tr>
-                                <th scope="col">Image</th>
-                                <th scope="col">Item Name</th>
-                                <th scope="col">Item Price</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Total Item Price</th>
-                                <th scope="col">Action</th>
+                                <th className='p-2'>Image</th>
+                                <th className='p-2'>Item Name</th>
+                                <th className='p-2'>Item Price</th>
+                                <th className='p-2'>Quantity</th>
+                                <th className='p-2'>Total Item Price</th>
+                                <th className='p-2'>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -172,7 +172,6 @@ const Cart = () => {
                                         <td><button onClick={() => handleDecrease(item.product_id)} className="text-red-600 hover:scale-125 cursor-pointer"><CiCircleMinus /></button><span className='p-1 text-xl'>{item.quantity}</span><button onClick={() => handleIncrease(item.product_id)} className="text-red-600 hover:scale-125 cursor-pointer"><CiCirclePlus /></button></td>
                                         <td>₹{item.price * item.quantity}</td>
                                         <td>
-                                            {/* <button onClick={() => handleDelete(item.product_id)} className="text-red-600 hover:underline font-extrabold mr-2">-</button> */}
                                             <button onClick={() => handleDelete(item.product_id)} className="text-red-600 hover:scale-125 m-1 cursor-pointer text-4xl"><MdDeleteForever /></button>
                                         </td>
                                     </tr>

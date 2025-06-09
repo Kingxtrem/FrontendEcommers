@@ -1,11 +1,12 @@
 import axios from 'axios';
 import Api from '../axios/Api';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 const AddProduct = () => {
-    const Navigate = useNavigate();
+    const { id } = useParams()
+    const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const [Data, setData] = useState({
         name: '',
@@ -53,11 +54,12 @@ const AddProduct = () => {
         try {
             setDisable(true);
             const res = await Api.post('/product/create', formData, {
-                headers: {  
-                    'Authorization': token                   
-                }});
+                headers: {
+                    'Authorization': token
+                }
+            });
             res.data.message && toast.success(res.data.message);
-            toast.info("Redirecting to profile page");
+            toast.info("Redirecting to admin page");
             setData({
                 name: '',
                 description: '',
@@ -70,9 +72,8 @@ const AddProduct = () => {
             setErrors({});
             setTimeout(() => {
                 setDisable(false);
-                Navigate('/profile');
-            }
-                , 2000);
+                navigate('/admin');
+            }, 2000);
         } catch (error) {
             console.error('Product adding failed:', error);
             error.response?.data?.message && toast.error(error.response.data.message);
@@ -80,6 +81,63 @@ const AddProduct = () => {
             setDisable(false);
         }
     };
+    const getDetails = async (id) => {
+        try {
+            const response = await Api.get(`/product/${id}`);
+            setData(response.data.productData);
+            setImage(response.data.productData.image);
+        } catch (error) {
+            console.error("Failed to fetch product details:", error);
+            toast.error("Failed to load product details. Please try again.");
+        }
+    }
+    const updateHandler = async (e) => {
+        e.preventDefault()
+        if (!validateForm()) return;
+        const formData = new FormData();
+        formData.append('name', Data.name);
+        formData.append('description', Data.description);
+        formData.append('price', Data.price);
+        formData.append('rating', Data.rating);
+        formData.append('category', Data.category);
+        formData.append('inStock', Data.inStock);
+        formData.append('image', image);
+
+        try {
+            setDisable(true);
+            const res = await Api.put(`/product/update/${id}`, formData, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+            res.data.message && toast.success(res.data.message);
+            toast.info("Redirecting to admin page");
+            setData({
+                name: '',
+                description: '',
+                price: 0,
+                rating: 0,
+                category: '',
+                inStock: 0,
+            });
+            setImage(null);
+            setErrors({});
+            setTimeout(() => {
+                setDisable(false);
+                navigate('/admin');
+            }, 2000);
+        } catch (error) {
+            console.error('Product updating failed:', error);
+            error.response?.data?.message && toast.error(error.response.data.message);
+            setErrors({});
+            setDisable(false);
+        }
+    }
+    useEffect(() => {
+        if (id) {
+            getDetails(id);
+        }
+    }, [])
     return (
         <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
             <ToastContainer
@@ -96,8 +154,8 @@ const AddProduct = () => {
                 transition={Bounce}
             />
             <div className="sm:w-full w-80  max-w-md bg-white shadow-lg shadow-black rounded-lg p-6">
-                <h2 className="text-2xl font-bold text-center text-green-600 mb-6">Add new product</h2>
-                <form onSubmit={onsubmitHandler}>
+                <h2 className="text-2xl font-bold text-center text-green-600 mb-6">{id ? "Edit product" : "Add new product"}</h2>
+                <form onSubmit={id ? updateHandler : onsubmitHandler}>
                     <div className="flex flex-col gap-4">
                         <div>
                             <label htmlFor="name" className="block text-sm font-medium">
@@ -212,7 +270,7 @@ const AddProduct = () => {
                             disabled={disable}
                             className={disable ? "w-full bg-black text-white rounded-lg py-2 cursor-not-allowed" : "w-full bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition duration-200 cursor-pointer"}
                         >
-                            ADD PRODUCT
+                            {id ? "UPDATE PRODUCT" : "ADD PRODUCT"}
                         </button>
                     </div>
                 </form>

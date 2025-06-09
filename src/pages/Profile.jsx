@@ -5,10 +5,11 @@ import { Bounce, ToastContainer, toast } from 'react-toastify';
 import Api from '../axios/Api';
 
 
+
 const Profile = () => {
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const GetProfileDetails = async () => {
     setLoading(true);
@@ -20,8 +21,8 @@ const Profile = () => {
         },
       });
       setProfile(response.data.user);
-            localStorage.setItem('cartValue', response.data.user.cart.length);
-            window.dispatchEvent(new Event("cartChange"));
+      localStorage.setItem('cartValue', response.data.user.cart.length);
+      window.dispatchEvent(new Event("cartChange"));
       response.data.message && toast.success(response.data.message);
     } catch (error) {
       console.error("Failed to fetch profile details:", error);
@@ -41,12 +42,12 @@ const Profile = () => {
       toast.info("Redirecting to login page");
     }, 1000);
     setTimeout(() => {
-      Navigate("/login");
+      navigate("/login");
     }, 2000);
   };
 
-  const handleAddProduct = () => {
-    Navigate("/addproduct");
+  const AdminPage = () => {
+    navigate("/admin");
   }
 
   useEffect(() => {
@@ -94,12 +95,13 @@ const Profile = () => {
             >
               Log Out
             </button>
-            <button
-              onClick={handleAddProduct}
 
-              className={profile.isAdmin ? "mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-300 cursor-pointer": "hidden"}
+            <button
+              onClick={AdminPage}
+
+              className={profile.isAdmin ? "mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-300 cursor-pointer" : "hidden"}
             >
-              Add new Product
+              View Admin Page
             </button>
           </div>
         </div>

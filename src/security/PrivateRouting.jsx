@@ -3,7 +3,7 @@ import IsAuth from './IsAuth'
 
 const PrivateRouting = ({ children }) => {
   return (
-    IsAuth() ? children : <>{alert("You are not loged in please log in first")}<Navigate to="/login" replace /></>
+    IsAuth() ? children : <>{alert("You are not logged in please log in first")}<Navigate to="/login" replace /></>
   )
 }
 

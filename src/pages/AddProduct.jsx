@@ -61,7 +61,6 @@ const AddProduct = () => {
                 }
             });
             res.data.message && toast.success(res.data.message);
-            toast.info("Redirecting to admin page");
             setData({
                 name: '',
                 description: '',
@@ -113,7 +112,6 @@ const AddProduct = () => {
                 }
             });
             res.data.message && toast.success(res.data.message);
-            toast.info("Redirecting to admin page");
             setData({
                 name: '',
                 description: '',

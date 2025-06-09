@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Api from '../axios/Api';
 
 
@@ -15,7 +15,7 @@ const Profile = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      if(!token){
+      if (!token) {
         toast.error('You are not logged in Login first')
         navigate('/login')
         return
@@ -42,12 +42,7 @@ const Profile = () => {
     localStorage.removeItem('cartValue');
     window.dispatchEvent(new Event("cartChange"));
     toast.success("Logout Successfully");
-    setTimeout(() => {
-      toast.info("Redirecting to login page");
-    }, 1000);
-    setTimeout(() => {
-      navigate("/login");
-    }, 2000);
+    navigate("/login");
   };
 
   const AdminPage = () => {

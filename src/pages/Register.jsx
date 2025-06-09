@@ -47,15 +47,11 @@ const Register = () => {
             setDisable(true);
             const res = await Api.post('/user/register', formData);
             res.data.message && toast.success(res.data.message);
-            toast.info("Redirecting to login page");
             setData({ username: '', email: '', password: '' });
             setProfilePic(null);
             setErrors({});
-            setTimeout(() => {
             setDisable(false);
             Navigate('/login');
-            }
-            , 2000);
         } catch (error) {
             console.error('Registration failed:', error);
             error.response?.data?.message && toast.error(error.response.data.message);

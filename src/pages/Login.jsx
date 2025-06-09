@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Api from '../axios/Api';
 
 
@@ -16,13 +16,9 @@ const Login = () => {
 
     const isLogin = () => {
         const token = localStorage.getItem('token');
-        
         if (token) {
             toast.info("You are already logged in");
-            toast.info("Redirecting to profile page");
-            setTimeout(() => {
-                Navigate("/profile");
-            }, 1000);
+            Navigate("/profile");
             return;
         }
     };
@@ -47,11 +43,8 @@ const Login = () => {
                 password: '',
             });
             toast.success(res.data.message);
-            toast.info("Redirecting to profile page");
-            setTimeout(() => {
-                setDisable(false);
-                Navigate('/profile');
-            }, 2000);
+            Navigate('/profile');
+            setDisable(false)
         } catch (error) {
             console.error('Login failed:', error);
             error.response?.data?.message && toast.error(error.response.data.message);

@@ -92,10 +92,10 @@ const Register = () => {
                                 id="username"
                                 name="username"
                                 placeholder="Enter your username"
+                                autoComplete="username"
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                                 value={Data.username}
                                 onChange={onchangeHandler}
-                                autoComplete="current-username"
                             />
                             {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
                         </div>
@@ -108,10 +108,10 @@ const Register = () => {
                                 id="email"
                                 name="email"
                                 placeholder="Enter your email"
+                                autoComplete="email"
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                                 value={Data.email}
                                 onChange={onchangeHandler}
-                                autoComplete="current-email"
                             />
                             {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                         </div>
@@ -122,6 +122,7 @@ const Register = () => {
                             <input
                                 type="file"
                                 id="profilePic"
+                                aria-label="Profile picture"
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                                 onChange={onFileChangeHandler}
                             />
@@ -146,6 +147,7 @@ const Register = () => {
                         <button
                             type="submit"
                             disabled={disable}
+                            aria-busy={disable}
                             className={disable ? "w-full bg-black text-white rounded-lg py-2 hover:bg-black transition duration-200" : "w-full bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition duration-200 cursor-pointer"}
                         >
                             Register

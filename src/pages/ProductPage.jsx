@@ -6,6 +6,7 @@ import { FaStar } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa6";
 import { IoIosFlash } from "react-icons/io";
 import Loader from '../components/Loader';
+import { toast } from 'react-toastify';
 
 const ProductPage = () => {
   const Navigate = useNavigate()
@@ -21,7 +22,7 @@ const ProductPage = () => {
       setProduct(response.data.productData);
     } catch (error) {
       console.error("Failed to fetch product details:", error);
-      alert("Failed to load product details. Please try again.");
+      toast.error("Failed to load product details. Please try again.");
     }
     setLoading(false)
   }
@@ -36,7 +37,7 @@ const ProductPage = () => {
     }
     const token = localStorage.getItem('token')
     if (!token) {
-      alert("Please login to add items to the cart");
+      toast.error("Please login to add items to the cart");
       Navigate("/login");
       return;
     }
@@ -50,7 +51,7 @@ const ProductPage = () => {
 
     } catch (error) {
       console.error("Failed to add item to cart:", error);
-      alert("Failed to add item to cart. Please try again.");
+      toast.error("Failed to add item to cart. Please try again.");
     }
   }
   useEffect(() => {

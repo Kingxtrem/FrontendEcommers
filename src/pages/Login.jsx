@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import Api from '../axios/Api';
 
 
@@ -63,19 +63,6 @@ const Login = () => {
 
     return (
         <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-                transition={Bounce}
-            />
             <div className="sm:w-full w-80 max-w-md bg-white shadow-lg shadow-black rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">Login Here</h2>
                 <form onSubmit={onsubmitHandler}>
@@ -92,7 +79,7 @@ const Login = () => {
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 value={Data.email}
                                 onChange={onchangeHandler}
-                                autoComplete="current-email"
+                                autoComplete="email"
                             />
                         </div>
                         <div>

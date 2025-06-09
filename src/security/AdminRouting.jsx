@@ -1,38 +1,48 @@
-
 import { Navigate } from 'react-router-dom'
-import IsAdmin from './IsAdmin'
 import { useEffect, useState } from 'react'
 import Api from '../axios/Api'
+import { toast } from 'react-toastify'
+import Loader from '../components/Loader'
 
 const AdminRouting = ({ children }) => {
-    const [Admin, setAdmin] = useState(true)
-    const IsAdmin = async () => {
-        const token = localStorage.getItem('token')
-        if (token) {
+    const [isAdmin, setIsAdmin] = useState(null); // null = loading, false = not admin, true = admin
+
+    useEffect(() => {
+        const checkAdmin = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                setIsAdmin(false);
+                return;
+            }
             try {
                 const response = await Api.get('/user/profile', {
                     headers: {
                         'Authorization': token,
                     },
                 });
-                setAdmin(response.data.user.isAdmin);
+                setIsAdmin(response.data.user.isAdmin);
             } catch (error) {
-                console.error("Failed to fetch user profile:", error);
-            } finally {
-                return Admin
+                setIsAdmin(false);
             }
-        }
-        else
-        {
-            setAdmin(false)
-        }
-    }
+        };
+        checkAdmin();
+    }, []);
+
     useEffect(() => {
-        IsAdmin()
-    }, [children])
-    return (
-        Admin ? children : <>{alert("You are not Authorized")}<Navigate to="/profile" replace /></>
-    )
+        if (isAdmin === false) {
+            toast.error("You are not Authorized");
+        }
+    }, [isAdmin]);
+
+    if (isAdmin === null) {
+        return <Loader/>
+    }
+
+    if (!isAdmin) {
+        return <Navigate to="/profile" replace />;
+    }
+
+    return children;
 }
 
-export default AdminRouting
+export default AdminRouting;

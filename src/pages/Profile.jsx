@@ -15,6 +15,11 @@ const Profile = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
+      if(!token){
+        toast.error('You are not logged in Login first')
+        navigate('/login')
+        return
+      }
       const response = await Api.get("/user/profile", {
         headers: {
           'Authorization': token,
@@ -23,7 +28,6 @@ const Profile = () => {
       setProfile(response.data.user);
       localStorage.setItem('cartValue', response.data.user.cart.length);
       window.dispatchEvent(new Event("cartChange"));
-      response.data.message && toast.success(response.data.message);
     } catch (error) {
       console.error("Failed to fetch profile details:", error);
       error.response?.data?.message && toast.error(error.response.data.message);
@@ -56,19 +60,6 @@ const Profile = () => {
 
   return (
     <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition={Bounce}
-      />
       {loading ? <Loader /> : (
         <div className="w-auto max-w-4xl bg-white shadow-lg shadow-black rounded-lg p-6 flex flex-col md:flex-row items-center">
           <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-blue-500">

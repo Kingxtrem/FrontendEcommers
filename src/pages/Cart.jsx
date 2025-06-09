@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useEffect } from 'react';
 import Api from '../axios/Api';
 import Loader from '../components/Loader';
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { MdDeleteForever } from "react-icons/md";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
+import { toast } from 'react-toastify';
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Cart = () => {
         setLoading(true);
         const token = localStorage.getItem('token');
         if (!token) {
-            alert("Please login to view your cart");
+            toast.error("Please login to view your cart");
             navigate("/login");
             return;
         }
@@ -36,7 +37,7 @@ const Cart = () => {
             setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
         } catch (error) {
             console.error("Failed to fetch cart items:", error);
-            alert("Failed to load cart items. Please try again.");
+            toast.error("Failed to load cart items. Please try again.");
         }
         setLoading(false);
     };
@@ -47,7 +48,7 @@ const Cart = () => {
         setLoading(true);
         const token = localStorage.getItem('token');
         if (!token) {
-            alert("Please login to remove items from the cart");
+            toast.error("Please login to remove items from the cart");
             navigate("/login");
             return;
         }
@@ -64,7 +65,7 @@ const Cart = () => {
             setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
         } catch (error) {
             console.error("Failed to remove item from cart:", error);
-            alert("Failed to remove item from cart. Please try again.");
+            toast.error("Failed to remove item from cart. Please try again.");
         }
         setLoading(false);
     };
@@ -72,7 +73,7 @@ const Cart = () => {
         setLoading(true);
         const token = localStorage.getItem('token');
         if (!token) {
-            alert("Please login to remove items from the cart");
+            toast.error("Please login to remove items from the cart");
             navigate("/login");
             return;
         }
@@ -89,7 +90,7 @@ const Cart = () => {
             setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
         } catch (error) {
             console.error("Failed to remove item from cart:", error);
-            alert("Failed to remove item from cart. Please try again.");
+            toast.error("Failed to remove item from cart. Please try again.");
         }
         setLoading(false);
     };
@@ -97,7 +98,7 @@ const Cart = () => {
         setLoading(true);
         const token = localStorage.getItem('token');
         if (!token) {
-            alert("Please login to remove items from the cart");
+            toast.error("Please login to remove items from the cart");
             navigate("/login");
             return;
         }
@@ -113,8 +114,8 @@ const Cart = () => {
             setTotalAmount(response.data.user.cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
             window.dispatchEvent(new Event("cartChange"));
         } catch (error) {
-            console.error("Failed to remove item from cart:", error);
-            alert("Failed to remove item from cart. Please try again.");
+            console.error("Failed to add item to cart:", error);
+            toast.error("Failed to add item to cart. Please try again.");
         }
         setLoading(false);
     };
@@ -137,9 +138,6 @@ const Cart = () => {
             }
         });
     };
-
-
-
 
     return (
         <div className='bg-gray-100 min-h-screen w-full mx-auto p-5'>

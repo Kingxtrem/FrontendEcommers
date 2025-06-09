@@ -6,18 +6,25 @@ import { MdDeleteForever } from 'react-icons/md'
 import Loader from '../components/Loader'
 import { FaRegEdit } from "react-icons/fa";
 import Swal from 'sweetalert2'
+import { toast } from 'react-toastify'
 
 const AdminPage = () => {
     const [data, setData] = useState([])
-    const [token, setToken] = useState('')
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
     const GetAllProducts = async () => {
-        setLoading(true)
-        const res = await Api.get("/product/all")
-        setData(res.data.data)
-        setLoading(false)
+        try {
+            setLoading(true)
+            const res = await Api.get("/product/all")
+            setData(res.data.data)
+        }
+        catch (err) {
+            console.log(err)
+         toast.error('failed to load products')
+        } finally {
+            setLoading(false)
+        }
     }
     const handleDelete = async (id) => {
         const result = await Swal.fire({
@@ -33,20 +40,17 @@ const AdminPage = () => {
         if (result.isConfirmed) {
             setLoading(true)
             try {
+                const token = localStorage.getItem('token')
                 const response = await Api.delete(`/product/delete/${id}`, {
                     headers: {
                         'Authorization': token
                     }
                 });
-
-                if (response.status === 200) {
-                    Swal.fire('Deleted!', 'Your item has been deleted.', 'success');
-                    GetAllProducts();
-                } else {
-                    Swal.fire('Error!', 'Failed to delete your item.', 'error');
-                }
+                Swal.fire('Deleted!', 'Your item has been deleted.', 'success');
+                GetAllProducts();
             } catch (error) {
                 console.error(error);
+                Swal.fire('Error!', 'Failed to delete your item.', 'error');
             }
             setLoading(false)
         }
@@ -71,7 +75,6 @@ const AdminPage = () => {
     }
 
     useEffect(() => {
-        setToken(localStorage.getItem('token'))
         GetAllProducts()
     }, [])
     return (
@@ -101,7 +104,7 @@ const AdminPage = () => {
                                 return (
                                     <tr key={item._id} className='border-y-2 border-gray-300'>
                                         <td className="w-16 h-16" >{index + 1}</td>
-                                        <td className="w-16 h-16" ><Link to={`/products/${item.id}`}><img className='hover:scale-95' src={item.image} alt={item.name} /></Link></td>
+                                        <td className="w-16 h-16" ><Link to={`/products/${item._id}`}><img className='hover:scale-95' src={item.image} alt={item.name} /></Link></td>
                                         <td className="">{item.name}</td>
                                         <td className="">₹{item.price}</td>
                                         <td className="">{item.inStock}</td>

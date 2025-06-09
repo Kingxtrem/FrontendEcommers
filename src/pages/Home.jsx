@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Api from '../axios/Api';
 import Loader from '../components/Loader';
 import Card from '../components/Card';
@@ -20,7 +21,7 @@ const Home = () => {
       setData(shuffled.slice(0, 8));
     } catch (error) {
       console.error("Error fetching products:", error);
-      alert("Failed to fetch products. Please try again later.");
+      toast.error("Failed to fetch products. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -40,7 +41,7 @@ const Home = () => {
 
         {loading ? <Loader /> : (
           <div >
-            <div className=' min-h-screen w-full mx-auto flex flex-wrap p-10 md:p-0 ' >
+            <div className=' min-h-0 w-full mx-auto flex flex-wrap p-10 md:p-0 ' >
               {
                 data.map((item) => (
                   <Card item={item} key={item._id} />

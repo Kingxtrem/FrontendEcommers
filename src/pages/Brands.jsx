@@ -3,6 +3,7 @@ import Api from '../axios/Api'
 import Loader from '../components/Loader';
 import Card from '../components/Card';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Brands = () => {
   const [data, setData] = useState([]);
@@ -10,10 +11,15 @@ const Brands = () => {
   const [loading, setLoading] = useState(true);
 
   const GetAllProducts = async () => {
-    setLoading(true);
-    const res = await Api.get("/product/all");
-    setData(res.data.data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const res = await Api.get("/product/all");
+      setData(res.data.data);
+    } catch (error) {
+      console.log(error)
+    toast.error('Failed to load products')
+    } finally { setLoading(false); }
+
   };
 
   const filteredData = data.filter((item) => item.name.toLowerCase().includes(brand.toLowerCase()));

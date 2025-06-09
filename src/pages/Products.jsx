@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Api from '../axios/Api'
 import Loader from '../components/Loader';
 import Card from '../components/Card';
+import { toast } from 'react-toastify';
 
 const Products = () => {
 
@@ -10,10 +11,15 @@ const Products = () => {
     const [loading, setLoading] = useState(true)
 
     const GetAllProducts = async () => {
-        setLoading(true)
-        const res = await Api.get("/product/all")
-        setData(res.data.data)
-        setLoading(false)
+        setLoading(true);
+        try {
+            const res = await Api.get("/product/all");
+            setData(res.data.data.sort((a, b) => a.name.localeCompare(b.name)));
+        } catch (error) {
+            console.error(error);
+           toast.error('failed to load products')
+        }
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -27,7 +33,7 @@ const Products = () => {
             {loading ? <Loader /> : (
                 <>
                     {
-                        data.sort((a, b) => a.name.localeCompare(b.name)).map((item) => {
+                        data.map((item) => {
                             return (
                                 <Card item={item} key={item._id} />
                             )

@@ -40,11 +40,11 @@ const Navbar = ({ dropdownOpen1, setDropdownOpen1, dropdownOpen2, setDropdownOpe
       setDropdownOpen2(false)
     }
   }
-  let [cartValue,setCartValue] = useState(0)
-  let [token,setToken] = useState(null);
+  let [cartValue, setCartValue] = useState(() => localStorage.getItem('cartValue') || 0);
+let [token, setToken] = useState(() => localStorage.getItem('token'));
 useEffect(() => {
   const updateAuth = () => {
-    setCartValue(localStorage.getItem('cartValue'));
+    setCartValue(Number(localStorage.getItem('cartValue')) || 0);
     setToken(localStorage.getItem('token'));
   };
 

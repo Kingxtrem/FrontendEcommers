@@ -15,15 +15,29 @@ import PrivateRouting from './security/PrivateRouting'
 import AddProduct from './pages/AddProduct'
 import Navbar from './components/Navbar'
 import AdminPage from './pages/AdminPage'
-import IsAdmin from './security/AdminRouting'
 import AdminRouting from './security/AdminRouting'
+import { Bounce, ToastContainer } from 'react-toastify'
 
 const App = () => {
   const [dropdownOpen1, setDropdownOpen1] = useState(false)
   const [dropdownOpen2, setDropdownOpen2] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   return (
+
     <BrowserRouter>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
       <div onClick={() => { setDropdownOpen1(false); setDropdownOpen2(false); setMenuOpen(false) }}>
         <Navbar dropdownOpen1={dropdownOpen1}
           dropdownOpen2={dropdownOpen2}
@@ -41,11 +55,11 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/profile' element={<PrivateRouting><Profile /></PrivateRouting>} />
-          <Route path='/cart' element={<PrivateRouting><Cart/></PrivateRouting>} />
+          <Route path='/cart' element={<PrivateRouting><Cart /></PrivateRouting>} />
           <Route path='/admin' element={<AdminRouting><AdminPage /></AdminRouting>} />
           <Route path='/addproduct' element={<AdminRouting><AddProduct /></AdminRouting>} />
           <Route path='/edit/:id' element={<AdminRouting><AddProduct /></AdminRouting>} />
-          
+
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

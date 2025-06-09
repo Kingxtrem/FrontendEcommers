@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Api from '../axios/Api';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 
@@ -34,7 +34,7 @@ const AddProduct = () => {
         if (!Data.description) newErrors.description = 'description is required.';
         if (!Data.price) newErrors.price = 'price is required.';
         if (!Data.category) newErrors.category = 'category is requierd.';
-        if (!image) newErrors.image = 'picture is required.';
+        if (!image && !id) newErrors.image = 'picture is required.';
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -49,7 +49,9 @@ const AddProduct = () => {
         formData.append('rating', Data.rating);
         formData.append('category', Data.category);
         formData.append('inStock', Data.inStock);
-        formData.append('image', image);
+        if (image && typeof image !== "string") {
+            formData.append('image', image);
+        }
 
         try {
             setDisable(true);
@@ -133,26 +135,9 @@ const AddProduct = () => {
             setDisable(false);
         }
     }
-    useEffect(() => {
-        if (id) {
-            getDetails(id);
-        }
-    }, [])
+    useEffect(() => { id && getDetails(id); }, [id]);
     return (
         <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-                transition={Bounce}
-            />
             <div className="sm:w-full w-80  max-w-md bg-white shadow-lg shadow-black rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-center text-green-600 mb-6">{id ? "Edit product" : "Add new product"}</h2>
                 <form onSubmit={id ? updateHandler : onsubmitHandler}>
@@ -260,9 +245,14 @@ const AddProduct = () => {
                                 id="image"
                                 name="image"
                                 accept="image/*"
+                                aria-label="Product image"
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                                 onChange={onFileChangeHandler}
                             />
+                            {/* Show preview if editing and image is a string (URL) */}
+                            {typeof image === "string" && (
+                                <img src={image} alt="Current" className="w-24 h-24 object-cover my-2 rounded" />
+                            )}
                             {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
                         </div>
                         <button

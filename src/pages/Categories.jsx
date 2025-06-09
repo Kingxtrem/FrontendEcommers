@@ -3,6 +3,7 @@ import Api from '../axios/Api'
 import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Card from '../components/Card';
+import { toast } from 'react-toastify';
 
 const Categories = () => {
   const [data, setData] = useState([]);
@@ -11,8 +12,13 @@ const Categories = () => {
 
   const GetAllProducts = async () => {
     setLoading(true);
-    const res = await Api.get("/product/all");
-    setData(res.data.data);
+    try {
+      const res = await Api.get("/product/all");
+      setData(res.data.data);
+    } catch (error) {
+      console.log(error)
+      toast.error('Failed to load products');
+    }
     setLoading(false);
   };
 

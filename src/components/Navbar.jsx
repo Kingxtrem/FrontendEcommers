@@ -69,7 +69,7 @@ useEffect(() => {
 
       <div className='flex justify-between items-start md:items-center'>
 
-        <NavLink to={'/'} className={({ isActive }) => isActive ? "bg-blue-800 text-white rounded-lg cursor-pointer hover:bg-blue-800 hover:text-white px-5 py-2.5" : "cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5"}>
+        <NavLink autoFocus to={'/'} className={({ isActive }) => isActive ? "bg-blue-800 text-white rounded-lg cursor-pointer hover:bg-blue-800 hover:text-white px-5 py-2.5" : "cursor-pointer hover:bg-blue-800 rounded-lg px-5 py-2.5"}>
 
           <div className='flex items-center'>
             <img className='w-10 border-0 rounded-full mr-1 cursor-pointer' src={TechCart} alt="TechCart Logo" />
@@ -153,8 +153,8 @@ useEffect(() => {
                 </li>
               </NavLink>}
               <NavLink to={"/cart"} className={({ isActive }) => isActive ? "bg-blue-800 text-white rounded-lg cursor-pointer hover:bg-blue-800" : "cursor-pointer hover:bg-blue-800 hover:text-white rounded-lg"}>
-                <li className='flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
-                  <IoCartOutline className='mr-1' />Cart:{cartValue ? cartValue : 0}
+                <li className='relative flex items-center cursor-pointer hover:bg-blue-800 rounded-lg px-5 md:px-0 py-2.5 w-40 md:w-30 md:justify-center justify-start'>
+                  <IoCartOutline className='mr-1' /><span className="absolute top-1 left-18 md:left-22 text-white bg-gray-700  rounded-full px-1 ">{cartValue ? cartValue : 0}</span>Cart 
                 </li>
               </NavLink>
 

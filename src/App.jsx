@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Home from './pages/Home'
 import Products from './pages/Products'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, ScrollRestoration, UNSAFE_useScrollRestoration } from 'react-router-dom'
 import ProductPage from './pages/ProductPage'
 import Footer from './components/Footer'
 import Login from './pages/Login'
@@ -17,6 +17,7 @@ import Navbar from './components/Navbar'
 import AdminPage from './pages/AdminPage'
 import AdminRouting from './security/AdminRouting'
 import { Bounce, ToastContainer } from 'react-toastify'
+import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
   const [dropdownOpen1, setDropdownOpen1] = useState(false)
@@ -25,6 +26,7 @@ const App = () => {
   return (
 
     <BrowserRouter>
+      <ScrollToTop />
       <ToastContainer
         position="bottom-right"
         autoClose={1000}

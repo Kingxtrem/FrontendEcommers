@@ -21,7 +21,7 @@ const AdminPage = () => {
         }
         catch (err) {
             console.log(err)
-         toast.error('failed to load products')
+            toast.error('failed to load products')
         } finally {
             setLoading(false)
         }
@@ -79,24 +79,25 @@ const AdminPage = () => {
     }, [])
     return (
         <div className='bg-gray-100 min-h-screen w-full mx-auto p-5'>
-            <button
-                onClick={handleAddProduct}
-                className={"w-full mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-300 cursor-pointer"}
-            >
-                Add New Product
-            </button>
+
             {loading ? <Loader /> :
                 <div className='container w-full p-3 rounded-2xl bg-white mx-auto shadow-lg shadow-black flex flex-col overflow-x-auto'>
+                    <button
+                        onClick={handleAddProduct}
+                        className={"w-full mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-300 cursor-pointer"}
+                    >
+                        Add New Product
+                    </button>
                     <table className='text-center w-full'>
                         <thead>
-                            <tr className='text-nowrap text-xl'>
-                                <th className='p-2'>S.No</th>
-                                <th className='p-2'>Image</th>
-                                <th className='p-2'>Item Name</th>
-                                <th className='p-2'>Item Price</th>
-                                <th className='p-2'>InStock</th>
-                                <th className='p-2'>Rating</th>
-                                <th className='p-2'>Actions</th>
+                            <tr className='text-nowrap text-l'>
+                                <th scope='col' className='p-2'>S.No</th>
+                                <th scope='col' className='p-2'>Image</th>
+                                <th scope='col' className='p-2'>Item Name</th>
+                                <th scope='col' className='p-2'>Item Price</th>
+                                <th scope='col' className='p-2'>InStock</th>
+                                <th scope='col' className='p-2'>Rating</th>
+                                <th scope='col' className='p-2'>Actions</th>
                             </tr>
                         </thead>
                         <tbody>

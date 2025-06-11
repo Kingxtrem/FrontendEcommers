@@ -47,6 +47,7 @@ const App = () => {
           setMenuOpen={setMenuOpen}
         />
         <Routes>
+          {/* Basic Rooutes */}
           <Route path='/' element={<Home />} />
           <Route path='/products' element={<Products />} />
           <Route path='/products/:id' element={<ProductPage />} />
@@ -54,12 +55,14 @@ const App = () => {
           <Route path='/categories/:category' element={<Categories />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          {/* Private Routes */}
           <Route path='/profile' element={<PrivateRouting><Profile /></PrivateRouting>} />
           <Route path='/cart' element={<PrivateRouting><Cart /></PrivateRouting>} />
+          {/* Admin Routes */}
           <Route path='/admin' element={<AdminRouting><AdminPage /></AdminRouting>} />
           <Route path='/addproduct' element={<AdminRouting><AddProduct /></AdminRouting>} />
           <Route path='/edit/:id' element={<AdminRouting><AddProduct /></AdminRouting>} />
-
+          {/* Not found */}
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

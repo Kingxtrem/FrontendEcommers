@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const HeroSection = () => (
-    <section className="bg-gradient-to-br rounded-xl from-blue-100 to-green-100 py-16 px-4 flex flex-col items-center text-center">
+    <section className="bg-gradient-to-br from-blue-100 to-green-100 py-16 px-4 flex flex-col items-center justify-center text-center rounded-xl h-[75vh]">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-4 font-sans" style={{ fontFamily: "'Roboto', sans-serif" }}>
             Discover the Latest Tech at <span className="text-blue-700">TechCart</span>
         </h1>

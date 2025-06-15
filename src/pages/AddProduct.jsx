@@ -3,6 +3,7 @@ import Api from '../axios/Api';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Helmet } from 'react-helmet';
 
 const AddProduct = () => {
     const { id } = useParams()
@@ -136,6 +137,11 @@ const AddProduct = () => {
     useEffect(() => { id && getDetails(id); }, [id]);
     return (
         <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+            <Helmet>
+                <title>TechCart Store | {id ? "Edit Product" : "Add New Products"}</title>
+                <meta name="description" content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!" />
+                <meta name="keywords" content="tech, ecommerce, gadgets, electronics, shop, buy online" />
+            </Helmet>
             <div className="sm:w-full w-80  max-w-md bg-white shadow-lg shadow-black rounded-lg p-6 m-6">
                 <h2 className="text-2xl font-bold text-center text-green-600 mb-6">{id ? "Edit product" : "Add new product"}</h2>
                 <form onSubmit={id ? updateHandler : onsubmitHandler}>

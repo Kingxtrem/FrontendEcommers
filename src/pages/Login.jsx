@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Api from '../axios/Api';
+import { Helmet } from 'react-helmet';
 
 
 const Login = () => {
@@ -56,6 +57,11 @@ const Login = () => {
 
     return (
         <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+            <Helmet>
+                <title>TechCart Store | Login</title>
+                <meta name="description" content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!" />
+                <meta name="keywords" content="tech, ecommerce, gadgets, electronics, shop, buy online" />
+            </Helmet>
             <div className="sm:w-full w-80 max-w-md bg-white shadow-lg shadow-black rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">Login Here</h2>
                 <form onSubmit={onsubmitHandler}>

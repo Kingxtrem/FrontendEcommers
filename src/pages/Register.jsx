@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Api from "../axios/Api"
+import { Helmet } from 'react-helmet';
 
 const Register = () => {
     const Navigate = useNavigate();
@@ -62,19 +63,11 @@ const Register = () => {
 
     return (
         <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
-            <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition={Bounce}
-      />
+             <Helmet>
+        <title>TechCart Store | Register</title>
+        <meta name="description" content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!" />
+        <meta name="keywords" content="tech, ecommerce, gadgets, electronics, shop, buy online" />
+      </Helmet>
             <div className="sm:w-full w-80  max-w-md bg-white shadow-lg shadow-black rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-center text-green-600 mb-6">Register Here</h2>
                 <form onSubmit={onsubmitHandler}>

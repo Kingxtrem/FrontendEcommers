@@ -18,6 +18,7 @@ import AdminPage from './pages/AdminPage'
 import AdminRouting from './security/AdminRouting'
 import { Bounce, ToastContainer } from 'react-toastify'
 import ScrollToTop from './components/ScrollToTop'
+import { Helmet } from 'react-helmet'
 
 const App = () => {
   const [dropdownOpen1, setDropdownOpen1] = useState(false)
@@ -26,6 +27,11 @@ const App = () => {
   return (
 
     <BrowserRouter>
+      <Helmet>
+        <title>TechCart Store</title>
+        <meta name="description" content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!" />
+        <meta name="keywords" content="tech, ecommerce, gadgets, electronics, shop, buy online" />
+      </Helmet>
       <ScrollToTop />
       <ToastContainer
         position="bottom-right"

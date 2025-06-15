@@ -7,6 +7,7 @@ import { FaCartPlus } from "react-icons/fa6";
 import { IoIosFlash } from "react-icons/io";
 import Loader from '../components/Loader';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet';
 
 const ProductPage = () => {
   const Navigate = useNavigate()
@@ -61,7 +62,11 @@ const ProductPage = () => {
   return (
 
     <div className='bg-gray-100 min-h-screen w-full mx-auto p-5 ' >
-
+      <Helmet>
+        <title>TechCart Store |{`${product.name}`}</title>
+        <meta name="description" content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!" />
+        <meta name="keywords" content="tech, ecommerce, gadgets, electronics, shop, buy online" />
+      </Helmet>
       {loading ? <Loader /> : (
 
         <div className='container w-full  p-3  rounded-2xl bg-white mx-auto shadow-lg shadow-black flex flex-col md:flex-row'>

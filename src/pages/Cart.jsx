@@ -9,6 +9,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet';
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -141,6 +142,11 @@ const Cart = () => {
 
     return (
         <div className='bg-gray-100 min-h-screen w-full mx-auto p-5'>
+            <Helmet>
+                <title>TechCart Store | Cart </title>
+                <meta name="description" content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!" />
+                <meta name="keywords" content="tech, ecommerce, gadgets, electronics, shop, buy online" />
+            </Helmet>
             {cartvalue < 1 ? loading ? <Loader /> : (
                 <div className='container w-full p-3 rounded-2xl bg-white mx-auto shadow-lg shadow-black flex flex-col'>
                     <MdOutlineRemoveShoppingCart className='text-9xl text-red-500 mx-auto' />

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom'
 
 const NotFound = () => {
@@ -7,6 +8,11 @@ const NotFound = () => {
     }
     return (
         <main className='container flex justify-center items-center mx-auto my-auto flex-col h-screen w-auto'>
+            <Helmet>
+                <title>TechCart Store | Not Found</title>
+                <meta name="description" content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!" />
+                <meta name="keywords" content="tech, ecommerce, gadgets, electronics, shop, buy online" />
+            </Helmet>
             <h1 className='text-4xl font-bold text-red-600'>404: Not Found</h1>
             <p className='text-xl text-gray-700'>The page you are looking for does not exist.</p>
             <p className='text-xl text-gray-700'>Please check the URL or return to the homepage.</p>

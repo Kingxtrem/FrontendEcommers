@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Card from '../components/Card';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet';
 
 const Categories = () => {
   const [data, setData] = useState([]);
@@ -30,6 +31,11 @@ const Categories = () => {
 
   return (
     <div className='bg-gray-100 min-h-screen w-full mx-auto flex flex-wrap pb-50 p-10 md:p-0'>
+       <Helmet>
+        <title>TechCart Store | {category}</title>
+        <meta name="description" content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!" />
+        <meta name="keywords" content="tech, ecommerce, gadgets, electronics, shop, buy online" />
+      </Helmet>
       {loading ? <Loader /> : (
         <>
           {

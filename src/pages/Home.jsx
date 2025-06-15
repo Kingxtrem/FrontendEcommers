@@ -4,8 +4,11 @@ import { toast } from 'react-toastify';
 import Api from '../axios/Api';
 import Loader from '../components/Loader';
 import Card from '../components/Card';
-
+import { Helmet } from 'react-helmet'
+import HeroSection from '../components/HeroSection';
 const Home = () => {
+
+
   const Navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,7 +20,7 @@ const Home = () => {
     setLoading(true);
     try {
       const res = await Api.get("/product/all");
-      const shuffled = res.data.data.sort(() => 0.5 - Math.random()).slice(0,8)
+      const shuffled = res.data.data.sort(() => 0.5 - Math.random()).slice(0, 8)
       setData(shuffled);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -33,11 +36,15 @@ const Home = () => {
 
   return (
     <div className='bg-gray-100 min-h-screen flex items-center justify-center' >
-      <div className='container mx-auto px-4 py-4 text-center'>
-        <h1 className='text-3xl sm:text-4xl md:text-6xl font-bold mb-4'>Welcome to TechCart Store</h1>
-        <p className='text-base sm:text-lg md:text-xl mb-4'>Find the best Tech products here.</p>
-        <p className='text-base sm:text-lg md:text-xl mb-4'>Explore our wide range of products and enjoy shopping!</p>
-        <h2 className='text-base sm:text-lg md:text-xl mb-4 font-bold underline'>Our Featured Products:</h2>
+      <Helmet>
+        <title>TechCart Store | Home</title>
+        <meta name="description" content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!" />
+         <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="tech, ecommerce, gadgets, electronics, shop, buy online" />
+      </Helmet>
+      <div className='w-full mx-auto px-4 py-4 text-center'>
+       <HeroSection/>
+       <h2 className=' text-base sm:text-lg md:text-xl m-4 font-bold underline'>Our Featured Products:</h2>
 
         {loading ? <Loader /> : (
           <div >

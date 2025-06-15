@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { toast } from 'react-toastify';
 import Api from '../axios/Api';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -55,6 +56,11 @@ const Profile = () => {
 
   return (
     <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+       <Helmet>
+        <title>TechCart Store | Profile</title>
+        <meta name="description" content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!" />
+        <meta name="keywords" content="tech, ecommerce, gadgets, electronics, shop, buy online" />
+      </Helmet>
       {loading ? <Loader /> : (
         <div className="w-auto max-w-4xl bg-white shadow-lg shadow-black rounded-lg p-6 flex flex-col md:flex-row items-center">
           <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-blue-500">

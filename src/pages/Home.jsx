@@ -17,8 +17,8 @@ const Home = () => {
     setLoading(true);
     try {
       const res = await Api.get("/product/all");
-      const shuffled = res.data.data.sort(() => 0.5 - Math.random());
-      setData(shuffled.slice(0, 8));
+      const shuffled = res.data.data.sort(() => 0.5 - Math.random()).slice(0,8)
+      setData(shuffled);
     } catch (error) {
       console.error("Error fetching products:", error);
       toast.error("Failed to fetch products. Please try again later.");

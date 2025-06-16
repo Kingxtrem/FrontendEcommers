@@ -20,7 +20,7 @@ const Card = ({ item }) => {
                         {Array.from({ length: 5 }, (_, index) => (
                             <FaStar key={index} className={index < item.rating ? 'text-yellow-400' : 'text-black'} />
                         ))}
-                        <span className="text-black">{item.rating}</span>
+                        {/*<span className="text-black">{item.rating}</span>*/}
                     </div>
                 </div>
                 <div className='flex justify-center items-end'>

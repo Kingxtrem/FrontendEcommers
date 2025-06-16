@@ -104,7 +104,7 @@ const ProductPage = () => {
                 {Array.from({ length: 5 }, (_, index) => (
                   <FaStar key={index} className={index < product.rating ? 'text-yellow-400' : 'text-black'} />
                 ))}
-                <span className='text-black'>{product.rating}</span>
+                {/*<span className='text-black'>{product.rating}</span>*/}
               </div>
               <div className='m-2'><span className='font-bold text-blue-700'>In Stocks:</span> {product.inStock}</div>
 

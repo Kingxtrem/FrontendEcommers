@@ -5,34 +5,19 @@ import Card from "../components/Card";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
 
-// Helper to determine limit based on screen width
-// const getLimit = () => {
-//   if (window.innerWidth >= 1280) return 16; // xl screens
-//   if (window.innerWidth >= 1024) return 8;  // lg screens
-//   if (window.innerWidth >= 768) return 4;   // md screens
-//   return 1;                                 // sm and below
-// };
-
 const LIMIT = 8;
 
 const Products = () => {
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  // const [limit, setLimit] = useState(getLimit());
 
-  // Update limit on resize
-  // useEffect(() => {
-  //   const handleResize = () => setLimit(getLimit());
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
-  const GetProducts = async (pageNum = page, LIMIT) => {
+  const GetProducts = async (page) => {
     setLoading(true);
     try {
-      const res = await Api.get(`/product/all?page=${pageNum}&limit=${LIMIT}`);
+      const res = await Api.get(`/product/all?page=${page}&limit=${LIMIT}`);
       setData(res.data.data);
       setTotal(res.data.total || 0);
     } catch (error) {
@@ -43,9 +28,8 @@ const Products = () => {
   };
 
   useEffect(() => {
-    GetProducts(page, LIMIT);
-    // eslint-disable-next-line
-  }, [page, LIMIT]);
+    GetProducts(page);
+  }, [page]);
 
   const totalPages = Math.ceil(total / LIMIT);
 

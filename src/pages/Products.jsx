@@ -7,9 +7,9 @@ import { Helmet } from "react-helmet";
 
 // Helper to determine limit based on screen width
 const getLimit = () => {
-  if (window.innerWidth >= 1280) return 10; // xl screens
+  if (window.innerWidth >= 1280) return 16; // xl screens
   if (window.innerWidth >= 1024) return 8;  // lg screens
-  if (window.innerWidth >= 768) return 6;   // md screens
+  if (window.innerWidth >= 768) return 4;   // md screens
   return 1;                                 // sm and below
 };
 

@@ -5,28 +5,42 @@ import Card from "../components/Card";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
 
-const LIMIT = 4; // Number of products per page
+// Helper to determine limit based on screen width
+const getLimit = () => {
+  if (window.innerWidth >= 1280) return 10; // xl screens
+  if (window.innerWidth >= 1024) return 8;  // lg screens
+  if (window.innerWidth >= 768) return 6;   // md screens
+  return 1;                                 // sm and below
+};
 
 const Products = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [limit, setLimit] = useState(getLimit());
   const loaderRef = useRef(null);
+
+  // Update limit on resize
+  useEffect(() => {
+    const handleResize = () => setLimit(getLimit());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const GetProducts = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await Api.get(`/product/all?page=${page}&limit=${LIMIT}`);
+      const res = await Api.get(`/product/all?page=${page}&limit=${limit}`);
       const products = res.data.data;
       setData((prev) => (page === 1 ? products : [...prev, ...products]));
-      setHasMore(products.length === LIMIT);
+      setHasMore(products.length === limit);
     } catch (error) {
       console.error(error);
       toast.error("Failed to load products");
     }
     setLoading(false);
-  }, [page]);
+  }, [page, limit]);
 
   useEffect(() => {
     GetProducts();

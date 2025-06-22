@@ -1,7 +1,7 @@
-import { Navigate } from 'react-router-dom'
-import IsAuth from './IsAuth'
-import { toast } from 'react-toastify'
-import { useEffect } from 'react'
+import { Navigate } from "react-router-dom";
+import IsAuth from "./IsAuth";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const PrivateRouting = ({ children }) => {
   const isAuth = IsAuth();
@@ -13,6 +13,6 @@ const PrivateRouting = ({ children }) => {
   }, [isAuth]);
 
   return isAuth ? children : <Navigate to="/login" replace />;
-}
+};
 
-export default PrivateRouting
+export default PrivateRouting;

@@ -70,14 +70,14 @@ const Profile = () => {
         <Loader />
       ) : (
         <div className="w-full h-auto md:h-screen m-6 bg-white shadow-lg shadow-black rounded-lg p-6 flex flex-col md:flex-row items-center md:justify-around">
-          <div className="w-50 h-50 md:w-100 md:h-100 rounded-full overflow-hidden border-4 border-blue-500">
+          <div className="w-50 h-50 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-500">
             <img
               src={profile.profilePic}
               alt="Profile"
               className="w-full h-full object-top"
             />
           </div>
-          <div className="text-gray-800 md:text-3xl text-xl md:ml-8 mt-6 md:mt-0 flex flex-col items-start">
+          <div className="text-gray-800 md:text-2xl text-xl md:ml-8 mt-6 md:mt-0 flex flex-col items-start">
             <div className="mb-4">
               <span className="text-blue-700 font-bold">Name:</span>
               <br />

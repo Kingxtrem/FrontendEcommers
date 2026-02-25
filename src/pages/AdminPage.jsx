@@ -62,7 +62,8 @@ const AdminPage = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen p-4 md:p-8">
-        <title>Admin Dashboard | TechCart</title>
+      <title>Admin Dashboard | TechCart</title>
+      <meta name="robots" content="noindex, nofollow" />
 
       {loading ? (
         <Loader />

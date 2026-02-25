@@ -8,7 +8,8 @@ const NotFound = () => {
 
   return (
     <main className="relative min-h-screen w-full flex items-center justify-center bg-slate-50 overflow-hidden px-6">
-        <title>404 | Page Not Found | TechCart</title>
+      <title>404 | Page Not Found | TechCart</title>
+      <meta name="robots" content="noindex, nofollow" />
 
 
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-100 rounded-full blur-[120px] opacity-60"></div>

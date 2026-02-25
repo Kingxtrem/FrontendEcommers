@@ -51,7 +51,8 @@ const Profile = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen py-12 px-4 flex items-center justify-center">
-        <title>Account Profile | TechCart</title>
+      <title>Account Profile | TechCart</title>
+      <meta name="description" content="Manage your TechCart account settings, view order history, and update your personal information." />
 
       <div className="max-w-4xl w-full bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 overflow-hidden border border-slate-100 flex flex-col md:flex-row">
 

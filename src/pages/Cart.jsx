@@ -82,7 +82,8 @@ const Cart = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-12">
-        <title>TechCart | Your Shopping Cart</title>
+      <title>TechCart | Your Shopping Cart</title>
+      <meta name="description" content="Review your selected items and secure the best tech deals before checkout at TechCart." />
 
       <div className="max-w-7xl mx-auto px-4 pt-10">
         <h1 className="text-3xl font-black text-slate-900 mb-8 flex items-center gap-3">

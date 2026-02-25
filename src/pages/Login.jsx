@@ -59,6 +59,7 @@ const Login = () => {
   return (
     <div className="bg-slate-50 min-h-screen flex items-center justify-center px-4">
       <title>Login | TechCart</title>
+      <meta name="description" content="Access your TechCart account to track orders, manage your wishlist, and check out faster." />
 
       <div className="w-full max-w-md">
 

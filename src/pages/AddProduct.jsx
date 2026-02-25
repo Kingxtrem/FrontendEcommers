@@ -104,7 +104,8 @@ const AddProduct = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4">
-        <title>TechCart | {id ? "Edit Product" : "Add Product"}</title>
+      <title>TechCart | {id ? "Edit Product" : "Add Product"}</title>
+      <meta name="robots" content="noindex, nofollow" />
 
       <div className="max-w-2xl mx-auto">
         <button

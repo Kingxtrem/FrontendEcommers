@@ -53,7 +53,8 @@ const Checkout = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
-        <title>Checkout | TechCart</title>
+      <title>Checkout | TechCart</title>
+      <meta name="description" content="Complete your TechCart order securely. Fast, reliable delivery for your premium tech gadgets." />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <Link to="/cart" className="inline-flex items-center text-sm text-slate-500 hover:text-indigo-600 mb-6 transition-colors">

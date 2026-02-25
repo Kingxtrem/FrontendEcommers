@@ -36,7 +36,8 @@ const Brands = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen">
-        <title>TechCart | {brand.toUpperCase()}</title>
+      <title>TechCart | {brand.toUpperCase()}</title>
+      <meta name="description" content={`Browse the complete ${brand} gadget collection. Premium electronics and verified tech.`} />
 
       {loading ? (
         <Loader />

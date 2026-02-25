@@ -38,7 +38,8 @@ const Products = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
-        <title>All Products | TechCart Store</title>
+      <title>All Products | TechCart Store</title>
+      <meta name="description" content="Discover our extensive catalog of premium tech gadgets and electronics. Explore the latest arrivals at TechCart." />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 

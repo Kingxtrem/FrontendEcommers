@@ -35,7 +35,8 @@ const Categories = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen">
-        <title>TechCart | {category.charAt(0).toUpperCase() + category.slice(1)}</title>
+      <title>TechCart | {category.charAt(0).toUpperCase() + category.slice(1)}</title>
+      <meta name="description" content={`Explore our latest collection of ${category}. Quality guaranteed tech picked just for you.`} />
 
       {loading ? (
         <Loader />

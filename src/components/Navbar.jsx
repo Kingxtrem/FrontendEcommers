@@ -25,6 +25,7 @@ const Navbar = () => {
 
 
   const navRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
 
   const closeAll = useCallback(() => {
@@ -34,7 +35,7 @@ const Navbar = () => {
   }, []);
 
 
-  useClickOutside(navRef, closeAll);
+  useClickOutside([navRef, mobileMenuRef], closeAll);
 
   const navItemStyles = ({ isActive }) =>
     `flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 font-bold ${isActive
@@ -131,6 +132,7 @@ const Navbar = () => {
         onClick={closeAll}
       >
         <div
+          ref={mobileMenuRef}
           className={`absolute right-0 top-0 h-full w-72 bg-white p-6 shadow-2xl transition-transform duration-300 transform ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
           onClick={(e) => e.stopPropagation()}
         >
@@ -139,8 +141,47 @@ const Navbar = () => {
             <span className="font-black text-xl text-slate-800 tracking-tight">Tech<span className="text-blue-600">Cart</span></span>
             <button onClick={closeAll} className="p-2 hover:bg-slate-100 rounded-full"><IoMdClose className="text-2xl" /></button>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 h-full overflow-y-auto pb-20">
             <NavLink to="/products" onClick={closeAll} className={navItemStyles}><LuBoxes /> All Products</NavLink>
+
+            <div className="flex flex-col gap-1">
+              <button
+                onClick={() => { setDropdownOpen1(!dropdownOpen1); setDropdownOpen2(false); }}
+                className={`flex items-center justify-between px-4 py-2 rounded-xl transition-colors font-bold ${dropdownOpen1 ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:bg-slate-50'}`}
+              >
+                <div className="flex items-center gap-2"><TbBrandSafari /> Brands</div>
+                {dropdownOpen1 ? <IoIosArrowDropup /> : <IoIosArrowDropdown />}
+              </button>
+              {dropdownOpen1 && (
+                <div className="flex flex-col pl-8 mt-1 space-y-1 animate-in slide-in-from-top-1 duration-200">
+                  {brands.map((brand) => (
+                    <Link key={brand} to={`/brands/${brand}`} onClick={closeAll} className="py-2 text-slate-500 hover:text-blue-600 text-sm font-semibold transition-colors">
+                      {brand}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <button
+                onClick={() => { setDropdownOpen2(!dropdownOpen2); setDropdownOpen1(false); }}
+                className={`flex items-center justify-between px-4 py-2 rounded-xl transition-colors font-bold ${dropdownOpen2 ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:bg-slate-50'}`}
+              >
+                <div className="flex items-center gap-2"><TbCategoryPlus /> Categories</div>
+                {dropdownOpen2 ? <IoIosArrowDropup /> : <IoIosArrowDropdown />}
+              </button>
+              {dropdownOpen2 && (
+                <div className="flex flex-col pl-8 mt-1 space-y-1 animate-in slide-in-from-top-1 duration-200">
+                  {categories.map((cat) => (
+                    <Link key={cat} to={`/categories/${cat}`} onClick={closeAll} className="py-2 text-slate-500 hover:text-blue-600 text-sm font-semibold transition-colors">
+                      {cat}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <NavLink to="/cart" onClick={closeAll} className={navItemStyles}><IoCartOutline /> View Cart</NavLink>
             <hr className="my-2 border-slate-100" />
             <p className="text-[10px] uppercase tracking-widest text-slate-400 font-black px-4">Account Space</p>

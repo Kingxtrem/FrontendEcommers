@@ -90,7 +90,8 @@ const ProductPage = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen py-10 px-4">
-        <title>{product.name} | TechCart</title>
+      <title>{product.name ? `${product.name} | TechCart` : "Loading Product..."}</title>
+      {product.name && <meta name="description" content={product.description || `Buy ${product.name} at TechCart. Premium tech gadgets with fast delivery and secure warranty.`} />}
 
       <div className="max-w-6xl mx-auto">
         <div className="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100 flex flex-col md:flex-row">

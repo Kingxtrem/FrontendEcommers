@@ -73,6 +73,7 @@ const Register = () => {
   return (
     <div className="bg-slate-50 min-h-screen flex items-center justify-center px-4 py-12">
       <title>Join TechCart | Register</title>
+      <meta name="description" content="Create a new TechCart account to join the community of tech enthusiasts and enjoy exclusive offers." />
 
       <div className="w-full max-w-lg">
         <div className="text-center mb-8">

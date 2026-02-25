@@ -1,173 +1,185 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Api from "../axios/Api";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+import { FiUser, FiMail, FiLock, FiCamera, FiEye, FiEyeOff } from "react-icons/fi";
+
 
 const Register = () => {
-  const Navigate = useNavigate();
-  const [Data, setData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  const navigate = useNavigate();
+  const [data, setData] = useState({ username: "", email: "", password: "" });
   const [profilePic, setProfilePic] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [disable, setDisable] = useState(false);
 
-  const onchangeHandler = (e) => {
-    setData({ ...Data, [e.target.name]: e.target.value });
-  };
 
-  const onFileChangeHandler = (e) => {
-    setProfilePic(e.target.files[0]);
+  useEffect(() => {
+    if (!profilePic) {
+      setPreview(null);
+      return;
+    }
+    const objectUrl = URL.createObjectURL(profilePic);
+    setPreview(objectUrl);
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [profilePic]);
+
+  const onChangeHandler = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) setErrors({ ...errors, [e.target.name]: null });
   };
 
   const validateForm = () => {
     const newErrors = {};
-    if (!Data.username) newErrors.username = "Username is required.";
-    if (!Data.email) newErrors.email = "Email is required.";
-    if (!Data.password) newErrors.password = "Password is required.";
-    if (Data.password.length < 8)
-      newErrors.password = "Password is minimum 8 characters.";
-    if (!profilePic) newErrors.profilePic = "Profile picture is required.";
+    if (!data.username.trim()) newErrors.username = "Username is required.";
+    if (!data.email.trim()) newErrors.email = "Email is required.";
+    if (!data.password) newErrors.password = "Password is required.";
+    else if (data.password.length < 8) newErrors.password = "Minimum 8 characters required.";
+    if (!profilePic) newErrors.profilePic = "Please upload a profile picture.";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const onsubmitHandler = async (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+
     const formData = new FormData();
-    formData.append("name", Data.username);
-    formData.append("email", Data.email);
-    formData.append("password", Data.password);
+    formData.append("name", data.username);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
     formData.append("profilePic", profilePic);
 
     try {
       setDisable(true);
       const res = await Api.post("/user/register", formData);
-      res.data.message && toast.success(res.data.message);
-      setData({ username: "", email: "", password: "" });
-      setProfilePic(null);
-      setErrors({});
-      setDisable(false);
-      Navigate("/login");
+      toast.success(res.data.message || "Registration Successful!");
+      navigate("/login");
     } catch (error) {
-      console.error("Registration failed:", error);
-      error.response?.data?.message && toast.error(error.response.data.message);
-      setErrors({});
+      toast.error(error.response?.data?.message || "Registration failed");
+    } finally {
       setDisable(false);
     }
   };
 
+  const inputClass = (name) => `
+    w-full pl-11 pr-4 py-3 bg-slate-50 border rounded-2xl outline-none transition-all duration-200
+    ${errors[name] ? "border-red-400 focus:ring-4 focus:ring-red-500/10" : "border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"}
+  `;
+
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div className="bg-slate-50 min-h-screen flex items-center justify-center px-4 py-12">
       <Helmet>
-        <title>TechCart Store | Register</title>
-        <meta
-          name="description"
-          content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!"
-        />
-        <meta
-          name="keywords"
-          content="tech, ecommerce, gadgets, electronics, shop, buy online"
-        />
+        <title>Join TechCart | Register</title>
       </Helmet>
-      <div className="sm:w-full w-80  max-w-md bg-white shadow-lg shadow-black rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-center text-green-600 mb-6">
-          Register Here
-        </h2>
-        <form onSubmit={onsubmitHandler}>
-          <div className="flex flex-col gap-4">
-            <div>
-              <label htmlFor="username" className="block text-sm font-medium">
-                User Name
-              </label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Enter your username"
-                autoComplete="username"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                value={Data.username}
-                onChange={onchangeHandler}
-              />
-              {errors.username && (
-                <p className="text-red-500 text-sm">{errors.username}</p>
-              )}
+
+      <div className="w-full max-w-lg">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight">
+            Create <span className="text-blue-600">Account</span>
+          </h1>
+          <p className="text-slate-500 mt-2 font-medium">Join the community of tech enthusiasts.</p>
+        </div>
+
+        <div className="bg-white shadow-xl shadow-slate-200/60 rounded-[2.5rem] p-8 md:p-10 border border-slate-100">
+          <form onSubmit={onSubmitHandler} className="space-y-5">
+
+
+            <div className="flex flex-col items-center mb-6">
+              <div className="relative group">
+                <div className="w-24 h-24 rounded-full bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden transition-all group-hover:border-blue-400">
+                  {preview ? (
+                    <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+                  ) : (
+                    <FiCamera className="text-slate-400 text-2xl" />
+                  )}
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setProfilePic(e.target.files[0])}
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                  title="Upload profile picture"
+                />
+              </div>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-2">Upload Photo</p>
+              {errors.profilePic && <p className="text-red-500 text-xs mt-1 font-bold">{errors.profilePic}</p>}
             </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                autoComplete="email"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                value={Data.email}
-                onChange={onchangeHandler}
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email}</p>
-              )}
+
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-700 ml-1 uppercase tracking-wider">User Name</label>
+              <div className="relative">
+                <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="tech_wizard"
+                  className={inputClass("username")}
+                  value={data.username}
+                  onChange={onChangeHandler}
+                />
+              </div>
+              {errors.username && <p className="text-red-500 text-xs mt-1 ml-1">{errors.username}</p>}
             </div>
-            <div>
-              <label htmlFor="profilePic" className="block text-sm font-medium">
-                Profile Picture
-              </label>
-              <input
-                type="file"
-                id="profilePic"
-                aria-label="Profile picture"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                onChange={onFileChangeHandler}
-              />
-              {errors.profilePic && (
-                <p className="text-red-500 text-sm">{errors.profilePic}</p>
-              )}
+
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-700 ml-1 uppercase tracking-wider">Email Address</label>
+              <div className="relative">
+                <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  className={inputClass("email")}
+                  value={data.email}
+                  onChange={onChangeHandler}
+                />
+              </div>
+              {errors.email && <p className="text-red-500 text-xs mt-1 ml-1">{errors.email}</p>}
             </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                value={Data.password}
-                onChange={onchangeHandler}
-                autoComplete="current-password"
-              />
-              {errors.password && (
-                <p className="text-red-500 text-sm">{errors.password}</p>
-              )}
+
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-700 ml-1 uppercase tracking-wider">Password</label>
+              <div className="relative">
+                <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Min. 8 characters"
+                  className={inputClass("password")}
+                  value={data.password}
+                  onChange={onChangeHandler}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-600 transition-colors"
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </button>
+              </div>
+              {errors.password && <p className="text-red-500 text-xs mt-1 ml-1">{errors.password}</p>}
             </div>
+
             <button
               type="submit"
               disabled={disable}
-              aria-busy={disable}
-              className={
-                disable
-                  ? "w-full bg-black text-white rounded-lg py-2 hover:bg-black transition duration-200"
-                  : "w-full bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition duration-200 cursor-pointer"
-              }
+              className="w-full py-4 bg-blue-600 text-white font-black rounded-2xl hover:bg-blue-700 shadow-lg shadow-blue-200 active:scale-[0.98] transition-all disabled:opacity-70 mt-4"
             >
-              Register
+              {disable ? "CREATING ACCOUNT..." : "CREATE ACCOUNT"}
             </button>
-          </div>
-        </form>
-        <div className="mt-4 text-center">
-          <p>
-            Already Registered?{" "}
-            <Link to="/login" className="text-green-600 hover:underline">
-              Login Now
+          </form>
+
+          <p className="mt-8 text-center text-slate-500 text-sm font-medium">
+            Already a member?{" "}
+            <Link to="/login" className="text-blue-600 font-bold hover:text-blue-700 underline underline-offset-4">
+              Sign In
             </Link>
           </p>
         </div>

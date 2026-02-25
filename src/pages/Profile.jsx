@@ -1,115 +1,132 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader";
 import { toast } from "react-toastify";
 import Api from "../axios/Api";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+import Loader from "../components/Loader";
+import { FiLogOut, FiSettings, FiShield, FiMail, FiUser } from "react-icons/fi";
+
+import { useDispatch } from "react-redux";
+import { setUser, logout } from "../redux/slices/authSlice";
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const GetProfileDetails = async () => {
-    setLoading(true);
+  const handleLogout = useCallback(() => {
+    dispatch(logout());
+    toast.success("Logged out successfully");
+    navigate("/login");
+  }, [dispatch, navigate]);
+
+  const getProfileDetails = useCallback(async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Session expired. Please login again.");
+      navigate("/login");
+      return;
+    }
+
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        toast.error("You are not logged in Login first");
-        navigate("/login");
-        return;
-      }
+      setLoading(true);
       const response = await Api.get("/user/profile", {
-        headers: {
-          Authorization: token,
-        },
+        headers: { Authorization: token },
       });
       setProfile(response.data.user);
-      localStorage.setItem("cartValue", response.data.user.cart.length);
-      window.dispatchEvent(new Event("cartChange"));
-    } catch (error) {
-      console.error("Failed to fetch profile details:", error);
-      error.response?.data?.message && toast.error(error.response.data.message);
-      handelLogout();
+      dispatch(setUser(response.data.user));
+    } catch {
+      handleLogout();
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
-
-  const handelLogout = () => {
-    localStorage.removeItem("token");
-    window.dispatchEvent(new Event("tokenChange"));
-    localStorage.removeItem("cartValue");
-    window.dispatchEvent(new Event("cartChange"));
-    toast.success("Logout Successfully");
-    navigate("/login");
-  };
-
-  const AdminPage = () => {
-    navigate("/admin");
-  };
+  }, [dispatch, navigate, handleLogout]);
 
   useEffect(() => {
-    GetProfileDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    getProfileDetails();
+  }, [getProfileDetails]);
+
+  if (loading) return <Loader />;
 
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div className="bg-slate-50 min-h-screen py-12 px-4 flex items-center justify-center">
       <Helmet>
-        <title>TechCart Store | Profile</title>
-        <meta
-          name="description"
-          content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!"
-        />
-        <meta
-          name="keywords"
-          content="tech, ecommerce, gadgets, electronics, shop, buy online"
-        />
+        <title>Account Profile | TechCart</title>
       </Helmet>
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="w-full h-auto md:h-screen m-6 bg-white shadow-lg shadow-black rounded-lg p-6 flex flex-col md:flex-row items-center md:justify-around">
-          <div className="w-50 h-50 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-500">
-            <img
-              src={profile.profilePic}
-              alt="Profile"
-              className="w-full h-full object-top"
-            />
-          </div>
-          <div className="text-gray-800 md:text-2xl text-xl md:ml-8 mt-6 md:mt-0 flex flex-col items-start">
-            <div className="mb-4">
-              <span className="text-blue-700 font-bold">Name:</span>
-              <br />
-              {profile.name}
-            </div>
-            <div className="mb-4">
-              <span className="text-blue-700 font-bold">Email:</span>
-              <br />
-              {profile.email}
-            </div>
-            <div className="text-nowrap flex flex-col gap-5">
-              <button
-                onClick={handelLogout}
-                className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-300 cursor-pointer"
-              >
-                Log Out
-              </button>
 
-              <button
-                onClick={AdminPage}
-                className={
-                  profile.isAdmin
-                    ? "mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-300 cursor-pointer"
-                    : "hidden"
-                }
-              >
-                View Admin Page
-              </button>
+      <div className="max-w-4xl w-full bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 overflow-hidden border border-slate-100 flex flex-col md:flex-row">
+
+
+        <div className="md:w-1/3 bg-gradient-to-br from-blue-600 to-indigo-700 p-10 flex flex-col items-center justify-center text-white">
+          <div className="relative group">
+            <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-white/30 shadow-2xl transition-transform duration-500 group-hover:scale-105">
+              <img
+                src={profile.profilePic || "https://via.placeholder.com/150"}
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
             </div>
+            {profile.isAdmin && (
+              <div className="absolute bottom-2 right-2 bg-amber-400 text-slate-900 p-2 rounded-full shadow-lg border-2 border-white" title="Admin Account">
+                <FiShield size={20} />
+              </div>
+            )}
+          </div>
+          <h2 className="mt-6 text-2xl font-black tracking-tight">{profile.name?.split(' ')[0]}'s Space</h2>
+          <p className="opacity-80 text-sm font-medium">Member since {profile.createdAt ? new Date(profile.createdAt).getFullYear() : new Date().getFullYear()}</p>
+        </div>
+
+
+        <div className="md:w-2/3 p-8 md:p-12">
+          <div className="flex justify-between items-start mb-10">
+            <h1 className="text-3xl font-black text-slate-900 tracking-tight">Account <span className="text-blue-600">Details</span></h1>
+            <button className="p-2 text-slate-400 hover:text-blue-600 transition-colors">
+              <FiSettings size={24} />
+            </button>
+          </div>
+
+          <div className="space-y-8">
+            <div className="flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                <FiUser size={20} />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Full Name</p>
+                <p className="text-lg font-bold text-slate-800">{profile.name}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                <FiMail size={20} />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Email Address</p>
+                <p className="text-lg font-bold text-slate-800">{profile.email}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 flex flex-wrap gap-4 pt-8 border-t border-slate-100">
+            {profile.isAdmin && (
+              <button
+                onClick={() => navigate("/admin")}
+                className="flex-1 min-w-[160px] flex items-center justify-center gap-2 px-6 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-black transition-all active:scale-95 shadow-lg shadow-slate-200"
+              >
+                <FiShield /> Admin Dashboard
+              </button>
+            )}
+
+            <button
+              onClick={handleLogout}
+              className="flex-1 min-w-[160px] flex items-center justify-center gap-2 px-6 py-4 bg-white text-red-600 border-2 border-red-50 font-bold rounded-2xl hover:bg-red-50 transition-all active:scale-95"
+            >
+              <FiLogOut /> Sign Out
+            </button>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

@@ -1,306 +1,245 @@
-
 import Api from "../axios/Api";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Bounce, ToastContainer, toast } from "react-toastify";
-import { Helmet } from "react-helmet";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
+import { FaCloudUploadAlt, FaSave, FaArrowLeft } from "react-icons/fa";
+
 
 const AddProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-  const [Data, setData] = useState({
+
+  const [data, setData] = useState({
     name: "",
     description: "",
-    price: 0,
+    price: "",
     rating: 0,
     category: "",
     inStock: 1,
   });
+
   const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState("");
   const [errors, setErrors] = useState({});
-  const [disable, setDisable] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const onchangeHandler = (e) => {
-    setData({ ...Data, [e.target.name]: e.target.value });
-  };
 
-  const onFileChangeHandler = (e) => {
-    setImage(e.target.files[0]);
+  useEffect(() => {
+    if (image && typeof image !== "string") {
+      const objectUrl = URL.createObjectURL(image);
+      setPreview(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl);
+    } else if (typeof image === "string") {
+      setPreview(image);
+    }
+  }, [image]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: null }));
   };
 
   const validateForm = () => {
     const newErrors = {};
-    if (!Data.name) newErrors.name = "name is required.";
-    if (!Data.description) newErrors.description = "description is required.";
-    if (!Data.price) newErrors.price = "price is required.";
-    if (!Data.category) newErrors.category = "category is requierd.";
-    if (!image && !id) newErrors.image = "picture is required.";
+    if (!data.name.trim()) newErrors.name = "Product name is required";
+    if (!data.description.trim()) newErrors.description = "Description is required";
+    if (!data.price || data.price <= 0) newErrors.price = "Enter a valid price";
+    if (!data.category) newErrors.category = "Category is required";
+    if (!image && !id) newErrors.image = "Product image is required";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const onsubmitHandler = async (e) => {
+  const handleAction = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
-    const formData = new FormData();
-    formData.append("name", Data.name);
-    formData.append("description", Data.description);
-    formData.append("price", Data.price);
-    formData.append("rating", Data.rating);
-    formData.append("category", Data.category);
-    formData.append("inStock", Data.inStock);
-    if (image && typeof image !== "string") {
-      formData.append("image", image);
+    if (!validateForm()) {
+      toast.error("Please fix the errors in the form");
+      return;
     }
 
-    try {
-      setDisable(true);
-      const res = await Api.post("/product/create", formData, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      res.data.message && toast.success(res.data.message);
-      setData({
-        name: "",
-        description: "",
-        price: 0,
-        rating: 0,
-        category: "",
-        inStock: 0,
-      });
-      setImage(null);
-      setErrors({});
-      setTimeout(() => {
-        setDisable(false);
-        navigate("/admin");
-      }, 2000);
-    } catch (error) {
-      console.error("Product adding failed:", error);
-      error.response?.data?.message && toast.error(error.response.data.message);
-      setErrors({});
-      setDisable(false);
-    }
-  };
-  const getDetails = async (id) => {
-    try {
-      const response = await Api.get(`/product/${id}`);
-      setData(response.data.productData);
-      setImage(response.data.productData.image);
-    } catch (error) {
-      console.error("Failed to fetch product details:", error);
-      toast.error("Failed to load product details. Please try again.");
-    }
-  };
-  const updateHandler = async (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
     const formData = new FormData();
-    formData.append("name", Data.name);
-    formData.append("description", Data.description);
-    formData.append("price", Data.price);
-    formData.append("rating", Data.rating);
-    formData.append("category", Data.category);
-    formData.append("inStock", Data.inStock);
-    formData.append("image", image);
+    Object.keys(data).forEach(key => formData.append(key, data[key]));
+    if (image && typeof image !== "string") formData.append("image", image);
 
+    setLoading(true);
     try {
-      setDisable(true);
-      const res = await Api.put(`/product/update/${id}`, formData, {
-        headers: {
-          Authorization: token,
-        },
+      const endpoint = id ? `/product/update/${id}` : "/product/create";
+      const method = id ? "put" : "post";
+      const token = localStorage.getItem("token");
+
+      const res = await Api[method](endpoint, formData, {
+        headers: { Authorization: token },
       });
-      res.data.message && toast.success(res.data.message);
-      setData({
-        name: "",
-        description: "",
-        price: 0,
-        rating: 0,
-        category: "",
-        inStock: 0,
-      });
-      setImage(null);
-      setErrors({});
-      setTimeout(() => {
-        setDisable(false);
-        navigate("/admin");
-      }, 2000);
+
+      toast.success(res.data.message || "Success!");
+      setTimeout(() => navigate("/admin"), 1500);
     } catch (error) {
-      console.error("Product updating failed:", error);
-      error.response?.data?.message && toast.error(error.response.data.message);
-      setErrors({});
-      setDisable(false);
+      toast.error(error.response?.data?.message || "Operation failed");
+      setLoading(false);
     }
   };
+
   useEffect(() => {
-    id && getDetails(id);
+    if (id) {
+      const fetchDetails = async () => {
+        try {
+          const { data } = await Api.get(`/product/${id}`);
+          setData(data.productData);
+          setImage(data.productData.image);
+        } catch {
+          toast.error("Failed to load product");
+        }
+      };
+      fetchDetails();
+    }
   }, [id]);
+
+  const inputClasses = (name) => `
+    w-full px-4 py-2.5 rounded-xl border transition-all duration-200 outline-none
+    ${errors[name] ? "border-red-500 bg-red-50" : "border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"}
+  `;
+
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div className="min-h-screen bg-slate-50 py-12 px-4">
       <Helmet>
-        <title>
-          TechCart Store | {id ? "Edit Product" : "Add New Products"}
-        </title>
-        <meta
-          name="description"
-          content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!"
-        />
-        <meta
-          name="keywords"
-          content="tech, ecommerce, gadgets, electronics, shop, buy online"
-        />
+        <title>TechCart | {id ? "Edit Product" : "Add Product"}</title>
       </Helmet>
-      <div className="sm:w-full w-80  max-w-md bg-white shadow-lg shadow-black rounded-lg p-6 m-6">
-        <h2 className="text-2xl font-bold text-center text-green-600 mb-6">
-          {id ? "Edit product" : "Add new product"}
-        </h2>
-        <form onSubmit={id ? updateHandler : onsubmitHandler}>
-          <div className="flex flex-col gap-4">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium">
-                Product Name
-              </label>
+
+      <div className="max-w-2xl mx-auto">
+        <button
+          onClick={() => navigate("/admin")}
+          className="flex items-center gap-2 text-slate-500 hover:text-slate-800 mb-6 transition-colors"
+        >
+          <FaArrowLeft /> Back to Dashboard
+        </button>
+
+        <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/60 overflow-hidden">
+          <div className="bg-blue-600 p-8 text-white text-center">
+            <h2 className="text-3xl font-black tracking-tight">
+              {id ? "Update Product" : "New Product"}
+            </h2>
+            <p className="text-blue-100 mt-2 text-sm">Fill in the details to manage your store inventory.</p>
+          </div>
+
+          <form onSubmit={handleAction} className="p-8 space-y-6">
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-bold text-slate-700 ml-1">Product Name</label>
               <input
-                type="text"
-                id="name"
                 name="name"
-                placeholder="Enter your Product Name"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                value={Data.name}
-                onChange={onchangeHandler}
-                autoComplete="product-name"
-                autoFocus
-              />
-              {errors.name && (
-                <p className="text-red-500 text-sm">{errors.name}</p>
-              )}
-            </div>
-            <div>
-              <label
-                htmlFor="description"
-                className="block text-sm font-medium"
-              >
-                Description
-              </label>
-              <input
                 type="text"
-                id="description"
+                className={inputClasses("name")}
+                placeholder="e.g. MacBook Pro M3"
+                value={data.name}
+                onChange={handleChange}
+              />
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+            </div>
+
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-bold text-slate-700 ml-1">Description</label>
+              <textarea
                 name="description"
-                placeholder="Enter your description"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                value={Data.description}
-                onChange={onchangeHandler}
-                autoComplete="description"
+                rows="3"
+                className={inputClasses("description")}
+                placeholder="Briefly describe the product features..."
+                value={data.description}
+                onChange={handleChange}
               />
-              {errors.description && (
-                <p className="text-red-500 text-sm">{errors.description}</p>
-              )}
+              {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
             </div>
-            <div>
-              <label htmlFor="price" className="block text-sm font-medium">
-                Price
-              </label>
-              <input
-                type="number"
-                id="price"
-                name="price"
-                placeholder="Enter your price"
-                value={Data.price}
-                min={0}
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                onChange={onchangeHandler}
-              />
-              {errors.price && (
-                <p className="text-red-500 text-sm">{errors.price}</p>
-              )}
-            </div>
-            <div>
-              <label htmlFor="rating" className="block text-sm font-medium">
-                Rating
-              </label>
-              <input
-                type="number"
-                max={5}
-                min={0}
-                id="rating"
-                name="rating"
-                placeholder="Enter your rating"
-                value={Data.rating}
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                onChange={onchangeHandler}
-              />
-            </div>
-            <div>
-              <label htmlFor="category" className="block text-sm font-medium">
-                Category
-              </label>
-              <input
-                type="text"
-                id="category"
-                name="category"
-                placeholder="Enter your category"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                value={Data.category}
-                onChange={onchangeHandler}
-              />
-              {errors.category && (
-                <p className="text-red-500 text-sm">{errors.category}</p>
-              )}
-            </div>
-            <div>
-              <label htmlFor="inStock" className="block text-sm font-medium">
-                In Stock
-              </label>
-              <input
-                type="number"
-                id="inStock"
-                name="inStock"
-                min={0}
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                value={Data.inStock}
-                onChange={onchangeHandler}
-              />
-            </div>
-            <div>
-              <label htmlFor="image" className="block text-sm font-medium">
-                Image
-              </label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                aria-label="Product image"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                onChange={onFileChangeHandler}
-              />
-              {/* Show preview if editing and image is a string (URL) */}
-              {typeof image === "string" && (
-                <img
-                  src={image}
-                  alt="Current"
-                  className="w-24 h-24 object-cover my-2 rounded"
+
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-1.5">
+                <label className="text-sm font-bold text-slate-700 ml-1">Price (₹)</label>
+                <input
+                  name="price"
+                  type="number"
+                  className={inputClasses("price")}
+                  value={data.price}
+                  onChange={handleChange}
                 />
-              )}
-              {errors.image && (
-                <p className="text-red-500 text-sm">{errors.image}</p>
-              )}
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-sm font-bold text-slate-700 ml-1">Rating (0-5)</label>
+                <input
+                  name="rating"
+                  type="number"
+                  step="0.1"
+                  className={inputClasses("rating")}
+                  value={data.rating}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-sm font-bold text-slate-700 ml-1">In Stock</label>
+                <input
+                  name="inStock"
+                  type="number"
+                  className={inputClasses("inStock")}
+                  value={data.inStock}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
+
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-bold text-slate-700 ml-1">Category</label>
+              <select
+                name="category"
+                className={inputClasses("category")}
+                value={data.category}
+                onChange={handleChange}
+              >
+                <option value="">Select Category</option>
+                <option value="Mobiles">Mobiles</option>
+                <option value="Laptops">Laptops</option>
+                <option value="Audio">Audio</option>
+                <option value="Accessories">Accessories</option>
+              </select>
+            </div>
+
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-bold text-slate-700 ml-1">Product Image</label>
+              <div className="flex items-center gap-4 p-4 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors relative group">
+                {preview ? (
+                  <img src={preview} alt="Preview" className="w-20 h-20 rounded-xl object-cover shadow-md" />
+                ) : (
+                  <div className="w-20 h-20 rounded-xl bg-slate-200 flex items-center justify-center text-slate-400">
+                    <FaCloudUploadAlt size={30} />
+                  </div>
+                )}
+                <div className="flex-1">
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Upload PNG, JPG</p>
+                  <input
+                    type="file"
+                    className="absolute inset-0 opacity-0 cursor-pointer"
+                    onChange={(e) => setImage(e.target.files[0])}
+                  />
+                  <p className="text-sm text-blue-600 font-bold">Click to browse files</p>
+                </div>
+              </div>
+              {errors.image && <p className="text-red-500 text-xs mt-1">{errors.image}</p>}
+            </div>
+
             <button
               type="submit"
-              disabled={disable}
-              className={
-                disable
-                  ? "w-full bg-black text-white rounded-lg py-2 cursor-not-allowed"
-                  : "w-full bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition duration-200 cursor-pointer"
-              }
+              disabled={loading}
+              className="w-full bg-blue-600 text-white font-black py-4 rounded-2xl hover:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-200 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {id ? "UPDATE PRODUCT" : "ADD PRODUCT"}
+              {loading ? "PROCESSING..." : (
+                <><FaSave /> {id ? "UPDATE PRODUCT" : "PUBLISH PRODUCT"}</>
+              )}
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );

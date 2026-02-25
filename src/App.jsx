@@ -1,39 +1,67 @@
-import { useState } from "react";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { Bounce, ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import Api from "./axios/Api";
+import { setUser, logout } from "./redux/slices/authSlice";
+import { setCart } from "./redux/slices/cartSlice";
+
+
+
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  ScrollRestoration,
-  UNSAFE_useScrollRestoration,
-} from "react-router-dom";
 import ProductPage from "./pages/ProductPage";
-import Footer from "./components/Footer";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import Brands from "./pages/Brands";
 import Categories from "./pages/Categories";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
-import PrivateRouting from "./security/PrivateRouting";
-import AddProduct from "./pages/AddProduct";
-import Navbar from "./components/Navbar";
+import Checkout from "./pages/Checkout";
 import AdminPage from "./pages/AdminPage";
+import AddProduct from "./pages/AddProduct";
+import NotFound from "./pages/NotFound";
+
+
+import PrivateRouting from "./security/PrivateRouting";
 import AdminRouting from "./security/AdminRouting";
-import { Bounce, ToastContainer } from "react-toastify";
 import ScrollToTop from "./components/ScrollToTop";
-import { Helmet } from "react-helmet";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const App = () => {
-  const [dropdownOpen1, setDropdownOpen1] = useState(false);
-  const [dropdownOpen2, setDropdownOpen2] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+
+          const res = await Api.get("/user/profile");
+          dispatch(setUser(res.data.user));
+          if (res.data.user.cart) {
+            dispatch(setCart(res.data.user.cart));
+          }
+        } catch {
+
+          dispatch(logout());
+        }
+      }
+    };
+    fetchUser();
+  }, [dispatch]);
+
+  return <RouterProvider router={router} />;
+};
+
+const Layout = () => {
   return (
-    <BrowserRouter>
+    <>
       <Helmet>
-        <title>TechCart Store</title>
+        <title>TechCart Store | Premium Tech Gadgets</title>
         <meta
           name="description"
           content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!"
@@ -43,6 +71,7 @@ const App = () => {
           content="tech, ecommerce, gadgets, electronics, shop, buy online"
         />
       </Helmet>
+
       <ScrollToTop />
       <ToastContainer
         position="bottom-right"
@@ -57,79 +86,59 @@ const App = () => {
         theme="colored"
         transition={Bounce}
       />
-      <div
-        onClick={() => {
-          setDropdownOpen1(false);
-          setDropdownOpen2(false);
-          setMenuOpen(false);
-        }}
-      >
-        <Navbar
-          dropdownOpen1={dropdownOpen1}
-          dropdownOpen2={dropdownOpen2}
-          setDropdownOpen1={setDropdownOpen1}
-          setDropdownOpen2={setDropdownOpen2}
-          menuOpen={menuOpen}
-          setMenuOpen={setMenuOpen}
-        />
-        <Routes>
-          {/* Basic Rooutes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductPage />} />
-          <Route path="/brands/:brand" element={<Brands />} />
-          <Route path="/categories/:category" element={<Categories />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          {/* Private Routes */}
-          <Route
-            path="/profile"
-            element={
-              <PrivateRouting>
-                <Profile />
-              </PrivateRouting>
-            }
-          />
-          <Route
-            path="/cart"
-            element={
-              <PrivateRouting>
-                <Cart />
-              </PrivateRouting>
-            }
-          />
-          {/* Admin Routes */}
-          <Route
-            path="/admin"
-            element={
-              <AdminRouting>
-                <AdminPage />
-              </AdminRouting>
-            }
-          />
-          <Route
-            path="/addproduct"
-            element={
-              <AdminRouting>
-                <AddProduct />
-              </AdminRouting>
-            }
-          />
-          <Route
-            path="/edit/:id"
-            element={
-              <AdminRouting>
-                <AddProduct />
-              </AdminRouting>
-            }
-          />
-          {/* Not found */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
+
+      <Navbar />
+
+      <main className="min-h-[80vh] bg-slate-50">
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
+      </main>
+
+      <Footer />
+    </>
   );
 };
+
+
+const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/products", element: <Products /> },
+      { path: "/products/:id", element: <ProductPage /> },
+      { path: "/brands/:brand", element: <Brands /> },
+      { path: "/categories/:category", element: <Categories /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+      {
+        path: "/profile",
+        element: <PrivateRouting><Profile /></PrivateRouting>
+      },
+      {
+        path: "/cart",
+        element: <PrivateRouting><Cart /></PrivateRouting>
+      },
+      {
+        path: "/checkout",
+        element: <PrivateRouting><Checkout /></PrivateRouting>
+      },
+      {
+        path: "/admin",
+        element: <AdminRouting><AdminPage /></AdminRouting>
+      },
+      {
+        path: "/addproduct",
+        element: <AdminRouting><AddProduct /></AdminRouting>
+      },
+      {
+        path: "/edit/:id",
+        element: <AdminRouting><AddProduct /></AdminRouting>
+      },
+      { path: "*", element: <NotFound /> }
+    ],
+  }
+]);
 
 export default App;

@@ -1,49 +1,68 @@
-import { FaIndianRupeeSign } from "react-icons/fa6";
-import { FaStar } from "react-icons/fa";
+import { FaIndianRupeeSign, FaStar } from "react-icons/fa6";
+import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
+
 const Card = ({ item }) => {
+  const renderStars = (rating) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <FaStar
+        key={i}
+        className={i < Math.floor(rating) ? "text-amber-400" : "text-slate-200"}
+      />
+    ));
+  };
+
   return (
     <Link
       to={`/products/${item._id}`}
-      className="w-90 md:max-h-80 min-h-80 p-3 rounded-2xl m-5 box-border bg-white md:flex gap-2 mx-auto shadow-lg shadow-black hover:scale-95 duration-300"
+      className="group flex flex-col w-full bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
     >
-      <div className="md:w-50 w-auto my-auto mx-auto ">
+
+      <div className="h-64 bg-slate-50 flex items-center justify-center p-6 relative overflow-hidden">
         <img
           src={item.image}
-          alt="image"
-          className="w-auto max-h-60 object-cover mx-auto my-auto"
+          alt={item.name}
+          className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
+          onError={(e) => { e.target.src = 'https://placehold.co/400x400?text=No+Image'; }}
         />
-      </div>
-      <div className="text-black text-xs mx-auto container md:p-2 flex flex-col flex-wrap box-border justify-between">
-        <div className="w-50 h-30">
-          <div className="m-2 truncate">
-            <span className="font-bold">Product Name:</span> {item.name}
-          </div>
-          <div className="m-2 truncate">
-            <span className="font-bold">Product Description:</span>{" "}
-            {item.description}
-          </div>
-          <div className="flex items-center m-2">
-            <span className="font-bold">Price:</span>
-            <FaIndianRupeeSign /> {item.price}
-          </div>
-          <div className="font-bold flex items-center m-2">
-            Rating:
-            {Array.from({ length: 5 }, (_, index) => (
-              <FaStar
-                key={index}
-                className={
-                  index < item.rating ? "text-yellow-400" : "text-black"
-                }
-              />
-            ))}
-            {/*<span className="text-black">{item.rating}</span>*/}
-          </div>
+
+        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold text-slate-500 uppercase tracking-widest border border-slate-100 shadow-sm">
+          {item.category || 'Mobiles'}
         </div>
-        <div className="flex justify-center items-end">
-          <div className="m-5 border-2 rounded-xl text-xl p-2 bg-blue-700 text-white hover:bg-blue-800 active:bg-blue-950 transition duration-300">
-            View Details
+      </div>
+
+
+      <div className="flex flex-col p-6 flex-1">
+        <div className="mb-4">
+          <div className="flex justify-between items-start gap-2 mb-2">
+            <h3 className="text-lg font-black text-slate-800 line-clamp-1 leading-tight group-hover:text-blue-600 transition-colors">
+              {item.name}
+            </h3>
+          </div>
+
+          <div className="flex items-center gap-1 mb-3">
+            {renderStars(item.rating)}
+            <span className="text-slate-400 text-xs font-bold ml-1">({item.rating})</span>
+          </div>
+
+          <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed h-8">
+            {item.description}
+          </p>
+        </div>
+
+
+        <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
+          <div>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter block">Price</span>
+            <div className="flex items-center text-xl font-black text-blue-600">
+              <FaIndianRupeeSign className="text-sm" />
+              <span>{item.price?.toLocaleString("en-IN")}</span>
+            </div>
+          </div>
+
+          <div className="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center group-hover:bg-blue-700 transition-colors shadow-lg shadow-blue-100">
+            <FiArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
       </div>

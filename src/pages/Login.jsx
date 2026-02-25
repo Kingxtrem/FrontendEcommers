@@ -1,122 +1,149 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Api from "../axios/Api";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSuccess } from "../redux/slices/authSlice";
+
 
 const Login = () => {
-  const Navigate = useNavigate();
-  const [Data, setData] = useState({
-    email: "",
-    password: "",
-  });
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [data, setData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const [disable, setDisable] = useState(false);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    if (isAuthenticated) {
       toast.info("You are already logged in");
-      Navigate("/profile");
-      return;
+      navigate("/profile");
     }
-  }, [Navigate]);
+  }, [isAuthenticated, navigate]);
 
-  const onchangeHandler = (e) => {
-    setData({ ...Data, [e.target.name]: e.target.value });
+  const onChangeHandler = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const onsubmitHandler = async (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
+    setDisable(true);
     try {
-      setDisable(true);
-      let res = await Api.post("/user/login", Data);
-      localStorage.setItem("token", res.data.token);
-      window.dispatchEvent(new Event("tokenChange"));
-      setData({
-        email: "",
-        password: "",
+      const res = await Api.post("/user/login", data);
+      const token = res.data.token;
+
+
+
+      const profileRes = await Api.get("/user/profile", {
+        headers: { Authorization: token },
       });
-      toast.success(res.data.message);
-      Navigate("/profile");
-      setDisable(false);
+      const user = profileRes.data.user;
+
+
+      dispatch(loginSuccess({
+        token: token,
+        user: user
+      }));
+
+      toast.success(res.data.message || "Welcome back!");
+      navigate("/profile");
     } catch (error) {
-      console.error("Login failed:", error);
-      error.response?.data?.message && toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Login failed");
+    } finally {
       setDisable(false);
     }
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div className="bg-slate-50 min-h-screen flex items-center justify-center px-4">
       <Helmet>
-        <title>TechCart Store | Login</title>
-        <meta
-          name="description"
-          content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!"
-        />
-        <meta
-          name="keywords"
-          content="tech, ecommerce, gadgets, electronics, shop, buy online"
-        />
+        <title>Login | TechCart</title>
       </Helmet>
-      <div className="sm:w-full w-80 max-w-md bg-white shadow-lg shadow-black rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">
-          Login Here
-        </h2>
-        <form onSubmit={onsubmitHandler}>
-          <div className="flex flex-col gap-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium">
-                Email
+
+      <div className="w-full max-w-md">
+
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight">
+            Tech<span className="text-blue-600">Cart</span>
+          </h1>
+          <p className="text-slate-500 mt-2 font-medium">Welcome back! Please enter your details.</p>
+        </div>
+
+
+        <div className="bg-white shadow-xl shadow-slate-200/60 rounded-3xl p-8 border border-slate-100">
+          <form onSubmit={onSubmitHandler} className="space-y-5">
+
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="text-sm font-bold text-slate-700 ml-1">
+                Email Address
               </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={Data.email}
-                onChange={onchangeHandler}
-                autoComplete="email"
-              />
+              <div className="relative group">
+                <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="name@company.com"
+                  className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-800"
+                  value={data.email}
+                  onChange={onChangeHandler}
+                  autoComplete="email"
+                  required
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={Data.password}
-                onChange={onchangeHandler}
-                autoComplete="current-password"
-              />
+
+
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center px-1">
+                <label htmlFor="password" className="text-sm font-bold text-slate-700">
+                  Password
+                </label>
+              </div>
+              <div className="relative group">
+                <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  placeholder="••••••••"
+                  className="w-full pl-11 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-800"
+                  value={data.password}
+                  onChange={onChangeHandler}
+                  autoComplete="current-password"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </button>
+              </div>
             </div>
+
+
             <button
               type="submit"
               disabled={disable}
-              className={
-                disable
-                  ? "w-full bg-black text-white rounded-lg py-2 hover:bg-black transition duration-200"
-                  : "w-full bg-blue-600 text-white rounded-lg py-2 hover:bg-blue-700 transition duration-200 cursor-pointer"
-              }
+              className="w-full py-4 bg-blue-600 text-white font-black rounded-2xl hover:bg-blue-700 shadow-lg shadow-blue-200 active:scale-[0.98] transition-all disabled:opacity-70 disabled:cursor-not-allowed mt-2"
             >
-              Login
+              {disable ? "SIGNING IN..." : "SIGN IN"}
             </button>
+          </form>
+
+
+          <div className="mt-8 text-center border-t border-slate-100 pt-6">
+            <p className="text-slate-600 text-sm font-medium">
+              Don't have an account?{" "}
+              <Link to="/register" className="text-blue-600 font-bold hover:text-blue-700 underline underline-offset-4">
+                Create one for free
+              </Link>
+            </p>
           </div>
-        </form>
-        <div className="mt-4 text-center">
-          <p>
-            New Here?{" "}
-            <Link to="/register" className="text-blue-600 hover:underline">
-              Register Now
-            </Link>
-          </p>
         </div>
       </div>
     </div>

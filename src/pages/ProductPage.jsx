@@ -1,162 +1,206 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCart } from "../redux/slices/cartSlice";
 import Api from "../axios/Api";
-import { FaIndianRupeeSign } from "react-icons/fa6";
-import { FaStar } from "react-icons/fa";
-import { FaCartPlus } from "react-icons/fa6";
+import { FaIndianRupeeSign, FaStar, FaCartPlus, FaTruckFast, FaShieldHalved } from "react-icons/fa6";
 import { IoIosFlash } from "react-icons/io";
+import { FiMinus, FiPlus } from "react-icons/fi";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+
 
 const ProductPage = () => {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   const [qnt, setQnt] = useState(1);
 
-  const GetProductDetails = useCallback(async () => {
+  const getProductDetails = useCallback(async () => {
     setLoading(true);
     try {
       const response = await Api.get(`/product/${id}`);
       setProduct(response.data.productData);
-    } catch (error) {
-      console.error("Failed to fetch product details:", error);
-      toast.error("Failed to load product details. Please try again.");
+    } catch {
+      toast.error("Failed to load product details.");
     }
     setLoading(false);
   }, [id]);
 
   const handleAddtocart = async () => {
-    const cartItem = {
-      product_id: product._id,
-      name: product.name,
-      image: product.image,
-      price: product.price,
-      quantity: qnt > 0 ? qnt : 1,
-    };
     const token = localStorage.getItem("token");
     if (!token) {
       toast.error("Please login to add items to the cart");
-      Navigate("/login");
+      navigate("/login");
       return;
     }
     try {
-      await Api.post(
-        "/user/addtocart",
-        { cart: cartItem },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      Navigate("/cart");
-    } catch (error) {
-      console.error("Failed to add item to cart:", error);
-      toast.error("Failed to add item to cart. Please try again.");
+      const cartItem = {
+        product_id: product._id,
+        name: product.name,
+        image: product.image,
+        price: product.price,
+        quantity: qnt,
+      };
+      const { data } = await Api.post("/user/addtocart", { cart: cartItem });
+
+      if (data && data.user && data.user.cart) {
+        dispatch(setCart(data.user.cart));
+      }
+      toast.success("Added to cart!");
+      navigate("/cart");
+    } catch {
+      toast.error("Failed to add to cart.");
     }
   };
+
+  const handleBuyNow = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please login first");
+      navigate("/login");
+      return;
+    }
+    try {
+      const cartItem = {
+        product_id: product._id,
+        name: product.name,
+        image: product.image,
+        price: product.price,
+        quantity: qnt,
+      };
+      const { data } = await Api.post("/user/addtocart", { cart: cartItem });
+      if (data && data.user && data.user.cart) {
+        dispatch(setCart(data.user.cart));
+      }
+      navigate("/checkout");
+    } catch {
+      toast.error("Failed to proceed. Please try again.");
+    }
+  };
+
   useEffect(() => {
-    GetProductDetails();
-  }, [GetProductDetails]);
+    getProductDetails();
+  }, [getProductDetails]);
+
+  if (loading) return <Loader />;
 
   return (
-    <div className="bg-gray-100 min-h-screen w-full mx-auto p-5 ">
+    <div className="bg-slate-50 min-h-screen py-10 px-4">
       <Helmet>
-        <title>TechCart Store |{`${product.name}`}</title>
-        <meta
-          name="description"
-          content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!"
-        />
-        <meta
-          name="keywords"
-          content="tech, ecommerce, gadgets, electronics, shop, buy online"
-        />
+        <title>{product.name} | TechCart</title>
       </Helmet>
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="container w-full  p-3  rounded-2xl bg-white mx-auto shadow-lg shadow-black flex flex-col md:flex-row">
-          <div className="w-auto md:w-2xl my-auto mx-auto p-5">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-auto h-auto object-cover mx-auto my-auto"
-            />
 
-            <div className="flex justify-between items-center w-auto gap-3 text-nowrap mt-2 pt-3">
-              <div onClick={() => setQnt(qnt - 1)}>
-                {" "}
-                <button className="cursor-pointer border-0 rounded-2xl p-3 bg-blue-700 text-white text-xs md:text-xl flex justify-center items-center  hover:bg-blue-800 active:bg-blue-950 transition duration-300">
-                  -
-                </button>
-              </div>
-              {qnt > 0 ? qnt : 1}
-              <div onClick={() => setQnt(qnt + 1)}>
-                {" "}
-                <button className="cursor-pointer border-0 rounded-2xl p-3 bg-blue-700 text-white text-xs md:text-xl flex justify-center items-center  hover:bg-blue-800 active:bg-blue-950 transition duration-300">
-                  +
-                </button>
-              </div>
-            </div>
-            <div className="flex justify-between items-center w-auto gap-3 text-nowrap mt-2 pt-3">
-              <div onClick={handleAddtocart}>
-                {" "}
-                <button className="cursor-pointer border-0 rounded-2xl p-3 bg-blue-700 text-white text-xs md:text-xl flex justify-center items-center  hover:bg-blue-800 active:bg-blue-950 transition duration-300">
-                  Add to Cart
-                  <FaCartPlus />
-                </button>
-              </div>
-              <div>
-                {" "}
-                <button className="cursor-pointer border-0 rounded-2xl p-3 bg-blue-700 text-white text-xs md:text-xl flex justify-center items-center  hover:bg-blue-800 active:bg-blue-950 transition duration-300">
-                  Buy Now
-                  <IoIosFlash />
-                </button>
-              </div>
+      <div className="max-w-6xl mx-auto">
+        <div className="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100 flex flex-col md:flex-row">
+
+
+          <div className="md:w-1/2 p-8 bg-slate-50 flex items-center justify-center">
+            <div className="relative group">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="max-h-[500px] w-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
+              />
             </div>
           </div>
 
-          <div className="text-black text-xs md:text-l mx-auto container p-5 flex flex-col flex-wrap box-border justify-items-start items-start">
-            <div className="w-auto h-auto">
-              <div className=" p-2 font-bold text-blue-700 break-all">
-                {" "}
+
+          <div className="md:w-1/2 p-8 lg:p-12 flex flex-col">
+            <div className="flex-1">
+              <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">
+                {product.category || "Premium Tech"}
+              </span>
+              <h1 className="text-3xl md:text-4xl font-black text-slate-900 mt-2 leading-tight">
                 {product.name}
-              </div>
-              <div className="m-2 ">
-                <span className="text-blue-700 font-bold">
-                  Product Description: <br />
-                </span>{" "}
-                {product.description}
+              </h1>
+
+              <div className="flex items-center gap-4 mt-4">
+                <div className="flex items-center bg-amber-50 px-3 py-1 rounded-full">
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar key={i} className={i < product.rating ? "text-amber-400" : "text-slate-200"} size={14} />
+                  ))}
+                  <span className="ml-2 text-sm font-bold text-amber-700">{product.rating}</span>
+                </div>
+                <span className="text-slate-400 text-sm">|</span>
+                <span className={`text-sm font-bold ${product.inStock > 0 ? "text-emerald-600" : "text-red-500"}`}>
+                  {product.inStock > 0 ? `${product.inStock} in stock` : "Out of Stock"}
+                </span>
               </div>
 
-              <div className="flex items-center m-2">
-                <span className="font-bold text-blue-700">Price:</span>
-                <FaIndianRupeeSign /> {product.price}
+              <div className="mt-8 flex items-baseline gap-2">
+                <span className="text-4xl font-black text-slate-900 flex items-center">
+                  <FaIndianRupeeSign className="text-2xl" />
+                  {product.price?.toLocaleString('en-IN')}
+                </span>
+                <span className="text-slate-400 line-through text-lg italic">
+                  ₹{(product.price * 1.2).toFixed(0)}
+                </span>
               </div>
 
-              <div className="font-bold flex items-center m-2 text-blue-700">
-                Rating:
-                {Array.from({ length: 5 }, (_, index) => (
-                  <FaStar
-                    key={index}
-                    className={
-                      index < product.rating ? "text-yellow-400" : "text-black"
-                    }
-                  />
-                ))}
-                {/*<span className='text-black'>{product.rating}</span>*/}
+              <div className="mt-6">
+                <p className="text-slate-600 leading-relaxed text-sm md:text-base">
+                  {product.description}
+                </p>
               </div>
-              <div className="m-2">
-                <span className="font-bold text-blue-700">In Stocks:</span>{" "}
-                {product.inStock}
+            </div>
+
+
+            <div className="mt-10 space-y-4">
+              <div className="flex items-center gap-6">
+                <div className="flex items-center border-2 border-slate-100 rounded-2xl p-1 bg-slate-50">
+                  <button
+                    onClick={() => setQnt(Math.max(1, qnt - 1))}
+                    className="p-2 hover:bg-white rounded-xl transition-colors text-slate-600"
+                  >
+                    <FiMinus />
+                  </button>
+                  <span className="w-12 text-center font-black text-slate-800">{qnt}</span>
+                  <button
+                    onClick={() => setQnt(Math.min(product.inStock || 99, qnt + 1))}
+                    className="p-2 hover:bg-white rounded-xl transition-colors text-slate-600"
+                  >
+                    <FiPlus />
+                  </button>
+                </div>
+                <p className="text-xs text-slate-400 font-medium">
+                  Select quantity for your order
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <button
+                  onClick={handleAddtocart}
+                  className="flex items-center justify-center gap-3 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-black transition-all active:scale-95"
+                >
+                  <FaCartPlus /> Add to Cart
+                </button>
+                <button
+                  onClick={handleBuyNow}
+                  className="flex items-center justify-center gap-3 py-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 shadow-lg shadow-blue-100 transition-all active:scale-95"
+                >
+                  <IoIosFlash /> Buy Now
+                </button>
+              </div>
+
+
+              <div className="pt-6 border-t border-slate-100 grid grid-cols-2 gap-4">
+                <div className="flex items-center gap-2 text-slate-500">
+                  <FaTruckFast className="text-blue-600" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider">Fast Delivery</span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-500">
+                  <FaShieldHalved className="text-blue-600" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider">Secure Warranty</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

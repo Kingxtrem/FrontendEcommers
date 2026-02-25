@@ -1,32 +1,31 @@
 import { Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import Api from "../axios/Api";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
+import Api from "../axios/Api";
+import { setUser, logout } from "../redux/slices/authSlice";
 
 const AdminRouting = ({ children }) => {
-  const [isAdmin, setIsAdmin] = useState(null); // null = loading, false = not admin, true = admin
+  const { isAuthenticated, isAdmin } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const [fetching, setFetching] = useState(false);
 
   useEffect(() => {
-    const checkAdmin = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setIsAdmin(false);
-        return;
-      }
-      try {
-        const response = await Api.get("/user/profile", {
-          headers: {
-            Authorization: token,
-          },
-        });
-        setIsAdmin(response.data.user.isAdmin);
-      } catch (error) {
-        error && setIsAdmin(false);
-      }
-    };
-    checkAdmin();
-  }, []);
+
+    let isMounted = true;
+    if (isAuthenticated && isAdmin === null && !fetching) {
+      setFetching(true);
+      Api.get("/user/profile").then(res => {
+        if (isMounted) dispatch(setUser(res.data.user));
+      }).catch(() => {
+        if (isMounted) dispatch(logout());
+      }).finally(() => {
+        if (isMounted) setFetching(false);
+      });
+    }
+    return () => { isMounted = false; };
+  }, [isAuthenticated, isAdmin, dispatch, fetching]);
 
   useEffect(() => {
     if (isAdmin === false) {
@@ -34,11 +33,13 @@ const AdminRouting = ({ children }) => {
     }
   }, [isAdmin]);
 
-  if (isAdmin === null) {
+
+  if (isAuthenticated && (isAdmin === null || fetching)) {
     return <Loader />;
   }
 
-  if (!isAdmin) {
+
+  if (!isAuthenticated || isAdmin === false) {
     return <Navigate to="/profile" replace />;
   }
 

@@ -60,7 +60,7 @@ const App = () => {
 const Layout = () => {
   return (
     <>
-
+      <title>TechCart Store | Premium Tech Gadgets</title>
       <meta
         name="description"
         content="Find the best Tech products at TechCart Store. Explore our wide range of products and enjoy shopping!"

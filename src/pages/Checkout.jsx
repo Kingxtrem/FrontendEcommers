@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCartTotal } from "../redux/slices/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCartTotal, clearCart } from "../redux/slices/cartSlice";
+import Api from "../axios/Api";
 import { toast } from "react-toastify";
 
 import Loader from "../components/Loader";
@@ -11,6 +12,7 @@ import { IoLockClosedOutline, IoChevronBackOutline } from "react-icons/io5";
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items) || [];
   const totalAmount = useSelector(selectCartTotal);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -35,9 +37,83 @@ const Checkout = () => {
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.info("Processing Payment...");
+    setLoading(true);
+
+    // Load native browser script intercept
+    const res = await loadRazorpayScript();
+    if (!res) {
+      toast.error("Razorpay SDK failed to load. Are you online?");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // 1. Ask backend to compute and create pending transaction
+      const { data } = await Api.post("/order/create", { shippingAddress: formData });
+
+      if (!data.success) {
+        toast.error(data.message);
+        setLoading(false);
+        return;
+      }
+
+      // 2. Launch Client UI Configuration Options
+      const options = {
+        key: data.keyId,
+        amount: data.amount,
+        currency: "INR",
+        name: "TechCart Global",
+        description: "Premium Tech Gadgets Payment",
+        order_id: data.orderId,
+        handler: async function (response) {
+          try {
+            // 3. Complete native verification loops post-transaction
+            const verifyRes = await Api.post("/order/verify", {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            });
+
+            if (verifyRes.data.success) {
+              dispatch(clearCart());
+              toast.success("Payment Received Successfully!");
+              navigate("/");
+            }
+          } catch {
+            toast.error("Payment verification failed! Please try again.");
+          }
+        },
+        prefill: {
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: "customer@techcart.com",
+          contact: formData.phone || "9999999999"
+        },
+        theme: {
+          color: "#4f46e5"
+        }
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+
+    } catch (error) {
+      console.error(error);
+      toast.error("Unable to process your request correctly. Please refresh.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loading) return <Loader />;
@@ -129,7 +205,7 @@ const Checkout = () => {
                       <h4 className="text-sm font-bold text-slate-800 truncate">{item.name}</h4>
                       <p className="text-xs text-slate-500">Quantity: {item.quantity}</p>
                     </div>
-                    <p className="text-sm font-bold text-slate-800">₹{(item.price * item.quantity).toLocaleString("en-IN")}</p>
+                    <p className="text-sm font-bold text-slate-800">₹{((item.price || 0) * item.quantity).toLocaleString("en-IN")}</p>
                   </div>
                 ))}
               </div>
@@ -137,7 +213,7 @@ const Checkout = () => {
               <div className="space-y-3 pt-6 border-t border-slate-100">
                 <div className="flex justify-between text-slate-500 text-sm">
                   <span>Subtotal</span>
-                  <span className="font-bold">₹{totalAmount.toLocaleString("en-IN")}</span>
+                  <span className="font-bold">₹{(totalAmount || 0).toLocaleString("en-IN")}</span>
                 </div>
                 <div className="flex justify-between text-slate-500 text-sm">
                   <span>Shipping</span>
@@ -145,7 +221,7 @@ const Checkout = () => {
                 </div>
                 <div className="flex justify-between items-center pt-4 border-t border-slate-100">
                   <span className="text-lg font-bold text-slate-800">Total</span>
-                  <span className="text-2xl font-black text-indigo-600">₹{totalAmount.toLocaleString("en-IN")}</span>
+                  <span className="text-2xl font-black text-indigo-600">₹{(totalAmount || 0).toLocaleString("en-IN")}</span>
                 </div>
               </div>
 

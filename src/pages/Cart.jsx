@@ -18,7 +18,7 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items) || [];
   const [loading, setLoading] = useState(false);
 
-  const calculateTotal = (items) => items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const calculateTotal = (items) => items.reduce((acc, item) => acc + (item.price || 0) * item.quantity, 0);
 
   const fetchCart = useCallback(async () => {
 
@@ -111,7 +111,7 @@ const Cart = () => {
 
                   <div className="flex-1 text-center md:text-left">
                     <h3 className="font-bold text-slate-900 text-lg line-clamp-1">{item.name}</h3>
-                    <p className="text-blue-600 font-bold">₹{item.price.toLocaleString('en-IN')}</p>
+                    <p className="text-blue-600 font-bold">₹{(item.price || 0).toLocaleString('en-IN')}</p>
                   </div>
 
                   <div className="flex items-center gap-4 bg-slate-50 px-4 py-2 rounded-2xl">
@@ -119,14 +119,14 @@ const Cart = () => {
                       <CiCircleMinus size={28} />
                     </button>
                     <span className="font-black text-slate-800 w-6 text-center">{item.quantity}</span>
-                    <button onClick={() => handleQuantityAction(item.product_id, "increase")} className="text-slate-400 hover:text-blue-600 transition-colors">
+                    <button onClick={() => item.quantity < (item.inStock || item.quantity) && handleQuantityAction(item.product_id, "increase")} disabled={item.quantity >= (item.inStock || Infinity)} className={`transition-colors ${item.quantity >= (item.inStock || Infinity) ? "text-slate-200 cursor-not-allowed" : "text-slate-400 hover:text-blue-600"}`}>
                       <CiCirclePlus size={28} />
                     </button>
                   </div>
 
                   <div className="text-right hidden md:block w-32">
                     <p className="text-xs text-slate-400 uppercase font-bold tracking-widest">Subtotal</p>
-                    <p className="font-black text-slate-900">₹{(item.price * item.quantity).toLocaleString('en-IN')}</p>
+                    <p className="font-black text-slate-900">₹{((item.price || 0) * item.quantity).toLocaleString('en-IN')}</p>
                   </div>
 
                   <button onClick={() => confirmDelete(item.product_id)} className="text-slate-300 hover:text-red-500 transition-colors p-2">

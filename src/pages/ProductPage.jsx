@@ -159,8 +159,9 @@ const ProductPage = () => {
                   </button>
                   <span className="w-12 text-center font-black text-slate-800">{qnt}</span>
                   <button
-                    onClick={() => setQnt(Math.min(product.inStock || 99, qnt + 1))}
-                    className="p-2 hover:bg-white rounded-xl transition-colors text-slate-600"
+                    onClick={() => setQnt(Math.min(product.inStock || 1, qnt + 1))}
+                    disabled={product.inStock <= 0}
+                    className="p-2 hover:bg-white rounded-xl transition-colors text-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <FiPlus />
                   </button>
@@ -173,13 +174,15 @@ const ProductPage = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <button
                   onClick={handleAddtocart}
-                  className="flex items-center justify-center gap-3 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-black transition-all active:scale-95"
+                  disabled={product.inStock <= 0}
+                  className={`flex items-center justify-center gap-3 py-4 text-white font-bold rounded-2xl transition-all ${product.inStock > 0 ? "bg-slate-900 hover:bg-black active:scale-95" : "bg-slate-400 cursor-not-allowed"}`}
                 >
                   <FaCartPlus /> Add to Cart
                 </button>
                 <button
                   onClick={handleBuyNow}
-                  className="flex items-center justify-center gap-3 py-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 shadow-lg shadow-blue-100 transition-all active:scale-95"
+                  disabled={product.inStock <= 0}
+                  className={`flex items-center justify-center gap-3 py-4 text-white font-bold rounded-2xl transition-all ${product.inStock > 0 ? "bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-100 active:scale-95" : "bg-blue-300 cursor-not-allowed"}`}
                 >
                   <IoIosFlash /> Buy Now
                 </button>

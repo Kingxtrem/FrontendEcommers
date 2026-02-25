@@ -5,6 +5,7 @@ import Api from "../axios/Api";
 
 import Loader from "../components/Loader";
 import { FiLogOut, FiSettings, FiShield, FiMail, FiUser } from "react-icons/fi";
+import { FaBoxOpen } from "react-icons/fa";
 
 import { useDispatch } from "react-redux";
 import { setUser, logout } from "../redux/slices/authSlice";
@@ -108,6 +109,13 @@ const Profile = () => {
           </div>
 
           <div className="mt-12 flex flex-wrap gap-4 pt-8 border-t border-slate-100">
+            <button
+              onClick={() => navigate("/orders")}
+              className="flex-1 min-w-[160px] flex items-center justify-center gap-2 px-6 py-4 bg-indigo-600 text-white font-bold rounded-2xl hover:bg-indigo-700 transition-all active:scale-95 shadow-lg shadow-indigo-200"
+            >
+              <FaBoxOpen /> My Orders
+            </button>
+
             {profile.isAdmin && (
               <button
                 onClick={() => navigate("/admin")}

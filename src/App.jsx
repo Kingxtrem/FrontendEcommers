@@ -24,6 +24,8 @@ import Checkout from "./pages/Checkout";
 import AdminPage from "./pages/AdminPage";
 import AddProduct from "./pages/AddProduct";
 import NotFound from "./pages/NotFound";
+import Orders from "./pages/Orders";
+import OrderDetails from "./pages/OrderDetails";
 
 
 import PrivateRouting from "./security/PrivateRouting";
@@ -121,6 +123,14 @@ const router = createBrowserRouter([
       {
         path: "/checkout",
         element: <PrivateRouting><Checkout /></PrivateRouting>
+      },
+      {
+        path: "/orders",
+        element: <PrivateRouting><Orders /></PrivateRouting>
+      },
+      {
+        path: "/orders/:id",
+        element: <PrivateRouting><OrderDetails /></PrivateRouting>
       },
       {
         path: "/admin",

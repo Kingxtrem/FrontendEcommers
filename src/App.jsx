@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
-import { Helmet } from "react-helmet-async";
+
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Api from "./axios/Api";
@@ -60,7 +60,6 @@ const App = () => {
 const Layout = () => {
   return (
     <>
-      <Helmet>
         <title>TechCart Store | Premium Tech Gadgets</title>
         <meta
           name="description"
@@ -70,7 +69,6 @@ const Layout = () => {
           name="keywords"
           content="tech, ecommerce, gadgets, electronics, shop, buy online"
         />
-      </Helmet>
 
       <ScrollToTop />
       <ToastContainer

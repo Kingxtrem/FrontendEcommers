@@ -8,7 +8,7 @@ import { IoIosFlash } from "react-icons/io";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet-async";
+
 
 
 const ProductPage = () => {
@@ -90,9 +90,7 @@ const ProductPage = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen py-10 px-4">
-      <Helmet>
         <title>{product.name} | TechCart</title>
-      </Helmet>
 
       <div className="max-w-6xl mx-auto">
         <div className="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100 flex flex-col md:flex-row">

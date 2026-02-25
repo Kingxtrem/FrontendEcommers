@@ -2,7 +2,7 @@ import Api from "../axios/Api";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet-async";
+
 import { FaCloudUploadAlt, FaSave, FaArrowLeft } from "react-icons/fa";
 
 
@@ -104,9 +104,7 @@ const AddProduct = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4">
-      <Helmet>
         <title>TechCart | {id ? "Edit Product" : "Add Product"}</title>
-      </Helmet>
 
       <div className="max-w-2xl mx-auto">
         <button

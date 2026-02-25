@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Api from "../axios/Api";
-import { Helmet } from "react-helmet-async";
+
 import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../redux/slices/authSlice";
@@ -58,9 +58,7 @@ const Login = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen flex items-center justify-center px-4">
-      <Helmet>
-        <title>Login | TechCart</title>
-      </Helmet>
+      <title>Login | TechCart</title>
 
       <div className="w-full max-w-md">
 

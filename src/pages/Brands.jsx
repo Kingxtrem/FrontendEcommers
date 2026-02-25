@@ -4,7 +4,7 @@ import Loader from "../components/Loader";
 import Card from "../components/Card";
 import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet-async";
+
 import { FiArrowLeft, FiShoppingBag } from "react-icons/fi";
 
 
@@ -36,9 +36,7 @@ const Brands = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen">
-      <Helmet>
         <title>TechCart | {brand.toUpperCase()}</title>
-      </Helmet>
 
       {loading ? (
         <Loader />

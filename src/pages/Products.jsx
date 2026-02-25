@@ -3,7 +3,7 @@ import Api from "../axios/Api";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet-async";
+
 import { FiChevronLeft, FiChevronRight, FiBox } from "react-icons/fi";
 
 
@@ -38,9 +38,7 @@ const Products = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
-      <Helmet>
         <title>All Products | TechCart Store</title>
-      </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 

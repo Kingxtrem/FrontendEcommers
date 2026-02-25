@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import Api from "../axios/Api";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
-import { Helmet } from "react-helmet-async";
+
 import HeroSection from "../components/HeroSection";
 import { FiArrowRight, FiZap } from "react-icons/fi";
 
@@ -32,10 +32,8 @@ const Home = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen">
-      <Helmet>
         <title>TechCart | Next-Gen Electronics</title>
         <meta name="description" content="Shop the latest gadgets at TechCart." />
-      </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 

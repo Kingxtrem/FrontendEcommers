@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Api from "../axios/Api";
-import { Helmet } from "react-helmet-async";
+
 import { FiUser, FiMail, FiLock, FiCamera, FiEye, FiEyeOff } from "react-icons/fi";
 
 
@@ -72,9 +72,7 @@ const Register = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen flex items-center justify-center px-4 py-12">
-      <Helmet>
-        <title>Join TechCart | Register</title>
-      </Helmet>
+      <title>Join TechCart | Register</title>
 
       <div className="w-full max-w-lg">
         <div className="text-center mb-8">

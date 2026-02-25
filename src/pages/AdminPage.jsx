@@ -5,7 +5,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet-async";
+
 import Loader from "../components/Loader";
 
 
@@ -62,9 +62,7 @@ const AdminPage = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen p-4 md:p-8">
-      <Helmet>
         <title>Admin Dashboard | TechCart</title>
-      </Helmet>
 
       {loading ? (
         <Loader />

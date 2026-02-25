@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Api from "../axios/Api";
-import { Helmet } from "react-helmet-async";
+
 import Loader from "../components/Loader";
 import { FiLogOut, FiSettings, FiShield, FiMail, FiUser } from "react-icons/fi";
 
@@ -51,9 +51,7 @@ const Profile = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen py-12 px-4 flex items-center justify-center">
-      <Helmet>
         <title>Account Profile | TechCart</title>
-      </Helmet>
 
       <div className="max-w-4xl w-full bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 overflow-hidden border border-slate-100 flex flex-col md:flex-row">
 

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { setCart, increaseQuantity, decreaseQuantity, removeItem } from "../redux/slices/cartSlice";
 import { FaArrowLeft, FaShieldAlt } from "react-icons/fa";
-import { Helmet } from "react-helmet-async";
+
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import Api from "../axios/Api";
@@ -82,9 +82,7 @@ const Cart = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-12">
-      <Helmet>
         <title>TechCart | Your Shopping Cart</title>
-      </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 pt-10">
         <h1 className="text-3xl font-black text-slate-900 mb-8 flex items-center gap-3">

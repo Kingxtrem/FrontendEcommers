@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCartTotal } from "../redux/slices/cartSlice";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet-async";
+
 import Loader from "../components/Loader";
 import { FaShieldHalved, FaTruckFast, FaCreditCard } from "react-icons/fa6";
 import { IoLockClosedOutline, IoChevronBackOutline } from "react-icons/io5";
@@ -53,9 +53,7 @@ const Checkout = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
-      <Helmet>
         <title>Checkout | TechCart</title>
-      </Helmet>
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <Link to="/cart" className="inline-flex items-center text-sm text-slate-500 hover:text-indigo-600 mb-6 transition-colors">

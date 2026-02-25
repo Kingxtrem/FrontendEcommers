@@ -33,6 +33,10 @@ const Categories = () => {
     getAllProducts();
   }, [category]);
 
+  useEffect(() => {
+    document.title = `TechCart | ${category.charAt(0).toUpperCase() + category.slice(1)}`;
+  }, [category]);
+
   return (
     <div className="bg-slate-50 min-h-screen">
       <title>TechCart | {category.charAt(0).toUpperCase() + category.slice(1)}</title>

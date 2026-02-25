@@ -142,7 +142,7 @@ const Checkout = () => {
           <div className="lg:col-span-2 space-y-8">
 
 
-            <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+            <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-5 sm:p-8">
               <SectionHeader number="1" title="Shipping Address" />
               <form id="checkout-form" onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="col-span-1">
@@ -153,7 +153,7 @@ const Checkout = () => {
                   <label className="text-xs font-bold text-slate-500 uppercase ml-1 mb-2 block">Last Name</label>
                   <input type="text" name="lastName" className={inputClass} value={formData.lastName} onChange={handleChange} required />
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="text-xs font-bold text-slate-500 uppercase ml-1 mb-2 block">Street Address</label>
                   <input type="text" name="address" className={inputClass} value={formData.address} onChange={handleChange} required />
                 </div>
@@ -169,7 +169,7 @@ const Checkout = () => {
             </div>
 
 
-            <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+            <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-5 sm:p-8">
               <SectionHeader number="2" title="Payment Method" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <label className="flex items-center justify-between p-4 border-2 border-indigo-600 bg-indigo-50/50 rounded-2xl cursor-pointer">
@@ -192,7 +192,7 @@ const Checkout = () => {
 
 
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-8 sticky top-8">
+            <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-5 sm:p-8 sticky top-8">
               <h3 className="text-xl font-bold text-slate-800 mb-6 text-center">Checkout Summary</h3>
 
               <div className="space-y-4 mb-8 max-h-48 overflow-y-auto pr-2 custom-scrollbar">

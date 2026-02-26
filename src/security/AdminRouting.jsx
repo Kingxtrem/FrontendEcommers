@@ -19,7 +19,8 @@ const AdminRouting = ({ children }) => {
       setFetching(true);
       Api.get("/user/profile").then(res => {
         if (isMounted) dispatch(setUser(res.data.user));
-      }).catch(() => {
+      }).catch((error) => {
+        console.log(error)
         if (isMounted) {
           dispatch(logout());
           dispatch(clearCart());

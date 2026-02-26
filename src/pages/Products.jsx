@@ -23,7 +23,8 @@ const Products = () => {
       setTotal(res.data.total || 0);
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch {
+    } catch (error) {
+      console.log(error)
       toast.error("Failed to load products");
     } finally {
       setLoading(false);

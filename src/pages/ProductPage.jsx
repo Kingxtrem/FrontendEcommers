@@ -24,7 +24,8 @@ const ProductPage = () => {
     try {
       const response = await Api.get(`/product/${id}`);
       setProduct(response.data.productData);
-    } catch {
+    } catch (error) {
+      console.log(error)
       toast.error("Failed to load product details.");
     }
     setLoading(false);
@@ -52,7 +53,8 @@ const ProductPage = () => {
       }
       toast.success("Added to cart!");
       navigate("/cart");
-    } catch {
+    } catch (error) {
+      console.log(error)
       toast.error("Failed to add to cart.");
     }
   };
@@ -77,7 +79,8 @@ const ProductPage = () => {
         dispatch(setCart(data.user.cart));
       }
       navigate("/checkout");
-    } catch {
+    } catch (error) {
+      console.log(error)
       toast.error("Failed to proceed. Please try again.");
     }
   };

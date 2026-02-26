@@ -17,7 +17,8 @@ const Orders = () => {
             if (data.success) {
                 setOrders(data.orders);
             }
-        } catch {
+        } catch (error) {
+            console.log(error)
             toast.error("Failed to fetch order history.");
         } finally {
             setLoading(false);

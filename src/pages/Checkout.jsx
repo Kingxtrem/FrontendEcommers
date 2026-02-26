@@ -91,7 +91,8 @@ const Checkout = () => {
               toast.success("Payment Received Successfully!");
               navigate("/");
             }
-          } catch {
+          } catch (error) {
+            console.log(error)
             toast.error("Payment verification failed! Please try again.");
           }
         },

@@ -53,6 +53,7 @@ const Login = () => {
 
       toast.success(res.data.message || "Welcome back!");
     } catch (error) {
+      console.log(error)
       toast.error(error.response?.data?.message || "Login failed");
     } finally {
       setDisable(false);

@@ -47,7 +47,8 @@ const App = () => {
           if (res.data.user.cart) {
             dispatch(setCart(res.data.user.cart));
           }
-        } catch {
+        } catch (error) {
+          console.error("Error fetching user:", error);
 
           dispatch(logout());
           dispatch(clearCart());

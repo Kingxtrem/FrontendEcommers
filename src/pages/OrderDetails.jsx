@@ -17,7 +17,8 @@ const OrderDetails = () => {
             if (data.success) {
                 setOrder(data.order);
             }
-        } catch {
+        } catch (error) {
+            console.log(error)
             toast.error("Failed to load order details");
         } finally {
             setLoading(false);

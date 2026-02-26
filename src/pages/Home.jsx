@@ -19,7 +19,8 @@ const Home = () => {
       setLoading(true);
       const res = await Api.get("/product/featured");
       setData(res.data.data);
-    } catch {
+    } catch (error) {
+      console.log(error)
       toast.error("Failed to fetch featured products.");
     } finally {
       setLoading(false);

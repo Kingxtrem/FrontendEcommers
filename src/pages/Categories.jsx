@@ -18,7 +18,8 @@ const Categories = () => {
       setLoading(true);
       const res = await Api.get(`/product/all?category=${category}`);
       setData(res.data.data);
-    } catch {
+    } catch (error) {
+      console.log(error)
       toast.error("Failed to load products");
     } finally {
       setLoading(false);

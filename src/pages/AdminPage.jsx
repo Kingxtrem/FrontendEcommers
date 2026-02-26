@@ -19,7 +19,8 @@ const AdminPage = () => {
       setLoading(true);
       const res = await Api.get("/product/all");
       setData(res.data.data);
-    } catch {
+    } catch (error) {
+      console.log(error);
       toast.error("Failed to load products");
     } finally {
       setLoading(false);
@@ -47,7 +48,8 @@ const AdminPage = () => {
         await Api.delete(`/product/delete/${id}`);
         toast.success("Product removed successfully");
         getAllProducts();
-      } catch {
+      } catch (error) {
+        console.log(error);
         Swal.fire("Error!", "Failed to delete.", "error");
       }
     }

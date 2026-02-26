@@ -38,7 +38,8 @@ const Profile = () => {
       setProfile(response.data.user);
       dispatch(setUser(response.data.user));
       dispatch(setCart(response.data.user.cart));
-    } catch {
+    } catch (error) {
+      console.log(error)
       handleLogout();
     } finally {
       setLoading(false);

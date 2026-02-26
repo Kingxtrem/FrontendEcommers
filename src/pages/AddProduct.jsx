@@ -73,6 +73,7 @@ const AddProduct = () => {
       toast.success(res.data.message || "Success!");
       setTimeout(() => navigate("/admin"), 1500);
     } catch (error) {
+      console.log(error);
       toast.error(error.response?.data?.message || "Operation failed");
       setLoading(false);
     }
@@ -85,7 +86,8 @@ const AddProduct = () => {
           const { data } = await Api.get(`/product/${id}`);
           setData(data.productData);
           setImage(data.productData.image);
-        } catch {
+        } catch (error) {
+          console.log(error);
           toast.error("Failed to load product");
         }
       };

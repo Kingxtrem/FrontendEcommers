@@ -31,7 +31,8 @@ const Cart = () => {
       setLoading(true);
       const { data } = await Api.get("/user/profile");
       dispatch(setCart(data.user.cart));
-    } catch {
+    } catch (error) {
+      console.log(error)
       toast.error("Failed to load cart");
     } finally {
       setLoading(false);
@@ -53,17 +54,18 @@ const Cart = () => {
     };
 
     try {
-
       const { data } = await Api.post(endpoints[action], { product_id: productId });
-
       dispatch(setCart(data.user.cart));
-    } catch {
+    } catch (error) {
+      console.log(error)
       toast.error("Update failed, syncing with server...");
 
       try {
         const { data } = await Api.get("/user/profile");
         dispatch(setCart(data.user.cart));
-      } catch { /* empty */ }
+      } catch (error) {
+        console.log(error)
+      }
     }
   };
 

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 import Api from "../axios/Api";
 import { setUser, logout } from "../redux/slices/authSlice";
+import { clearCart } from "../redux/slices/cartSlice";
 
 const AdminRouting = ({ children }) => {
   const { isAuthenticated, isAdmin } = useSelector((state) => state.auth);
@@ -19,7 +20,10 @@ const AdminRouting = ({ children }) => {
       Api.get("/user/profile").then(res => {
         if (isMounted) dispatch(setUser(res.data.user));
       }).catch(() => {
-        if (isMounted) dispatch(logout());
+        if (isMounted) {
+          dispatch(logout());
+          dispatch(clearCart());
+        }
       }).finally(() => {
         if (isMounted) setFetching(false);
       });

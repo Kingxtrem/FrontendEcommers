@@ -9,6 +9,7 @@ import { FaBoxOpen } from "react-icons/fa";
 
 import { useDispatch } from "react-redux";
 import { setUser, logout } from "../redux/slices/authSlice";
+import { clearCart, setCart } from "../redux/slices/cartSlice";
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
@@ -18,6 +19,7 @@ const Profile = () => {
 
   const handleLogout = useCallback(() => {
     dispatch(logout());
+    dispatch(clearCart());
     toast.success("Logged out successfully");
     navigate("/login");
   }, [dispatch, navigate]);
@@ -32,11 +34,10 @@ const Profile = () => {
 
     try {
       setLoading(true);
-      const response = await Api.get("/user/profile", {
-        headers: { Authorization: token },
-      });
+      const response = await Api.get("/user/profile");
       setProfile(response.data.user);
       dispatch(setUser(response.data.user));
+      dispatch(setCart(response.data.user.cart));
     } catch {
       handleLogout();
     } finally {

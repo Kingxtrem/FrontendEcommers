@@ -68,11 +68,7 @@ const AddProduct = () => {
     try {
       const endpoint = id ? `/product/update/${id}` : "/product/create";
       const method = id ? "put" : "post";
-      const token = localStorage.getItem("token");
-
-      const res = await Api[method](endpoint, formData, {
-        headers: { Authorization: token },
-      });
+      const res = await Api[method](endpoint, formData);
 
       toast.success(res.data.message || "Success!");
       setTimeout(() => navigate("/admin"), 1500);

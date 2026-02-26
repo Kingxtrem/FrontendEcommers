@@ -5,7 +5,8 @@ import Api from "../axios/Api";
 
 import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess } from "../redux/slices/authSlice";
+import { loginSuccess, setUser } from "../redux/slices/authSlice";
+import { setCart } from "../redux/slices/cartSlice";
 
 
 const Login = () => {
@@ -18,7 +19,6 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      toast.info("You are already logged in");
       navigate("/profile");
     }
   }, [isAuthenticated, navigate]);
@@ -46,9 +46,12 @@ const Login = () => {
         token: token,
         user: user
       }));
+      dispatch(setUser(
+        user
+      ))
+      dispatch(setCart(user.cart));
 
       toast.success(res.data.message || "Welcome back!");
-      navigate("/profile");
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
     } finally {

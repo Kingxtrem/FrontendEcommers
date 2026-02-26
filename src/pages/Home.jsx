@@ -17,10 +17,10 @@ const Home = () => {
   const getAllProducts = async () => {
     try {
       setLoading(true);
-      const res = await Api.get("/product/all?page=1&limit=8");
+      const res = await Api.get("/product/featured");
       setData(res.data.data);
     } catch {
-      toast.error("Failed to fetch products.");
+      toast.error("Failed to fetch featured products.");
     } finally {
       setLoading(false);
     }
@@ -32,8 +32,8 @@ const Home = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen">
-        <title>TechCart | Next-Gen Electronics</title>
-        <meta name="description" content="Shop the latest gadgets at TechCart." />
+      <title>TechCart | Next-Gen Electronics</title>
+      <meta name="description" content="Shop the latest gadgets at TechCart." />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 

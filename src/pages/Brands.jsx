@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Api from "../axios/Api";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
@@ -12,26 +12,24 @@ const Brands = () => {
   const [data, setData] = useState([]);
   const { brand } = useParams();
   const [loading, setLoading] = useState(true);
-  const getAllProducts = async () => {
+  const getAllProducts = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await Api.get("/product/all");
+      const res = await Api.get(`/product/all?brand=${brand}`);
       setData(res.data.data);
     } catch {
       toast.error("Failed to load products");
     } finally {
       setLoading(false);
     }
-  };
+  }, [brand]);
 
 
-  const filteredData = data.filter((item) =>
-    item.name.toLowerCase().includes(brand.toLowerCase())
-  );
+  const filteredData = data;
 
   useEffect(() => {
     getAllProducts();
-  }, [brand]);
+  }, [getAllProducts]);
 
   useEffect(() => {
     document.title = `TechCart | ${brand}`;
@@ -71,9 +69,9 @@ const Brands = () => {
             </div>
 
 
-            {filteredData.length > 0 ? (
+            {data.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {filteredData.map((item) => (
+                {data.map((item) => (
                   <Card item={item} key={item._id} />
                 ))}
               </div>

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Api from "./axios/Api";
 import { setUser, logout } from "./redux/slices/authSlice";
-import { setCart } from "./redux/slices/cartSlice";
+import { clearCart, setCart } from "./redux/slices/cartSlice";
 
 
 
@@ -50,6 +50,7 @@ const App = () => {
         } catch {
 
           dispatch(logout());
+          dispatch(clearCart());
         }
       }
     };

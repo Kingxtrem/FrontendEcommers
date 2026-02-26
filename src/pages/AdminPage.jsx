@@ -44,10 +44,7 @@ const AdminPage = () => {
 
     if (result.isConfirmed) {
       try {
-        const token = localStorage.getItem("token");
-        await Api.delete(`/product/delete/${id}`, {
-          headers: { Authorization: token },
-        });
+        await Api.delete(`/product/delete/${id}`);
         toast.success("Product removed successfully");
         getAllProducts();
       } catch {

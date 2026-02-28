@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -11,6 +11,7 @@ const AdminRouting = ({ children }) => {
   const { isAuthenticated, isAdmin } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [fetching, setFetching] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -35,6 +36,7 @@ const AdminRouting = ({ children }) => {
   useEffect(() => {
     if (isAdmin === false) {
       toast.error("You are not Authorized");
+      navigate("/profile");
     }
   }, [isAdmin]);
 
